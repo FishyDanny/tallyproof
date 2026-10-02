@@ -1,0 +1,286 @@
+{
+  "name": "uk-paid-out-in",
+  "description": "UK current account: \"05 Jan 26\" dates, Date | Description | Paid out | Paid in | Balance. The date is printed only on the first transaction of each day and the balance only on the last transaction of each day; other rows have blank cells. Opening and closing come from BALANCE BROUGHT FORWARD / BALANCE CARRIED FORWARD rows.",
+  "dateOrder": "dmy",
+  "liabilityBalance": false,
+  "openingCents": 352340,
+  "closingCents": 410872,
+  "transactions": [
+    {
+      "date": "2026-01-02",
+      "description": "SO HOLLYBANK LETTINGS RENT",
+      "amountCents": -115000,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-02",
+      "description": "))) HOLLOW OAK COFFEE YORK",
+      "amountCents": -607,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-02",
+      "description": "VIS PAGEFORD BOOKSHOP LEEDS",
+      "amountCents": -2578,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-02",
+      "description": "))) HOLLOW OAK COFFEE YORK",
+      "amountCents": -874,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-02",
+      "description": "VIS KIRKGATE BUTCHERS LEEDS",
+      "amountCents": -3188,
+      "balanceCents": 230093
+    },
+    {
+      "date": "2026-01-09",
+      "description": "BP J PATEL DINNER",
+      "amountCents": -3316,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-09",
+      "description": "CR J SAMPLE REFUND",
+      "amountCents": 831,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-09",
+      "description": "))) HOLLOW OAK COFFEE YORK",
+      "amountCents": -792,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-09",
+      "description": "DD NORTHERN WATER LTD",
+      "amountCents": -2931,
+      "balanceCents": 223885
+    },
+    {
+      "date": "2026-01-10",
+      "description": "FPI M SAMPLE BIRTHDAY",
+      "amountCents": 2753,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-10",
+      "description": "CR J SAMPLE REFUND",
+      "amountCents": 5842,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-10",
+      "description": "DD NORTHERN WATER LTD",
+      "amountCents": -2880,
+      "balanceCents": 229600
+    },
+    {
+      "date": "2026-01-13",
+      "description": "FPI M SAMPLE BIRTHDAY",
+      "amountCents": 2805,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-13",
+      "description": "VIS KIRKGATE BUTCHERS LEEDS",
+      "amountCents": -1323,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-13",
+      "description": "VIS KIRKGATE BUTCHERS LEEDS",
+      "amountCents": -1730,
+      "balanceCents": 229352
+    },
+    {
+      "date": "2026-01-14",
+      "description": "))) HOLLOW OAK COFFEE YORK",
+      "amountCents": -449,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-14",
+      "description": "DD NORTHERN WATER LTD",
+      "amountCents": -4321,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-14",
+      "description": "ATM CASH HEADROW LEEDS",
+      "amountCents": -2000,
+      "balanceCents": 222582
+    },
+    {
+      "date": "2026-01-15",
+      "description": "VIS ONLINE GROCER 0800 555 0199",
+      "amountCents": -6419,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-15",
+      "description": "ATM CASH HEADROW LEEDS",
+      "amountCents": -5000,
+      "balanceCents": 211163
+    },
+    {
+      "date": "2026-01-16",
+      "description": "FPI M SAMPLE BIRTHDAY",
+      "amountCents": 2760,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-16",
+      "description": "ATM CASH HEADROW LEEDS",
+      "amountCents": -2000,
+      "balanceCents": 211923
+    },
+    {
+      "date": "2026-01-17",
+      "description": "DD BRIGHTWAVE MOBILE",
+      "amountCents": -1986,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-17",
+      "description": "ATM CASH HEADROW LEEDS",
+      "amountCents": -10000,
+      "balanceCents": 199937
+    },
+    {
+      "date": "2026-01-18",
+      "description": "DD NORTHERN WATER LTD",
+      "amountCents": -3641,
+      "balanceCents": 196296
+    },
+    {
+      "date": "2026-01-22",
+      "description": "DD BRIGHTWAVE MOBILE",
+      "amountCents": -2464,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-22",
+      "description": "VIS ONLINE GROCER 0800 555 0199",
+      "amountCents": -11642,
+      "balanceCents": 182190
+    },
+    {
+      "date": "2026-01-23",
+      "description": "VIS PAGEFORD BOOKSHOP LEEDS",
+      "amountCents": -1821,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-23",
+      "description": "VIS PAGEFORD BOOKSHOP LEEDS",
+      "amountCents": -3419,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-23",
+      "description": "))) HOLLOW OAK COFFEE YORK",
+      "amountCents": -330,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-23",
+      "description": "ATM CASH HEADROW LEEDS",
+      "amountCents": -10000,
+      "balanceCents": 166620
+    },
+    {
+      "date": "2026-01-25",
+      "description": "DD BRIGHTWAVE MOBILE",
+      "amountCents": -1957,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-25",
+      "description": "CR J SAMPLE REFUND",
+      "amountCents": 3620,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-25",
+      "description": "DD BRIGHTWAVE MOBILE",
+      "amountCents": -1437,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-25",
+      "description": "ATM CASH HEADROW LEEDS",
+      "amountCents": -2000,
+      "balanceCents": 164846
+    },
+    {
+      "date": "2026-01-26",
+      "description": "VIS CORNER STORES LEEDS",
+      "amountCents": -525,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-26",
+      "description": "BP J PATEL DINNER",
+      "amountCents": -3983,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-26",
+      "description": "ATM CASH HEADROW LEEDS",
+      "amountCents": -10000,
+      "balanceCents": 150338
+    },
+    {
+      "date": "2026-01-27",
+      "description": "DD NORTHERN WATER LTD",
+      "amountCents": -4762,
+      "balanceCents": 145576
+    },
+    {
+      "date": "2026-01-28",
+      "description": "CR ACME PAYROLL LTD SALARY",
+      "amountCents": 284612,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-28",
+      "description": "VIS CORNER STORES LEEDS",
+      "amountCents": -3214,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-28",
+      "description": "VIS CORNER STORES LEEDS",
+      "amountCents": -1954,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-28",
+      "description": "DD NORTHERN WATER LTD",
+      "amountCents": -3978,
+      "balanceCents": 421042
+    },
+    {
+      "date": "2026-01-29",
+      "description": "BP J PATEL DINNER",
+      "amountCents": -2146,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-29",
+      "description": "VIS ONLINE GROCER 0800 555 0199",
+      "amountCents": -6514,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-29",
+      "description": "DD BRIGHTWAVE MOBILE",
+      "amountCents": -1510,
+      "balanceCents": 410872
+    }
+  ]
+}

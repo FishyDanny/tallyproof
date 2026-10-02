@@ -1,0 +1,9 @@
+{
+  "name": "image-only",
+  "description": "A scanned-looking statement with no text layer at all (only filled rectangles and lines). The converter should extract no transactions and report that the PDF has no readable text (needs OCR).",
+  "dateOrder": "dmy",
+  "liabilityBalance": false,
+  "openingCents": null,
+  "closingCents": null,
+  "transactions": []
+}

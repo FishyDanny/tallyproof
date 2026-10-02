@@ -1,0 +1,238 @@
+{
+  "name": "credit-card-no-running-balance",
+  "description": "Credit card: \"Jan 05\" dates across a Dec 2025 - Jan 2026 cycle, Transaction date | Description | Amount with no balance column. Purchases print as plain positive amounts (money out, so negative amountCents); payments and refunds print with a trailing \" CR\" (positive amountCents). Opening/closing are amounts owed from the summary boxes. Foreign purchases have a second description line such as \"ORIGINAL AMOUNT EUR 22.20\" (part of the description, not an amount), followed by a separate FOREIGN TRANSACTION FEE row.",
+  "dateOrder": "mdy",
+  "liabilityBalance": true,
+  "openingCents": 128440,
+  "closingCents": 274074,
+  "transactions": [
+    {
+      "date": "2025-12-15",
+      "description": "NORTHGATE PHARMACY SEATTLE WA",
+      "amountCents": -1906,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-17",
+      "description": "LAKESIDE GROCERY SEATTLE WA",
+      "amountCents": -2097,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-19",
+      "description": "SKYLINE AIRWAYS 0420018877 ONLINE",
+      "amountCents": -114620,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-21",
+      "description": "METRO RIDESHARE HELP.EXAMPLE CA",
+      "amountCents": -3037,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-22",
+      "description": "PAYMENT RECEIVED - THANK YOU",
+      "amountCents": 128440,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-22",
+      "description": "PINECREST COFFEE CO SEATTLE WA",
+      "amountCents": -992,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-25",
+      "description": "PINECREST COFFEE CO SEATTLE WA",
+      "amountCents": -708,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-25",
+      "description": "PARCELPOST MARKETPLACE ONLINE",
+      "amountCents": -4870,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-27",
+      "description": "HILLTOP STEAKHOUSE SEATTLE WA",
+      "amountCents": -9985,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-29",
+      "description": "NORTHGATE PHARMACY SEATTLE WA",
+      "amountCents": -4684,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-30",
+      "description": "STREAMLY VIDEO 888-555-0142 CA",
+      "amountCents": -1599,
+      "balanceCents": null
+    },
+    {
+      "date": "2025-12-30",
+      "description": "REFUND NORTHGATE PHARMACY SEATTLE WA",
+      "amountCents": 2399,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-01",
+      "description": "PARCELPOST MARKETPLACE ONLINE",
+      "amountCents": -16547,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-01",
+      "description": "PARCELPOST MARKETPLACE ONLINE",
+      "amountCents": -4185,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-01",
+      "description": "PINECREST COFFEE CO SEATTLE WA",
+      "amountCents": -646,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-01",
+      "description": "STREAMLY VIDEO 888-555-0142 CA",
+      "amountCents": -1599,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-01",
+      "description": "PINECREST COFFEE CO SEATTLE WA",
+      "amountCents": -703,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-03",
+      "description": "CAFE DU PORT LYON FR ORIGINAL AMOUNT EUR 22.20",
+      "amountCents": -2417,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-03",
+      "description": "FOREIGN TRANSACTION FEE",
+      "amountCents": -73,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-03",
+      "description": "PARCELPOST MARKETPLACE ONLINE",
+      "amountCents": -23541,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-04",
+      "description": "MAPLE LEAF OUTFITTERS VANCOUVER CA ORIGINAL AMOUNT CAD 118.61",
+      "amountCents": -8650,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-04",
+      "description": "FOREIGN TRANSACTION FEE",
+      "amountCents": -260,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-04",
+      "description": "PARCELPOST MARKETPLACE ONLINE",
+      "amountCents": -6427,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-04",
+      "description": "EVERGREEN FUEL 0412 BELLEVUE WA",
+      "amountCents": -4224,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-05",
+      "description": "ANNUAL MEMBERSHIP FEE",
+      "amountCents": -14900,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-05",
+      "description": "NORTHGATE PHARMACY SEATTLE WA",
+      "amountCents": -4776,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-06",
+      "description": "EVERGREEN FUEL 0412 BELLEVUE WA",
+      "amountCents": -4204,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-07",
+      "description": "PINECREST COFFEE CO SEATTLE WA",
+      "amountCents": -434,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-07",
+      "description": "PARCELPOST MARKETPLACE ONLINE",
+      "amountCents": -2854,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-07",
+      "description": "METRO RIDESHARE HELP.EXAMPLE CA",
+      "amountCents": -3260,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-08",
+      "description": "TRATTORIA DEL PONTE FIRENZE IT ORIGINAL AMOUNT EUR 58.61",
+      "amountCents": -6380,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-08",
+      "description": "FOREIGN TRANSACTION FEE",
+      "amountCents": -191,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-10",
+      "description": "PINECREST COFFEE CO SEATTLE WA",
+      "amountCents": -1263,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-10",
+      "description": "NORTHGATE PHARMACY SEATTLE WA",
+      "amountCents": -5153,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-10",
+      "description": "REFUND PARCELPOST MARKETPLACE ONLINE",
+      "amountCents": 4875,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-11",
+      "description": "NORTHGATE PHARMACY SEATTLE WA",
+      "amountCents": -5242,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-13",
+      "description": "LAKESIDE GROCERY SEATTLE WA",
+      "amountCents": -16154,
+      "balanceCents": null
+    },
+    {
+      "date": "2026-01-13",
+      "description": "NORTHGATE PHARMACY SEATTLE WA",
+      "amountCents": -2767,
+      "balanceCents": null
+    }
+  ]
+}

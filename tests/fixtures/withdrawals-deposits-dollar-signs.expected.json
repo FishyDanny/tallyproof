@@ -1,0 +1,262 @@
+{
+  "name": "withdrawals-deposits-dollar-signs",
+  "description": "Credit union statement: \"15/01/2026\" dd/mm/yyyy dates, Date | Description | Withdrawals | Deposits | Balance with \"$\" and thousands separators. The account is overdrawn early on and negative balances print in parentheses, e.g. \"($967.70)\". Opening/closing come from an Account summary block above the table, not from table rows.",
+  "dateOrder": "dmy",
+  "liabilityBalance": false,
+  "openingCents": 41230,
+  "closingCents": 1006888,
+  "transactions": [
+    {
+      "date": "2026-01-02",
+      "description": "Rent - Bayview Property Mgmt",
+      "amountCents": -138000,
+      "balanceCents": -96770
+    },
+    {
+      "date": "2026-01-03",
+      "description": "Overdrawn Account Fee",
+      "amountCents": -1500,
+      "balanceCents": -98270
+    },
+    {
+      "date": "2026-01-05",
+      "description": "Direct Debit Tropic Energy 772341",
+      "amountCents": -23186,
+      "balanceCents": -121456
+    },
+    {
+      "date": "2026-01-06",
+      "description": "BPAY Cairns Water 4417",
+      "amountCents": -8725,
+      "balanceCents": -130181
+    },
+    {
+      "date": "2026-01-07",
+      "description": "Debit Card Purchase Reef Fuel Smithfield",
+      "amountCents": -10751,
+      "balanceCents": -140932
+    },
+    {
+      "date": "2026-01-09",
+      "description": "Payroll Deposit - Coastline Health",
+      "amountCents": 289015,
+      "balanceCents": 148083
+    },
+    {
+      "date": "2026-01-09",
+      "description": "Osko Deposit From M Example",
+      "amountCents": 3925,
+      "balanceCents": 152008
+    },
+    {
+      "date": "2026-01-09",
+      "description": "Debit Card Purchase Reef Fuel Smithfield",
+      "amountCents": -10144,
+      "balanceCents": 141864
+    },
+    {
+      "date": "2026-01-10",
+      "description": "Direct Debit Tropic Energy 772341",
+      "amountCents": -21999,
+      "balanceCents": 119865
+    },
+    {
+      "date": "2026-01-16",
+      "description": "Internet Transfer To Holiday Saver",
+      "amountCents": -25000,
+      "balanceCents": 94865
+    },
+    {
+      "date": "2026-01-17",
+      "description": "Direct Debit Coral Mobile 118204",
+      "amountCents": -16728,
+      "balanceCents": 78137
+    },
+    {
+      "date": "2026-01-20",
+      "description": "Debit Card Purchase Esplanade Pharmacy",
+      "amountCents": -11796,
+      "balanceCents": 66341
+    },
+    {
+      "date": "2026-01-23",
+      "description": "Payroll Deposit - Coastline Health",
+      "amountCents": 289015,
+      "balanceCents": 355356
+    },
+    {
+      "date": "2026-01-25",
+      "description": "Debit Card Purchase Trinity Bay Bakery",
+      "amountCents": -11950,
+      "balanceCents": 343406
+    },
+    {
+      "date": "2026-02-02",
+      "description": "Rent - Bayview Property Mgmt",
+      "amountCents": -138000,
+      "balanceCents": 205406
+    },
+    {
+      "date": "2026-02-05",
+      "description": "ATM Withdrawal Esplanade Cairns",
+      "amountCents": -10000,
+      "balanceCents": 195406
+    },
+    {
+      "date": "2026-02-06",
+      "description": "Payroll Deposit - Coastline Health",
+      "amountCents": 289015,
+      "balanceCents": 484421
+    },
+    {
+      "date": "2026-02-08",
+      "description": "Debit Card Purchase Lagoon Fish Market",
+      "amountCents": -13914,
+      "balanceCents": 470507
+    },
+    {
+      "date": "2026-02-11",
+      "description": "ATM Withdrawal Esplanade Cairns",
+      "amountCents": -4000,
+      "balanceCents": 466507
+    },
+    {
+      "date": "2026-02-13",
+      "description": "Debit Card Purchase Reef Fuel Smithfield",
+      "amountCents": -15732,
+      "balanceCents": 450775
+    },
+    {
+      "date": "2026-02-17",
+      "description": "Debit Card Purchase Lagoon Fish Market",
+      "amountCents": -13859,
+      "balanceCents": 436916
+    },
+    {
+      "date": "2026-02-18",
+      "description": "Debit Card Purchase Trinity Bay Bakery",
+      "amountCents": -8578,
+      "balanceCents": 428338
+    },
+    {
+      "date": "2026-02-20",
+      "description": "Payroll Deposit - Coastline Health",
+      "amountCents": 289015,
+      "balanceCents": 717353
+    },
+    {
+      "date": "2026-02-26",
+      "description": "BPAY Cairns Water 4417",
+      "amountCents": -17064,
+      "balanceCents": 700289
+    },
+    {
+      "date": "2026-02-26",
+      "description": "ATM Withdrawal Esplanade Cairns",
+      "amountCents": -20000,
+      "balanceCents": 680289
+    },
+    {
+      "date": "2026-02-27",
+      "description": "Direct Debit Coral Mobile 118204",
+      "amountCents": -11659,
+      "balanceCents": 668630
+    },
+    {
+      "date": "2026-03-02",
+      "description": "Rent - Bayview Property Mgmt",
+      "amountCents": -138000,
+      "balanceCents": 530630
+    },
+    {
+      "date": "2026-03-02",
+      "description": "Debit Card Purchase Reef Fuel Smithfield",
+      "amountCents": -14764,
+      "balanceCents": 515866
+    },
+    {
+      "date": "2026-03-06",
+      "description": "Payroll Deposit - Coastline Health",
+      "amountCents": 289015,
+      "balanceCents": 804881
+    },
+    {
+      "date": "2026-03-07",
+      "description": "Debit Card Purchase Reef Fuel Smithfield",
+      "amountCents": -803,
+      "balanceCents": 804078
+    },
+    {
+      "date": "2026-03-07",
+      "description": "BPAY Cairns Water 4417",
+      "amountCents": -17697,
+      "balanceCents": 786381
+    },
+    {
+      "date": "2026-03-07",
+      "description": "Debit Card Purchase Lagoon Fish Market",
+      "amountCents": -6109,
+      "balanceCents": 780272
+    },
+    {
+      "date": "2026-03-08",
+      "description": "Debit Card Purchase Seaside Grocer Cairns",
+      "amountCents": -1756,
+      "balanceCents": 778516
+    },
+    {
+      "date": "2026-03-15",
+      "description": "ATM Withdrawal Esplanade Cairns",
+      "amountCents": -20000,
+      "balanceCents": 758516
+    },
+    {
+      "date": "2026-03-19",
+      "description": "BPAY Cairns Water 4417",
+      "amountCents": -13353,
+      "balanceCents": 745163
+    },
+    {
+      "date": "2026-03-20",
+      "description": "Payroll Deposit - Coastline Health",
+      "amountCents": 289015,
+      "balanceCents": 1034178
+    },
+    {
+      "date": "2026-03-24",
+      "description": "Debit Card Purchase Trinity Bay Bakery",
+      "amountCents": -12007,
+      "balanceCents": 1022171
+    },
+    {
+      "date": "2026-03-25",
+      "description": "Osko Deposit From K Placeholder",
+      "amountCents": 10708,
+      "balanceCents": 1032879
+    },
+    {
+      "date": "2026-03-26",
+      "description": "BPAY Cairns Water 4417",
+      "amountCents": -25422,
+      "balanceCents": 1007457
+    },
+    {
+      "date": "2026-03-28",
+      "description": "Debit Card Purchase Seaside Grocer Cairns",
+      "amountCents": -12243,
+      "balanceCents": 995214
+    },
+    {
+      "date": "2026-03-29",
+      "description": "Osko Deposit From M Example",
+      "amountCents": 21564,
+      "balanceCents": 1016778
+    },
+    {
+      "date": "2026-03-30",
+      "description": "Debit Card Purchase Esplanade Pharmacy",
+      "amountCents": -9890,
+      "balanceCents": 1006888
+    }
+  ]
+}

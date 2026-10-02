@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content, frontmatter } from '../content/faq.md';
+
+interface FaqFrontmatter {
+  title: string;
+  description: string;
+}
+
+const meta = frontmatter as FaqFrontmatter;
+---
+
+<Base title={meta.title} description={meta.description}>
+  <article class="wrap prose">
+    <h1>{meta.title}</h1>
+    <Content />
+  </article>
+</Base>

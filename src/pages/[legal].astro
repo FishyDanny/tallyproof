@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site.ts';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('legal');
+  return pages.map((page) => ({ params: { legal: page.id }, props: { page } }));
+}
+
+interface Props {
+  page: CollectionEntry<'legal'>;
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <article class="wrap prose">
+    <h1>{page.data.title}</h1>
+    <Content />
+    {SITE.supportEmail && (
+      <p>
+        Contact: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
+      </p>
+    )}
+  </article>
+</Base>

@@ -1,0 +1,316 @@
+{
+  "name": "mixed-noise",
+  "description": "dd/mm/yy dates, Date | Details | Debit | Credit | Balance, surrounded by noise that must be ignored: a promotional box (\"Earn 4.50% p.a.\", \"$1,000.00\", phone number), OPENING/CLOSING BALANCE rows, a \"Total debits / Total credits\" row with sums in the Debit and Credit columns, an interest rate tier table with dollar ranges, and a final terms and conditions page with no transactions.",
+  "dateOrder": "dmy",
+  "liabilityBalance": false,
+  "openingCents": 726814,
+  "closingCents": 1816479,
+  "transactions": [
+    {
+      "date": "2026-04-01",
+      "description": "HOME LOAN REPAYMENT 0045812",
+      "amountCents": -231000,
+      "balanceCents": 495814
+    },
+    {
+      "date": "2026-04-02",
+      "description": "EFTPOS RIVERSIDE GROCER PENRITH",
+      "amountCents": -7421,
+      "balanceCents": 488393
+    },
+    {
+      "date": "2026-04-03",
+      "description": "ATM WITHDRAWAL PENRITH PLAZA",
+      "amountCents": -20000,
+      "balanceCents": 468393
+    },
+    {
+      "date": "2026-04-04",
+      "description": "EFTPOS RIVERSIDE GROCER PENRITH",
+      "amountCents": -5026,
+      "balanceCents": 463367
+    },
+    {
+      "date": "2026-04-05",
+      "description": "INTERNET TRANSFER TO 725691210 REF SPLIT DINNER",
+      "amountCents": -46299,
+      "balanceCents": 417068
+    },
+    {
+      "date": "2026-04-06",
+      "description": "EFTPOS PARKLANE CHEMIST PENRITH",
+      "amountCents": -10905,
+      "balanceCents": 406163
+    },
+    {
+      "date": "2026-04-11",
+      "description": "EFTPOS RIVERSIDE GROCER PENRITH",
+      "amountCents": -10755,
+      "balanceCents": 395408
+    },
+    {
+      "date": "2026-04-11",
+      "description": "DEPOSIT A PLACEHOLDER",
+      "amountCents": 37543,
+      "balanceCents": 432951
+    },
+    {
+      "date": "2026-04-11",
+      "description": "INTERNET TRANSFER TO 857400200 REF HOLIDAY SAVINGS",
+      "amountCents": -26702,
+      "balanceCents": 406249
+    },
+    {
+      "date": "2026-04-13",
+      "description": "INTERNET TRANSFER TO 941196811 REF HOLIDAY SAVINGS",
+      "amountCents": -30150,
+      "balanceCents": 376099
+    },
+    {
+      "date": "2026-04-14",
+      "description": "EFTPOS WESTGATE FUEL ST MARYS",
+      "amountCents": -11908,
+      "balanceCents": 364191
+    },
+    {
+      "date": "2026-04-15",
+      "description": "SALARY WESTERN DISTRICT COUNCIL",
+      "amountCents": 612055,
+      "balanceCents": 976246
+    },
+    {
+      "date": "2026-04-24",
+      "description": "DEPOSIT B EXAMPLE RENT SHARE",
+      "amountCents": 36479,
+      "balanceCents": 1012725
+    },
+    {
+      "date": "2026-04-27",
+      "description": "ATM WITHDRAWAL PENRITH PLAZA",
+      "amountCents": -20000,
+      "balanceCents": 992725
+    },
+    {
+      "date": "2026-04-28",
+      "description": "INTERNET TRANSFER TO 559854116 REF SPLIT DINNER",
+      "amountCents": -25217,
+      "balanceCents": 967508
+    },
+    {
+      "date": "2026-04-30",
+      "description": "CREDIT INTEREST",
+      "amountCents": 462,
+      "balanceCents": 967970
+    },
+    {
+      "date": "2026-05-01",
+      "description": "HOME LOAN REPAYMENT 0045812",
+      "amountCents": -231000,
+      "balanceCents": 736970
+    },
+    {
+      "date": "2026-05-02",
+      "description": "DEPOSIT B EXAMPLE RENT SHARE",
+      "amountCents": 32495,
+      "balanceCents": 769465
+    },
+    {
+      "date": "2026-05-04",
+      "description": "EFTPOS GOLDEN WOK EMU PLAINS",
+      "amountCents": -7702,
+      "balanceCents": 761763
+    },
+    {
+      "date": "2026-05-04",
+      "description": "EFTPOS MOUNTAIN VIEW NURSERY",
+      "amountCents": -5068,
+      "balanceCents": 756695
+    },
+    {
+      "date": "2026-05-05",
+      "description": "EFTPOS RIVERSIDE GROCER PENRITH",
+      "amountCents": -2799,
+      "balanceCents": 753896
+    },
+    {
+      "date": "2026-05-06",
+      "description": "EFTPOS PARKLANE CHEMIST PENRITH",
+      "amountCents": -4774,
+      "balanceCents": 749122
+    },
+    {
+      "date": "2026-05-07",
+      "description": "INTERNET TRANSFER TO 440912321 REF HOLIDAY SAVINGS",
+      "amountCents": -28131,
+      "balanceCents": 720991
+    },
+    {
+      "date": "2026-05-08",
+      "description": "DEPOSIT A PLACEHOLDER",
+      "amountCents": 35164,
+      "balanceCents": 756155
+    },
+    {
+      "date": "2026-05-10",
+      "description": "DIRECT DEBIT WESTERN ENERGY 55120",
+      "amountCents": -11702,
+      "balanceCents": 744453
+    },
+    {
+      "date": "2026-05-13",
+      "description": "INTERNET TRANSFER TO 306367273 REF HOLIDAY SAVINGS",
+      "amountCents": -36865,
+      "balanceCents": 707588
+    },
+    {
+      "date": "2026-05-15",
+      "description": "SALARY WESTERN DISTRICT COUNCIL",
+      "amountCents": 612055,
+      "balanceCents": 1319643
+    },
+    {
+      "date": "2026-05-15",
+      "description": "DEPOSIT MEDICARE BENEFIT",
+      "amountCents": 13469,
+      "balanceCents": 1333112
+    },
+    {
+      "date": "2026-05-15",
+      "description": "EFTPOS GOLDEN WOK EMU PLAINS",
+      "amountCents": -7396,
+      "balanceCents": 1325716
+    },
+    {
+      "date": "2026-05-15",
+      "description": "EFTPOS RIVERSIDE GROCER PENRITH",
+      "amountCents": -5580,
+      "balanceCents": 1320136
+    },
+    {
+      "date": "2026-05-15",
+      "description": "INTERNET TRANSFER TO 737022936 REF HOLIDAY SAVINGS",
+      "amountCents": -25795,
+      "balanceCents": 1294341
+    },
+    {
+      "date": "2026-05-22",
+      "description": "EFTPOS WESTGATE FUEL ST MARYS",
+      "amountCents": -12151,
+      "balanceCents": 1282190
+    },
+    {
+      "date": "2026-05-28",
+      "description": "DEPOSIT A PLACEHOLDER",
+      "amountCents": 38205,
+      "balanceCents": 1320395
+    },
+    {
+      "date": "2026-05-31",
+      "description": "CREDIT INTEREST",
+      "amountCents": 535,
+      "balanceCents": 1320930
+    },
+    {
+      "date": "2026-06-01",
+      "description": "HOME LOAN REPAYMENT 0045812",
+      "amountCents": -231000,
+      "balanceCents": 1089930
+    },
+    {
+      "date": "2026-06-03",
+      "description": "DEPOSIT A PLACEHOLDER",
+      "amountCents": 43202,
+      "balanceCents": 1133132
+    },
+    {
+      "date": "2026-06-05",
+      "description": "DIRECT DEBIT NBN PLAN 7781190",
+      "amountCents": -8560,
+      "balanceCents": 1124572
+    },
+    {
+      "date": "2026-06-06",
+      "description": "EFTPOS MOUNTAIN VIEW NURSERY",
+      "amountCents": -7648,
+      "balanceCents": 1116924
+    },
+    {
+      "date": "2026-06-08",
+      "description": "DEPOSIT MEDICARE BENEFIT",
+      "amountCents": 16580,
+      "balanceCents": 1133504
+    },
+    {
+      "date": "2026-06-09",
+      "description": "DEPOSIT B EXAMPLE RENT SHARE",
+      "amountCents": 9091,
+      "balanceCents": 1142595
+    },
+    {
+      "date": "2026-06-11",
+      "description": "DEPOSIT MEDICARE BENEFIT",
+      "amountCents": 30698,
+      "balanceCents": 1173293
+    },
+    {
+      "date": "2026-06-15",
+      "description": "SALARY WESTERN DISTRICT COUNCIL",
+      "amountCents": 612055,
+      "balanceCents": 1785348
+    },
+    {
+      "date": "2026-06-16",
+      "description": "EFTPOS WESTGATE FUEL ST MARYS",
+      "amountCents": -10380,
+      "balanceCents": 1774968
+    },
+    {
+      "date": "2026-06-16",
+      "description": "EFTPOS PARKLANE CHEMIST PENRITH",
+      "amountCents": -2058,
+      "balanceCents": 1772910
+    },
+    {
+      "date": "2026-06-17",
+      "description": "EFTPOS PARKLANE CHEMIST PENRITH",
+      "amountCents": -14319,
+      "balanceCents": 1758591
+    },
+    {
+      "date": "2026-06-18",
+      "description": "DEPOSIT A PLACEHOLDER",
+      "amountCents": 15053,
+      "balanceCents": 1773644
+    },
+    {
+      "date": "2026-06-19",
+      "description": "DEPOSIT A PLACEHOLDER",
+      "amountCents": 19555,
+      "balanceCents": 1793199
+    },
+    {
+      "date": "2026-06-22",
+      "description": "DEPOSIT B EXAMPLE RENT SHARE",
+      "amountCents": 43813,
+      "balanceCents": 1837012
+    },
+    {
+      "date": "2026-06-24",
+      "description": "ATM WITHDRAWAL PENRITH PLAZA",
+      "amountCents": -10000,
+      "balanceCents": 1827012
+    },
+    {
+      "date": "2026-06-28",
+      "description": "DIRECT DEBIT NBN PLAN 7781190",
+      "amountCents": -11059,
+      "balanceCents": 1815953
+    },
+    {
+      "date": "2026-06-30",
+      "description": "CREDIT INTEREST",
+      "amountCents": 526,
+      "balanceCents": 1816479
+    }
+  ]
+}

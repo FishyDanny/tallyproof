@@ -1,0 +1,208 @@
+{
+  "name": "iso-no-header",
+  "description": "ISO \"2026-03-02\" dates with NO column header row. Each row is date, description, one signed amount and a balance; debits use a trailing minus (\"45.00-\"). Opening balance and Closing balance appear as dated table rows with only a balance.",
+  "dateOrder": "ymd",
+  "liabilityBalance": false,
+  "openingCents": 451233,
+  "closingCents": 453639,
+  "transactions": [
+    {
+      "date": "2026-03-02",
+      "description": "Rent HILLSIDE HOUSING MARCH",
+      "amountCents": -128500,
+      "balanceCents": 322733
+    },
+    {
+      "date": "2026-03-02",
+      "description": "Card purchase GREEN CORNER GROCERY",
+      "amountCents": -4035,
+      "balanceCents": 318698
+    },
+    {
+      "date": "2026-03-02",
+      "description": "Direct debit BRIGHTWAVE MOBILE",
+      "amountCents": -11728,
+      "balanceCents": 306970
+    },
+    {
+      "date": "2026-03-03",
+      "description": "Card purchase TRAM STOP KIOSK",
+      "amountCents": -7523,
+      "balanceCents": 299447
+    },
+    {
+      "date": "2026-03-04",
+      "description": "Card purchase GREEN CORNER GROCERY",
+      "amountCents": -7736,
+      "balanceCents": 291711
+    },
+    {
+      "date": "2026-03-05",
+      "description": "Card purchase GREEN CORNER GROCERY",
+      "amountCents": -8043,
+      "balanceCents": 283668
+    },
+    {
+      "date": "2026-03-06",
+      "description": "Transfer from L PLACEHOLDER",
+      "amountCents": 9454,
+      "balanceCents": 293122
+    },
+    {
+      "date": "2026-03-07",
+      "description": "Card purchase HARBOURSIDE BOOKS",
+      "amountCents": -5107,
+      "balanceCents": 288015
+    },
+    {
+      "date": "2026-03-07",
+      "description": "Direct debit CITY WATER AND POWER",
+      "amountCents": -16489,
+      "balanceCents": 271526
+    },
+    {
+      "date": "2026-03-12",
+      "description": "Card purchase HARBOURSIDE BOOKS",
+      "amountCents": -11609,
+      "balanceCents": 259917
+    },
+    {
+      "date": "2026-03-13",
+      "description": "Transfer from L PLACEHOLDER",
+      "amountCents": 2886,
+      "balanceCents": 262803
+    },
+    {
+      "date": "2026-03-15",
+      "description": "Card purchase NORDIC BAKERY 4411",
+      "amountCents": -4603,
+      "balanceCents": 258200
+    },
+    {
+      "date": "2026-03-16",
+      "description": "Card purchase NORDIC BAKERY 4411",
+      "amountCents": -8933,
+      "balanceCents": 249267
+    },
+    {
+      "date": "2026-03-17",
+      "description": "Card purchase GREEN CORNER GROCERY",
+      "amountCents": -11364,
+      "balanceCents": 237903
+    },
+    {
+      "date": "2026-03-17",
+      "description": "Card purchase TRAM STOP KIOSK",
+      "amountCents": -5927,
+      "balanceCents": 231976
+    },
+    {
+      "date": "2026-03-18",
+      "description": "Card purchase TRAM STOP KIOSK",
+      "amountCents": -7789,
+      "balanceCents": 224187
+    },
+    {
+      "date": "2026-03-18",
+      "description": "Card purchase GREEN CORNER GROCERY",
+      "amountCents": -7032,
+      "balanceCents": 217155
+    },
+    {
+      "date": "2026-03-19",
+      "description": "ATM withdrawal CENTRAL STATION",
+      "amountCents": -4000,
+      "balanceCents": 213155
+    },
+    {
+      "date": "2026-03-19",
+      "description": "Direct debit BRIGHTWAVE MOBILE",
+      "amountCents": -7886,
+      "balanceCents": 205269
+    },
+    {
+      "date": "2026-03-19",
+      "description": "Transfer from L PLACEHOLDER",
+      "amountCents": 9551,
+      "balanceCents": 214820
+    },
+    {
+      "date": "2026-03-21",
+      "description": "Card purchase CITY MARKET HALL",
+      "amountCents": -10325,
+      "balanceCents": 204495
+    },
+    {
+      "date": "2026-03-23",
+      "description": "Card purchase TRAM STOP KIOSK",
+      "amountCents": -7628,
+      "balanceCents": 196867
+    },
+    {
+      "date": "2026-03-25",
+      "description": "Salary payment TAILWIND TRADERS",
+      "amountCents": 341280,
+      "balanceCents": 538147
+    },
+    {
+      "date": "2026-03-25",
+      "description": "Transfer from R EXAMPLE",
+      "amountCents": 5584,
+      "balanceCents": 543731
+    },
+    {
+      "date": "2026-03-26",
+      "description": "Card purchase NORDIC BAKERY 4411",
+      "amountCents": -2220,
+      "balanceCents": 541511
+    },
+    {
+      "date": "2026-03-26",
+      "description": "Card purchase HARBOURSIDE BOOKS",
+      "amountCents": -9007,
+      "balanceCents": 532504
+    },
+    {
+      "date": "2026-03-27",
+      "description": "Standing order TO SAVINGS POT",
+      "amountCents": -50000,
+      "balanceCents": 482504
+    },
+    {
+      "date": "2026-03-27",
+      "description": "Card purchase HARBOURSIDE BOOKS",
+      "amountCents": -3232,
+      "balanceCents": 479272
+    },
+    {
+      "date": "2026-03-28",
+      "description": "Card purchase NORDIC BAKERY 4411",
+      "amountCents": -7906,
+      "balanceCents": 471366
+    },
+    {
+      "date": "2026-03-28",
+      "description": "Card purchase HARBOURSIDE BOOKS",
+      "amountCents": -5689,
+      "balanceCents": 465677
+    },
+    {
+      "date": "2026-03-30",
+      "description": "ATM withdrawal CENTRAL STATION",
+      "amountCents": -4000,
+      "balanceCents": 461677
+    },
+    {
+      "date": "2026-03-30",
+      "description": "Card purchase CITY MARKET HALL",
+      "amountCents": -5204,
+      "balanceCents": 456473
+    },
+    {
+      "date": "2026-03-30",
+      "description": "Card purchase HARBOURSIDE BOOKS",
+      "amountCents": -2834,
+      "balanceCents": 453639
+    }
+  ]
+}

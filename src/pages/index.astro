@@ -1,0 +1,110 @@
+---
+import Base from '../layouts/Base.astro';
+import Converter from '../components/Converter.tsx';
+import Plans from '../components/Plans.astro';
+import { SITE } from '../site.ts';
+
+const description =
+  'Convert PDF bank statements to CSV, Xero or QuickBooks format in your browser. Nothing is uploaded, and every row is checked against the running balance.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: SITE.name,
+  url: new URL('/', Astro.site).toString(),
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any (runs in a web browser)',
+  description,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<Base title={SITE.name} description={description} jsonLd={jsonLd}>
+  <div class="wrap">
+    <p class="eyebrow">Bank statement converter</p>
+    <h1>Turn PDF bank statements into CSV, checked row by row</h1>
+    <p class="lede">
+      Get transactions out of a PDF statement and into Excel, Xero or QuickBooks. Your file is read on this device and never uploaded.
+      Every row is checked against the statement's own running balance, so mistakes are caught instead of imported.
+    </p>
+
+    <section id="convert" aria-label="Converter">
+      <Converter client:load />
+    </section>
+
+    <ul class="points">
+      <li>
+        <h3>Nothing is uploaded</h3>
+        <p>
+          The PDF is read by code running in your browser. A counter under the converter shows how many network requests happen after you
+          choose a file: zero. The page's security policy also tells your browser to block connections to any other site.
+        </p>
+      </li>
+      <li>
+        <h3>Every row is checked</h3>
+        <p>
+          The previous balance plus each transaction must equal the balance printed on the statement. Rows that don't add up are
+          highlighted for you to check.
+        </p>
+      </li>
+      <li>
+        <h3>You can read the code</h3>
+        <p>
+          The converter is open source, so anyone can confirm it does what this page says. Free to use for one statement at a time, with
+          no account.
+        </p>
+      </li>
+    </ul>
+
+    <section id="how-it-works" class="prose">
+      <h2>How the balance check works</h2>
+      <p>
+        Most bank statements print a running balance after each transaction. Tallyproof uses it to check its own work. If a digit is
+        misread, a row is missed or a sign is wrong, the numbers stop adding up and the row is flagged.
+      </p>
+      <div class="ledger" role="img" aria-label="Example of the balance check">
+        Opening balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,000.00<br />
+        03 Dec&nbsp;&nbsp;Grocery store&nbsp;&nbsp;&nbsp;&nbsp;-82.40&nbsp;&nbsp;&nbsp;&nbsp;917.60&nbsp;&nbsp;<span class="ok">1,000.00 - 82.40 = 917.60, checked</span><br />
+        04 Dec&nbsp;&nbsp;Salary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+2,450.00&nbsp;&nbsp;3,367.60&nbsp;&nbsp;<span class="ok">checked</span><br />
+        05 Dec&nbsp;&nbsp;Electricity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-196.00&nbsp;&nbsp;3,181.60&nbsp;&nbsp;<span class="no">3,367.60 - 196.00 = 3,171.60, check this row</span>
+      </div>
+      <p>
+        Credit card statements usually have no running balance. For those, Tallyproof checks that the opening balance plus every
+        transaction equals the closing balance.
+      </p>
+
+      <h2>What it works with</h2>
+      <p>
+        Statements downloaded from online banking as PDFs, from any bank, as long as the PDF contains real text (you can select the words
+        in a PDF viewer). Layouts are detected automatically: separate debit and credit columns, a single signed amount column, dates with
+        or without years, descriptions that wrap onto several lines, and credit cards. Scanned paper statements are not supported yet.
+      </p>
+      <p>
+        If a statement is not read correctly, nothing about it leaves your computer, so we never see it. <a href="/faq/">The FAQ</a>
+        explains how to report a layout without sharing the file.
+      </p>
+    </section>
+
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <Plans />
+    </section>
+
+    <section class="prose">
+      <h2>Convert for your software</h2>
+      <ul>
+        <li><a href="/convert/bank-statement-to-xero/">Bank statement to Xero</a></li>
+        <li><a href="/convert/bank-statement-to-quickbooks/">Bank statement to QuickBooks</a></li>
+        <li><a href="/convert/bank-statement-to-myob/">Bank statement to MYOB</a></li>
+        <li><a href="/convert/bank-statement-to-excel/">Bank statement to Excel</a></li>
+      </ul>
+      <h2>Guides</h2>
+      <ul>
+        <li><a href="/guides/import-bank-statements-into-xero/">Import bank statements into Xero</a></li>
+        <li><a href="/guides/import-bank-statements-into-quickbooks-online/">Import bank statements into QuickBooks Online</a></li>
+        <li><a href="/guides/import-bank-statements-into-myob/">Import bank statements into MYOB</a></li>
+        <li><a href="/guides/convert-bank-statement-pdf-to-csv/">Convert a bank statement PDF to CSV</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

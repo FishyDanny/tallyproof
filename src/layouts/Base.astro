@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import { SITE } from '../site.ts';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra JSON-LD for this page. */
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, jsonLd } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === SITE.name ? `${SITE.name} - ${SITE.tagline}` : `${title} | ${SITE.name}`;
+const year = new Date().getFullYear();
+// Search Console ownership check: a meta tag only, no tracking script.
+const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION ?? '';
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1f6b4f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="/" aria-label={`${SITE.name} home`}>
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="2" y="2" width="28" height="28" rx="7" fill="#1f6b4f"></rect>
+            <path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"></path>
+            <path d="M19.5 21.2l2 2 3.8-4.4" stroke="#9be3c2" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          {SITE.name}
+        </a>
+        <nav class="main" aria-label="Main">
+          <a href="/#how-it-works">How it works</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/guides/">Guides</a>
+          <a href="/faq/">FAQ</a>
+          {SITE.repoUrl && <a href={SITE.repoUrl} rel="noopener">Source code</a>}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <span>&copy; {year} {SITE.name}. Statements are converted in your browser and never uploaded.</span>
+        <nav aria-label="Footer">
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/faq/">FAQ</a>
+          {SITE.supportEmail && <a href={`mailto:${SITE.supportEmail}`}>Contact</a>}
+          {SITE.repoUrl && <a href={SITE.repoUrl} rel="noopener">Source code</a>}
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

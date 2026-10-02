@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({ params: { slug: guide.data.slug ?? guide.id }, props: { guide } }));
+}
+
+interface Props {
+  guide: CollectionEntry<'guides'>;
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.data.title,
+  description: guide.data.description,
+};
+---
+
+<Base title={guide.data.title} description={guide.data.description} jsonLd={jsonLd}>
+  <article class="wrap prose">
+    <p class="eyebrow"><a href="/guides/">Guides</a></p>
+    <h1>{guide.data.title}</h1>
+    <Content />
+    <p><a class="button" href="/#convert">Convert a statement now</a></p>
+  </article>
+</Base>

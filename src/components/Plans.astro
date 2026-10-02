@@ -1,0 +1,58 @@
+---
+import { PRICES, SITE } from '../site.ts';
+
+const ready = SITE.checkout.monthly.length > 0;
+---
+
+<div class="plans">
+  <section class="plan">
+    <h3>Free</h3>
+    <p class="price">US$0</p>
+    <ul>
+      <li>One statement at a time, as many as you like</li>
+      <li>Every row checked against the running balance</li>
+      <li>CSV, Xero CSV and QuickBooks Online CSV</li>
+      <li>No account, nothing uploaded</li>
+    </ul>
+    <a class="button secondary" href="/#convert">Convert a statement</a>
+  </section>
+  <section class="plan featured">
+    <h3>Catch-up Pass</h3>
+    <p class="price">{PRICES.pass}</p>
+    <ul>
+      <li>30 days of Pro, no subscription</li>
+      <li>For a one-off job, such as a year of statements</li>
+      <li>Everything in Pro</li>
+    </ul>
+    {ready ? <a class="button" href={SITE.checkout.pass}>Buy the pass</a> : <span class="fine">Available soon.</span>}
+  </section>
+  <section class="plan">
+    <h3>Pro</h3>
+    <p class="price">{PRICES.monthly}</p>
+    <p class="fine">or {PRICES.yearly}</p>
+    <ul>
+      <li>Convert many statements at once</li>
+      <li>Merge them into one file, with overlapping rows removed</li>
+      <li>OFX and QIF exports</li>
+      <li>Cancel any time</li>
+    </ul>
+    {
+      ready ? (
+        <>
+          <a class="button" href={SITE.checkout.monthly}>
+            Monthly
+          </a>
+          <a class="button secondary" href={SITE.checkout.yearly}>
+            Yearly
+          </a>
+        </>
+      ) : (
+        <span class="fine">Available soon.</span>
+      )
+    }
+  </section>
+</div>
+<p class="fine">
+  Payments are handled by Polar, which acts as the merchant of record and adds any sales tax. Pro is unlocked with a licence key in your
+  browser; there is no account to create. 14-day refunds, no questions asked.
+</p>

@@ -1,0 +1,238 @@
+{
+  "name": "us-signed-amount",
+  "description": "US checking: \"01/05\" mm/dd dates with no year (period January 1, 2026 through January 31, 2026), Date | Description | Amount | Balance with withdrawals as \"-45.00\". A Summary box (Beginning balance, Deposits and other credits, Withdrawals and other debits, Ending balance) sits above the table and must not become transactions. Card purchase descriptions contain their own mm/dd purchase date.",
+  "dateOrder": "mdy",
+  "liabilityBalance": false,
+  "openingCents": 214055,
+  "closingCents": 372028,
+  "transactions": [
+    {
+      "date": "2026-01-02",
+      "description": "Zelle Payment To Oakridge Apartments 19283746501",
+      "amountCents": -165000,
+      "balanceCents": 49055
+    },
+    {
+      "date": "2026-01-02",
+      "description": "Card Purchase 01/01 Rainier Pizza Kitchen Seattle WA Card 7712",
+      "amountCents": -4167,
+      "balanceCents": 44888
+    },
+    {
+      "date": "2026-01-02",
+      "description": "Card Purchase 01/02 Evergreen Fuel 0412 Bellevue WA Card 7712",
+      "amountCents": -7706,
+      "balanceCents": 37182
+    },
+    {
+      "date": "2026-01-06",
+      "description": "Card Purchase 01/06 Cedar Street Books Seattle WA Card 7712",
+      "amountCents": -6228,
+      "balanceCents": 30954
+    },
+    {
+      "date": "2026-01-06",
+      "description": "Recurring Card Purchase 01/05 Streamly Video 888-555-0142 CA Card 7712",
+      "amountCents": -1599,
+      "balanceCents": 29355
+    },
+    {
+      "date": "2026-01-08",
+      "description": "Card Purchase 01/06 Northgate Pharmacy Seattle WA Card 7712",
+      "amountCents": -1243,
+      "balanceCents": 28112
+    },
+    {
+      "date": "2026-01-08",
+      "description": "Card Purchase 01/07 Summit Hardware Redmond WA Card 7712",
+      "amountCents": -10295,
+      "balanceCents": 17817
+    },
+    {
+      "date": "2026-01-08",
+      "description": "ATM Withdrawal 01/06 1200 Pine St Seattle WA Card 7712",
+      "amountCents": -10000,
+      "balanceCents": 7817
+    },
+    {
+      "date": "2026-01-09",
+      "description": "Tailwind Traders Payroll PPD ID: 9876543210",
+      "amountCents": 261540,
+      "balanceCents": 269357
+    },
+    {
+      "date": "2026-01-10",
+      "description": "Card Purchase 01/10 Pinecrest Coffee Co Seattle WA Card 7712",
+      "amountCents": -1049,
+      "balanceCents": 268308
+    },
+    {
+      "date": "2026-01-10",
+      "description": "Card Purchase 01/10 Rainier Pizza Kitchen Seattle WA Card 7712",
+      "amountCents": -2643,
+      "balanceCents": 265665
+    },
+    {
+      "date": "2026-01-11",
+      "description": "Card Purchase 01/09 Summit Hardware Redmond WA Card 7712",
+      "amountCents": -4469,
+      "balanceCents": 261196
+    },
+    {
+      "date": "2026-01-11",
+      "description": "Card Purchase 01/11 Lakeside Grocery Seattle WA Card 7712",
+      "amountCents": -15682,
+      "balanceCents": 245514
+    },
+    {
+      "date": "2026-01-11",
+      "description": "Card Purchase 01/10 Lakeside Grocery Seattle WA Card 7712",
+      "amountCents": -4345,
+      "balanceCents": 241169
+    },
+    {
+      "date": "2026-01-12",
+      "description": "Recurring Card Purchase 01/10 Streamly Video 888-555-0142 CA Card 7712",
+      "amountCents": -1599,
+      "balanceCents": 239570
+    },
+    {
+      "date": "2026-01-12",
+      "description": "Card Purchase 01/12 Lakeside Grocery Seattle WA Card 7712",
+      "amountCents": -10991,
+      "balanceCents": 228579
+    },
+    {
+      "date": "2026-01-14",
+      "description": "Recurring Card Purchase 01/13 Streamly Video 888-555-0142 CA Card 7712",
+      "amountCents": -1599,
+      "balanceCents": 226980
+    },
+    {
+      "date": "2026-01-15",
+      "description": "Cascade Power Utility Pymt PPD ID: 4455667788",
+      "amountCents": -13218,
+      "balanceCents": 213762
+    },
+    {
+      "date": "2026-01-15",
+      "description": "Venmo Cashout PPD ID: 5264681992",
+      "amountCents": 11904,
+      "balanceCents": 225666
+    },
+    {
+      "date": "2026-01-16",
+      "description": "Zelle Payment From Casey Example 20419938",
+      "amountCents": 6755,
+      "balanceCents": 232421
+    },
+    {
+      "date": "2026-01-17",
+      "description": "Card Purchase 01/17 Northgate Pharmacy Seattle WA Card 7712",
+      "amountCents": -1380,
+      "balanceCents": 231041
+    },
+    {
+      "date": "2026-01-18",
+      "description": "Card Purchase 01/16 Pinecrest Coffee Co Seattle WA Card 7712",
+      "amountCents": -670,
+      "balanceCents": 230371
+    },
+    {
+      "date": "2026-01-18",
+      "description": "Card Purchase 01/18 Cedar Street Books Seattle WA Card 7712",
+      "amountCents": -5184,
+      "balanceCents": 225187
+    },
+    {
+      "date": "2026-01-20",
+      "description": "Contoso Card Services Payment PPD ID: 1122334455",
+      "amountCents": -84527,
+      "balanceCents": 140660
+    },
+    {
+      "date": "2026-01-21",
+      "description": "Venmo Cashout PPD ID: 5264681992",
+      "amountCents": 29739,
+      "balanceCents": 170399
+    },
+    {
+      "date": "2026-01-21",
+      "description": "Card Purchase 01/21 Rainier Pizza Kitchen Seattle WA Card 7712",
+      "amountCents": -5107,
+      "balanceCents": 165292
+    },
+    {
+      "date": "2026-01-23",
+      "description": "Tailwind Traders Payroll PPD ID: 9876543210",
+      "amountCents": 261540,
+      "balanceCents": 426832
+    },
+    {
+      "date": "2026-01-23",
+      "description": "Card Purchase 01/23 Pinecrest Coffee Co Seattle WA Card 7712",
+      "amountCents": -1377,
+      "balanceCents": 425455
+    },
+    {
+      "date": "2026-01-24",
+      "description": "Card Purchase 01/22 Northgate Pharmacy Seattle WA Card 7712",
+      "amountCents": -2526,
+      "balanceCents": 422929
+    },
+    {
+      "date": "2026-01-24",
+      "description": "ATM Withdrawal 01/23 1200 Pine St Seattle WA Card 7712",
+      "amountCents": -6000,
+      "balanceCents": 416929
+    },
+    {
+      "date": "2026-01-25",
+      "description": "Card Purchase 01/25 Rainier Pizza Kitchen Seattle WA Card 7712",
+      "amountCents": -2630,
+      "balanceCents": 414299
+    },
+    {
+      "date": "2026-01-27",
+      "description": "Card Purchase 01/25 Summit Hardware Redmond WA Card 7712",
+      "amountCents": -15839,
+      "balanceCents": 398460
+    },
+    {
+      "date": "2026-01-27",
+      "description": "Card Purchase 01/27 Northgate Pharmacy Seattle WA Card 7712",
+      "amountCents": -702,
+      "balanceCents": 397758
+    },
+    {
+      "date": "2026-01-28",
+      "description": "Card Purchase 01/26 Evergreen Fuel 0412 Bellevue WA Card 7712",
+      "amountCents": -3412,
+      "balanceCents": 394346
+    },
+    {
+      "date": "2026-01-28",
+      "description": "Card Purchase 01/27 Northgate Pharmacy Seattle WA Card 7712",
+      "amountCents": -2190,
+      "balanceCents": 392156
+    },
+    {
+      "date": "2026-01-29",
+      "description": "Card Purchase 01/28 Evergreen Fuel 0412 Bellevue WA Card 7712",
+      "amountCents": -7032,
+      "balanceCents": 385124
+    },
+    {
+      "date": "2026-01-29",
+      "description": "Card Purchase 01/27 Lakeside Grocery Seattle WA Card 7712",
+      "amountCents": -13138,
+      "balanceCents": 371986
+    },
+    {
+      "date": "2026-01-30",
+      "description": "Interest Payment",
+      "amountCents": 42,
+      "balanceCents": 372028
+    }
+  ]
+}

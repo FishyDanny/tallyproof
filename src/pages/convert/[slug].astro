@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Converter from '../../components/Converter.tsx';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('destinations');
+  return pages.map((page) => ({ params: { slug: page.data.slug ?? page.id }, props: { page } }));
+}
+
+interface Props {
+  page: CollectionEntry<'destinations'>;
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <div class="wrap">
+    <h1>{page.data.heading}</h1>
+    <p class="lede">{page.data.intro}</p>
+    <section id="convert" aria-label="Converter">
+      <Converter client:load />
+    </section>
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+</Base>

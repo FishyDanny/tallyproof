@@ -1,0 +1,289 @@
+{
+  "name": "au-with-misprint",
+  "description": "Australian transaction account: \"03 Dec\" dates with no year over a 1 Dec 2025 to 28 Feb 2026 period (year rolls over), Date | Transaction details | Debit | Credit | Balance with balances printed as \"1,234.56 CR\". OPENING BALANCE and CLOSING BALANCE rows, descriptions that wrap onto a continuation line (no date or amount; some contain \"Value Date: dd/mm/yyyy\"), and \"Balance carried forward\" / \"Balance brought forward\" rows at page breaks. One printed balance (see mismatchDates) is deliberately 10.00 too high; balanceCents keeps the wrong printed value and every later balance is correct again.",
+  "dateOrder": "dmy",
+  "liabilityBalance": false,
+  "openingCents": 352118,
+  "closingCents": 614296,
+  "transactions": [
+    {
+      "date": "2025-12-02",
+      "description": "Transfer To Harbourside Realty NetBank RENT UNIT 4",
+      "amountCents": -215000,
+      "balanceCents": 137118
+    },
+    {
+      "date": "2025-12-02",
+      "description": "BLUE GUM CAFE SURRY HILLS NS AUS",
+      "amountCents": -3029,
+      "balanceCents": 134089
+    },
+    {
+      "date": "2025-12-02",
+      "description": "PADDO PET SUPPLIES PADDINGTON NS AUS",
+      "amountCents": -5971,
+      "balanceCents": 128118
+    },
+    {
+      "date": "2025-12-02",
+      "description": "Direct Debit 301977 HARBOURVIEW INSURE",
+      "amountCents": -17453,
+      "balanceCents": 110665
+    },
+    {
+      "date": "2025-12-04",
+      "description": "Direct Credit 401234 ACME LOGISTICS SALARY PAY 1309558",
+      "amountCents": 328450,
+      "balanceCents": 439115
+    },
+    {
+      "date": "2025-12-06",
+      "description": "Direct Debit 448812 BRIGHTWAVE MOBILE",
+      "amountCents": -31022,
+      "balanceCents": 408093
+    },
+    {
+      "date": "2025-12-09",
+      "description": "SUNRISE NOODLE BAR HAYMARKET NS AUS Card xx4821 Value Date: 07/12/2025",
+      "amountCents": -2156,
+      "balanceCents": 405937
+    },
+    {
+      "date": "2025-12-10",
+      "description": "Direct Debit 301977 HARBOURVIEW INSURE",
+      "amountCents": -18825,
+      "balanceCents": 387112
+    },
+    {
+      "date": "2025-12-15",
+      "description": "BPAY CONTOSO CARD 628387429",
+      "amountCents": -103316,
+      "balanceCents": 283796
+    },
+    {
+      "date": "2025-12-16",
+      "description": "HARBOUR FUEL CO ROZELLE NS AUS",
+      "amountCents": -7813,
+      "balanceCents": 275983
+    },
+    {
+      "date": "2025-12-18",
+      "description": "Direct Credit 401234 ACME LOGISTICS SALARY PAY 2913771",
+      "amountCents": 328450,
+      "balanceCents": 605433
+    },
+    {
+      "date": "2025-12-20",
+      "description": "Transfer To xx9921 NetBank Savings",
+      "amountCents": -300000,
+      "balanceCents": 304433
+    },
+    {
+      "date": "2025-12-22",
+      "description": "Refund BRIGHTSIDE HARDWARE NS AUS",
+      "amountCents": 4541,
+      "balanceCents": 308974
+    },
+    {
+      "date": "2026-01-01",
+      "description": "Direct Credit 401234 ACME LOGISTICS SALARY PAY 4730204",
+      "amountCents": 328450,
+      "balanceCents": 637424
+    },
+    {
+      "date": "2026-01-02",
+      "description": "Transfer To Harbourside Realty NetBank RENT UNIT 4",
+      "amountCents": -215000,
+      "balanceCents": 422424
+    },
+    {
+      "date": "2026-01-02",
+      "description": "PADDO PET SUPPLIES PADDINGTON NS AUS",
+      "amountCents": -6784,
+      "balanceCents": 415640
+    },
+    {
+      "date": "2026-01-04",
+      "description": "SUNRISE NOODLE BAR HAYMARKET NS AUS",
+      "amountCents": -1686,
+      "balanceCents": 413954
+    },
+    {
+      "date": "2026-01-06",
+      "description": "CORNER BAKEHOUSE NEWTOWN NS AUS",
+      "amountCents": -1948,
+      "balanceCents": 412006
+    },
+    {
+      "date": "2026-01-07",
+      "description": "OCEANVIEW CINEMAS MANLY NS AUS",
+      "amountCents": -1798,
+      "balanceCents": 410208
+    },
+    {
+      "date": "2026-01-10",
+      "description": "HARBOUR FUEL CO ROZELLE NS AUS Card xx4821 Value Date: 08/01/2026",
+      "amountCents": -9232,
+      "balanceCents": 400976
+    },
+    {
+      "date": "2026-01-11",
+      "description": "Transfer From J CITIZEN NetBank Birthday gift",
+      "amountCents": 19410,
+      "balanceCents": 420386
+    },
+    {
+      "date": "2026-01-13",
+      "description": "Cash Out ATM KINGS CROSS",
+      "amountCents": -20000,
+      "balanceCents": 400386
+    },
+    {
+      "date": "2026-01-14",
+      "description": "GREENLEAF GROCERS MARRICKVILLE NS AUS Card xx4821 Value Date: 13/01/2026",
+      "amountCents": -8061,
+      "balanceCents": 392325
+    },
+    {
+      "date": "2026-01-15",
+      "description": "Direct Credit 401234 ACME LOGISTICS SALARY PAY 8233734",
+      "amountCents": 328450,
+      "balanceCents": 720775
+    },
+    {
+      "date": "2026-01-15",
+      "description": "BPAY CONTOSO CARD 578272793",
+      "amountCents": -87514,
+      "balanceCents": 633261
+    },
+    {
+      "date": "2026-01-19",
+      "description": "HARBOUR FUEL CO ROZELLE NS AUS Card xx4821 Value Date: 17/01/2026",
+      "amountCents": -4174,
+      "balanceCents": 629087
+    },
+    {
+      "date": "2026-01-20",
+      "description": "Transfer To xx9921 NetBank Savings",
+      "amountCents": -300000,
+      "balanceCents": 329087
+    },
+    {
+      "date": "2026-01-21",
+      "description": "Cash Out ATM CIRCULAR QUAY",
+      "amountCents": -20000,
+      "balanceCents": 309087
+    },
+    {
+      "date": "2026-01-23",
+      "description": "BRIGHTSIDE HARDWARE LEICHHARDT NS AUS",
+      "amountCents": -16153,
+      "balanceCents": 292934
+    },
+    {
+      "date": "2026-01-27",
+      "description": "HARBOUR FUEL CO ROZELLE NS AUS Card xx4821 Value Date: 26/01/2026",
+      "amountCents": -4696,
+      "balanceCents": 288238
+    },
+    {
+      "date": "2026-01-28",
+      "description": "Transfer From MS P OKAFOR NetBank Concert tix",
+      "amountCents": 13440,
+      "balanceCents": 301678
+    },
+    {
+      "date": "2026-01-29",
+      "description": "Direct Credit 401234 ACME LOGISTICS SALARY PAY 4193785",
+      "amountCents": 328450,
+      "balanceCents": 630128
+    },
+    {
+      "date": "2026-01-29",
+      "description": "Transfer From J CITIZEN NetBank Birthday gift",
+      "amountCents": 2426,
+      "balanceCents": 632554
+    },
+    {
+      "date": "2026-01-30",
+      "description": "PADDO PET SUPPLIES PADDINGTON NS AUS Card xx4821 Value Date: 28/01/2026",
+      "amountCents": -2830,
+      "balanceCents": 629724
+    },
+    {
+      "date": "2026-02-02",
+      "description": "Transfer To Harbourside Realty NetBank RENT UNIT 4",
+      "amountCents": -215000,
+      "balanceCents": 414724
+    },
+    {
+      "date": "2026-02-08",
+      "description": "BRIGHTSIDE HARDWARE LEICHHARDT NS AUS Card xx4821 Value Date: 06/02/2026",
+      "amountCents": -24038,
+      "balanceCents": 390686
+    },
+    {
+      "date": "2026-02-09",
+      "description": "SUNRISE NOODLE BAR HAYMARKET NS AUS",
+      "amountCents": -4165,
+      "balanceCents": 386521
+    },
+    {
+      "date": "2026-02-10",
+      "description": "Cash Out ATM KINGS CROSS",
+      "amountCents": -5000,
+      "balanceCents": 381521
+    },
+    {
+      "date": "2026-02-12",
+      "description": "Direct Credit 401234 ACME LOGISTICS SALARY PAY 8164282",
+      "amountCents": 328450,
+      "balanceCents": 709971
+    },
+    {
+      "date": "2026-02-15",
+      "description": "BPAY CONTOSO CARD 405421475",
+      "amountCents": -74166,
+      "balanceCents": 635805
+    },
+    {
+      "date": "2026-02-18",
+      "description": "BRIGHTSIDE HARDWARE LEICHHARDT NS AUS Card xx4821 Value Date: 17/02/2026",
+      "amountCents": -19092,
+      "balanceCents": 616713
+    },
+    {
+      "date": "2026-02-20",
+      "description": "Transfer To xx9921 NetBank Savings",
+      "amountCents": -300000,
+      "balanceCents": 316713
+    },
+    {
+      "date": "2026-02-21",
+      "description": "OCEANVIEW CINEMAS MANLY NS AUS",
+      "amountCents": -5951,
+      "balanceCents": 310762
+    },
+    {
+      "date": "2026-02-22",
+      "description": "SUNRISE NOODLE BAR HAYMARKET NS AUS",
+      "amountCents": -4916,
+      "balanceCents": 305846
+    },
+    {
+      "date": "2026-02-22",
+      "description": "Cash Out ATM NEWTOWN",
+      "amountCents": -20000,
+      "balanceCents": 285846
+    },
+    {
+      "date": "2026-02-26",
+      "description": "Direct Credit 401234 ACME LOGISTICS SALARY PAY 1911137",
+      "amountCents": 328450,
+      "balanceCents": 614296
+    }
+  ],
+  "mismatchDates": [
+    "2025-12-18"
+  ]
+}
