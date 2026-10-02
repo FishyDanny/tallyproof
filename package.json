@@ -16,7 +16,7 @@
     "fixtures": "node --experimental-strip-types scripts/make-fixtures.ts",
     "verify": "pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm test:e2e",
     "pages:create": "wrangler pages project create tallyproof --production-branch main --force",
-    "deploy": "pnpm build && wrangler pages deploy dist --project-name tallyproof --branch main",
+    "deploy": "node -e \"for (const d of ['.astro','node_modules/.astro']) require('fs').rmSync(d,{recursive:true,force:true})\" && pnpm build && wrangler pages deploy dist --project-name tallyproof --branch main",
     "polar:setup": "node scripts/polar-setup.mjs",
     "export:public": "node scripts/export-public.mjs"
   },
