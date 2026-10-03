@@ -71,7 +71,7 @@ Two limits are worth knowing. The balance check proves the amounts, not the date
 
 ## Step by step with Tallyproof
 
-Tallyproof is a browser-only converter built around the balance check. It's free for single statements, needs no account, and its source code is published under the AGPL-3.0 licence.
+Tallyproof is a browser-only converter built around the balance check. It's free for single statements, needs no account, and its security policy tells your browser to block connections to other sites.
 
 1. **Download your statement** as a PDF from your online banking.
 2. **Open [tallyproof.pages.dev](https://tallyproof.pages.dev)** and choose the PDF. It's read in your browser with pdf.js; the file isn't uploaded.

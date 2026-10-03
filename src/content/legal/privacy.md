@@ -17,7 +17,7 @@ When you choose a PDF statement, Tallyproof reads it with pdf.js, a PDF library 
 - The extracted transactions, balances, account details and file names are never sent anywhere.
 - No network request made by Tallyproof contains any part of your statement's contents.
 
-The website's source code is published under the AGPL-3.0 licence at GITHUB_REPO_URL, so anyone can check how the converter works. You can also confirm this yourself by opening your browser's developer tools, selecting the Network tab and converting a statement: you will see no request carrying your file.
+The page's security policy instructs your browser to block connections to any site other than this one and our payment provider's licence check. You can confirm this yourself by opening your browser's developer tools, selecting the Network tab and converting a statement: you will see no request carrying your file.
 
 When you close or reload the page, the statement data held in your browser's memory is discarded. Files you download (for example a CSV) are saved wherever your browser saves downloads, and are under your control.
 

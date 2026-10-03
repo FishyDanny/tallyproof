@@ -47,14 +47,12 @@ You must not:
 
 - use Tallyproof to process statements you have no right to handle;
 - try to disrupt, overload or attack the website or its hosting;
-- try to get around the licence check to use Pro features without a valid licence key, except as permitted by the open-source licence described in section 7;
+- try to get around the licence check to use Pro features without a valid licence key;
 - use Tallyproof for anything unlawful, including fraud or creating false financial records.
 
-## 7. Open-source code
+## 7. Our code and name
 
-Tallyproof's source code is published under the GNU Affero General Public License version 3.0 (AGPL-3.0) at GITHUB_REPO_URL. Your rights to use, copy, modify and distribute the source code come from that licence, not from these terms, and nothing in these terms limits them.
-
-These terms cover the hosted service at https://tallyproof.pages.dev, the Tallyproof name, and Pro licence keys sold through Polar. The AGPL-3.0 does not give you a right to the Tallyproof name or to use our licence keys or Polar account.
+Tallyproof's software, website content and name belong to us. These terms cover the hosted service at https://tallyproof.pages.dev and Pro licence keys sold through Polar. You may use the service as described in these terms, but you may not copy, resell or redistribute the software or present it as your own.
 
 ## 8. Your rights under consumer law
 

@@ -39,7 +39,7 @@ Check two things before you go further:
 ## Step 2: Convert each PDF to a Xero CSV
 
 1. Open [Tallyproof](https://tallyproof.pages.dev) in your browser.
-2. Choose a PDF statement. Tallyproof reads it on your computer; the file is not uploaded. You can confirm this in your browser's developer tools (Network tab), and the code is open source.
+2. Choose a PDF statement. Tallyproof reads it on your computer; the file is not uploaded. You can confirm this in your browser's developer tools (Network tab).
 3. Tallyproof detects the transaction table and checks every row against the running balance printed on the statement: previous balance plus this transaction's amount should equal the printed balance. Rows that don't match are flagged. If the statement has no running balance (most credit cards), it checks that the opening balance plus all transactions equals the closing balance instead.
 4. Look at anything flagged and compare it with the PDF before you continue. A flag means the numbers didn't add up, so a row may have been misread, missed or split. The check is about amounts; it doesn't prove that every date and description is right, so give those a quick scan too.
 5. Choose **Xero CSV** and download the file.

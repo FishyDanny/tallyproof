@@ -53,7 +53,7 @@ Whatever software you use, the simple test is the same: before you finish an imp
 ## Converting with Tallyproof
 
 1. **Download the statement** as a PDF from your card issuer's website. Check it's a text PDF by trying to select a word; scanned statements can't be read.
-2. **Open [Tallyproof](https://tallyproof.pages.dev)** and choose the PDF. It is read in your browser with pdf.js and isn't uploaded anywhere. The code is open source (AGPL-3.0).
+2. **Open [Tallyproof](https://tallyproof.pages.dev)** and choose the PDF. It is read in your browser with pdf.js and isn't uploaded anywhere. You can confirm this in your browser's developer tools (Network tab).
 3. **Check the result.** Tallyproof works out which amounts are purchases and which are credits from markers such as "CR" and minus signs, and aims to write them from your point of view: purchases negative, payments and refunds positive. Check a purchase and a payment you recognise. Then it checks opening balance plus transactions against the closing balance. If the check fails, compare the output with the PDF using the clues above. If a whole column has been read the wrong way, you can change the column's role in the converter and the check runs again.
 4. **Export.** The free version exports one statement at a time as a generic CSV, a Xero CSV or a QuickBooks Online CSV. Pro (US$9 a month or US$69 a year) and the one-off Catch-up Pass (US$19 for 30 days) add OFX and QIF exports and let you convert many statements at once, merged into one file.
 

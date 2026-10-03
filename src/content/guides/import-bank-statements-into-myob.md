@@ -33,7 +33,7 @@ Note the first and last date of the period. You'll need them in Step 4.
 ## Step 2: Convert the statements to OFX or QIF
 
 1. Open [Tallyproof](https://tallyproof.pages.dev) in your browser and enter your licence key to unlock Pro.
-2. Add your PDF statements. You can add several at once. They are read on your own computer and are not uploaded anywhere; the source code is open source if you want to check.
+2. Add your PDF statements. You can add several at once. They are read on your own computer and are not uploaded anywhere; you can check this in your browser's developer tools (Network tab).
 3. Tallyproof checks every transaction against the running balance printed on the statement (previous balance plus amount should equal the printed balance) and flags any row that doesn't match. For statements with no running balance, as on most credit cards, it checks that the opening balance plus all transactions equals the closing balance.
 4. Review every flagged row against the PDF and note any that are wrong, so you can correct them in MYOB after importing. The balance check is about amounts, so also give the dates and descriptions a quick look.
 5. Export as **OFX**. We recommend OFX over QIF: both MYOB Business and AccountRight accept it, and OFX stores dates in a fixed year-month-day form that cannot be misread, while QIF dates depend on the date format setting. If you are importing many statements for the same account, you can merge them into one file, as long as it stays under MYOB's 10 MB limit.

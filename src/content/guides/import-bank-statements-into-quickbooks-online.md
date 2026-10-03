@@ -34,7 +34,7 @@ Write down the first and last date you need. You will use them in Step 4.
 ## Step 2: Convert the PDF to a QuickBooks Online CSV
 
 1. Open [Tallyproof](https://tallyproof.pages.dev) in your browser.
-2. Choose a PDF statement. It is read on your own computer and is not uploaded anywhere. The source code is open source, so this can be checked.
+2. Choose a PDF statement. It is read on your own computer and is not uploaded anywhere. You can check this in your browser's developer tools (Network tab).
 3. Tallyproof extracts the transactions and checks every row against the running balance printed on the statement (previous balance plus the transaction amount should equal the printed balance). Rows that don't match are flagged. For statements without a running balance, such as most credit card statements, it checks that the opening balance plus all transactions equals the closing balance.
 4. Review any flagged rows against the PDF. The balance check confirms that the amounts add up; it doesn't check dates or descriptions, so glance over those as well.
 5. Choose **QuickBooks Online CSV** and download the file.

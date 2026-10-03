@@ -5,7 +5,7 @@ description: "Answers about Tallyproof: privacy, which statements work, how bala
 
 ## Is my bank statement uploaded anywhere?
 
-No. Tallyproof reads your PDF inside your browser using pdf.js, and the extraction, checking and export all happen on your device. The file and its contents are never sent to Tallyproof or anyone else. You can check this yourself: open your browser's developer tools, select the Network tab, convert a statement, and you will see no request carrying your file. The source code is open source (AGPL-3.0), so anyone can read exactly what it does.
+No. Tallyproof reads your PDF inside your browser using pdf.js, and the extraction, checking and export all happen on your device. The file and its contents are never sent to Tallyproof or anyone else. You can check this yourself: open your browser's developer tools, select the Network tab, convert a statement, and you will see no request carrying your file. The page's security policy also tells your browser to block connections to any other site, so the file could not be sent elsewhere even by mistake.
 
 ## How can I tell the conversion is correct?
 
@@ -57,8 +57,8 @@ No. There are no accounts and no tracking cookies, and there is currently no ana
 
 ## Who makes Tallyproof?
 
-Tallyproof is built and run by an individual developer based in Australia. The code is open source on GitHub, so you don't have to take the privacy claims on trust.
+Tallyproof is built and run by an individual developer based in Australia. You don't have to take the privacy claims on trust: your browser's developer tools show every request the page makes, and the counter under the converter shows zero after you choose a file.
 
 ## A statement didn't convert properly. What should I do?
 
-Please tell us, but don't send the statement itself. Open an issue on GitHub (GITHUB_REPO_URL) or email SUPPORT_EMAIL with the bank's name and a description of the layout, with personal details removed: for example, which columns appear, how dates and amounts are written, and what went wrong. That is usually enough to reproduce and fix the problem.
+Please tell us, but don't send the statement itself. Email SUPPORT_EMAIL with the bank's name and a description of the layout, with personal details removed: for example, which columns appear, how dates and amounts are written, and what went wrong. That is usually enough to reproduce and fix the problem.
