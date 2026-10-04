@@ -3,7 +3,15 @@ title: "Privacy policy"
 description: "How Tallyproof handles your data: statements are converted on your device and never uploaded. What little else is processed, by whom, and your rights."
 ---
 
+<!-- if prices -->
+
 **Effective date: 2 October 2026**
+
+<!-- else -->
+
+**Effective date: 4 October 2026**
+
+<!-- endif -->
 
 This policy explains what information Tallyproof handles when you use the website at https://tallyproof.pages.dev and the bank statement converter on it. Tallyproof is run by an individual developer (a sole trader) based in Australia. In this policy, "Tallyproof", "we" and "us" mean that operator.
 
@@ -36,9 +44,19 @@ The website is hosted on Cloudflare Pages. Like any web host, Cloudflare receive
 
 ### Purchases (Polar)
 
+<!-- if prices -->
+
 Pro subscriptions and the Catch-up Pass are sold through Polar (polar.sh), which acts as the merchant of record. That means Polar, not Tallyproof, runs the checkout and processes your payment details, billing address, email address and tax information. Polar's own privacy policy applies to that information: https://polar.sh/legal/privacy
 
 We may receive order information from Polar that we need to provide the product and support you, such as your email address, what you bought and when, and the licence key issued to you. We do not receive your full card details.
+
+<!-- else -->
+
+Nothing can be bought yet, so no payment information is collected. When paid plans are available, they will be sold through Polar (polar.sh), which acts as the merchant of record. That means Polar, not Tallyproof, would run the checkout and process your payment details, billing address, email address and tax information, and Polar's own privacy policy would apply to that information: https://polar.sh/legal/privacy
+
+We will update this policy before any purchase is possible.
+
+<!-- endif -->
 
 ### Licence key validation
 
@@ -61,9 +79,18 @@ If you email us at SUPPORT_EMAIL, we receive your email address and whatever you
 
 We process the limited information described above to:
 
+<!-- if prices -->
+
 - deliver the website and keep it secure (hosting logs);
 - sell Pro and the Catch-up Pass and check that licence keys are valid (Polar);
 - answer your questions and handle refunds (email).
+
+<!-- else -->
+
+- deliver the website and keep it secure (hosting logs);
+- answer your questions (email).
+
+<!-- endif -->
 
 We do not sell personal information, and we do not use it for advertising.
 
@@ -90,9 +117,18 @@ If the UK GDPR or the EU GDPR applies to you, Tallyproof is the controller of th
 
 Our legal bases are:
 
+<!-- if prices -->
+
 - performance of a contract, for selling Pro, validating licence keys and handling refunds;
 - legitimate interests, for keeping the website secure and replying to messages you send us;
 - legal obligation, for keeping tax and accounting records.
+
+<!-- else -->
+
+- legitimate interests, for keeping the website secure and replying to messages you send us;
+- legal obligation, for keeping tax and accounting records.
+
+<!-- endif -->
 
 You have the right to:
 

@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { SITE } from '../site.ts';
+import { byPriceVisibility } from '../pricing.ts';
 
 export async function getStaticPaths() {
   const pages = await getCollection('legal');
@@ -15,9 +16,10 @@ interface Props {
 
 const { page } = Astro.props;
 const { Content } = await render(page);
+const description = byPriceVisibility(page.data.description, page.data.descriptionEarlyAccess ?? page.data.description);
 ---
 
-<Base title={page.data.title} description={page.data.description}>
+<Base title={page.data.title} description={description}>
   <article class="wrap prose">
     <h1>{page.data.title}</h1>
     <Content />

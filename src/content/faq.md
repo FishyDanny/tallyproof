@@ -1,6 +1,7 @@
 ---
 title: "Frequently asked questions"
 description: "Answers about Tallyproof: privacy, which statements work, how balance checking works, export formats, Pro and the Catch-up Pass, and refunds."
+descriptionEarlyAccess: "Answers about Tallyproof: privacy, which statements work, how balance checking works, export formats, early access and paid plans."
 ---
 
 ## Is my bank statement uploaded anywhere?
@@ -29,11 +30,29 @@ Not yet. Tallyproof needs a text-based PDF, the kind you download from online ba
 
 Free: generic CSV, Xero CSV and QuickBooks Online CSV, one statement at a time.
 
+<!-- if prices -->
+
 Pro and the Catch-up Pass add OFX and QIF exports, plus converting many statements at once and merging them into one file.
+
+<!-- else -->
+
+OFX and QIF exports, and converting many statements at once and merging them into one file, are not available yet. They are planned for a paid plan later. Nothing is charged today.
+
+<!-- endif -->
 
 ## Can I import the result into Xero, QuickBooks Online or MYOB?
 
+<!-- if prices -->
+
 Xero and QuickBooks Online both accept CSV statement imports, and the free version produces CSV files laid out for each. MYOB imports bank statements as OFX or QIF files (not CSV), which are Pro features. Our guides walk through each one, including how to avoid duplicates where a bank feed overlaps.
+
+<!-- else -->
+
+Xero and QuickBooks Online both accept CSV statement imports, and the free version produces CSV files laid out for each. MYOB imports bank statements as OFX or QIF files (not CSV), and Tallyproof's OFX and QIF exports are not available yet, so it can't produce a file MYOB accepts today. Our guides walk through each one, including how to avoid duplicates where a bank feed overlaps.
+
+<!-- endif -->
+
+<!-- if prices -->
 
 ## Is it really free?
 
@@ -50,6 +69,18 @@ Payments are handled by Polar, which acts as the merchant of record and deals wi
 ## Can I get a refund?
 
 Yes. If you're not happy, ask within 14 days of your purchase for a full refund, no questions asked. Email SUPPORT_EMAIL and the refund will be processed through Polar.
+
+<!-- else -->
+
+## Is it really free?
+
+Yes, while Tallyproof is in early access. Converting a single statement to CSV is free, with no account, no sign-up and no limits on how many times you use it. Nothing is charged today, and there is nothing to buy.
+
+## Will there be paid plans?
+
+Paid plans will come later, for people with a backlog of statements or who need OFX or QIF files. We'll announce the price before anything is charged. Until then, converting many statements at once, merging them and exporting OFX or QIF are not available.
+
+<!-- endif -->
 
 ## Do you use cookies or track me?
 

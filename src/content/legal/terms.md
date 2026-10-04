@@ -1,11 +1,28 @@
 ---
 title: "Terms of use"
 description: "The terms for using Tallyproof: check every output before relying on it, Pro licence terms, the 14-day refund, liability limits and governing law."
+descriptionEarlyAccess: "The terms for using Tallyproof: check every output before relying on it, free use while in early access, liability limits and governing law."
 ---
+
+<!-- if prices -->
 
 **Effective date: 2 October 2026**
 
+<!-- else -->
+
+**Effective date: 4 October 2026**
+
+<!-- endif -->
+
+<!-- if prices -->
+
 These terms apply when you use the Tallyproof website at https://tallyproof.pages.dev, including the free converter, Tallyproof Pro and the Catch-up Pass. Tallyproof is run by an individual developer (a sole trader) based in Australia. "Tallyproof", "we" and "us" mean that operator. "You" means the person using the service, or the business they use it for.
+
+<!-- else -->
+
+These terms apply when you use the Tallyproof website at https://tallyproof.pages.dev, including the free converter. Tallyproof is run by an individual developer (a sole trader) based in Australia. "Tallyproof", "we" and "us" mean that operator. "You" means the person using the service, or the business they use it for.
+
+<!-- endif -->
 
 By using Tallyproof you agree to these terms. If you do not agree, please do not use the service.
 
@@ -29,6 +46,8 @@ Tallyproof is a file conversion tool. Nothing on the website, in the output or i
 
 You can use the free converter without an account. Free use covers converting one statement at a time to CSV (generic CSV, Xero CSV or QuickBooks Online CSV). We may change, limit or stop free features at any time, but any change will not affect files you have already converted.
 
+<!-- if prices -->
+
 ## 5. Tallyproof Pro and the Catch-up Pass
 
 **What you get.** Tallyproof Pro (US$9 per month or US$69 per year) and the Catch-up Pass (US$19, one-off, giving 30 days of Pro) unlock the Pro features described on the pricing page, which currently include converting many statements at once and merging them into one file, and exporting OFX and QIF files.
@@ -41,18 +60,46 @@ You can use the free converter without an account. Free use covers converting on
 
 **Price changes.** We may change prices for new purchases. If we change the price of an existing subscription, we will tell you before the change applies to your next renewal, and you can cancel before then.
 
+<!-- else -->
+
+## 5. Paid plans
+
+Tallyproof is free while in early access. There are no paid plans yet: nothing can be bought, and nothing is charged. Features that are not available yet include converting many statements at once, merging them into one file, and exporting OFX and QIF files.
+
+Paid plans will come later. We will announce the price before anything is charged, and we will add the payment, licence and refund terms to this page before any purchase is possible.
+
+<!-- endif -->
+
 ## 6. Acceptable use
 
 You must not:
+
+<!-- if prices -->
 
 - use Tallyproof to process statements you have no right to handle;
 - try to disrupt, overload or attack the website or its hosting;
 - try to get around the licence check to use Pro features without a valid licence key;
 - use Tallyproof for anything unlawful, including fraud or creating false financial records.
 
+<!-- else -->
+
+- use Tallyproof to process statements you have no right to handle;
+- try to disrupt, overload or attack the website or its hosting;
+- use Tallyproof for anything unlawful, including fraud or creating false financial records.
+
+<!-- endif -->
+
 ## 7. Our code and name
 
+<!-- if prices -->
+
 Tallyproof's software, website content and name belong to us. These terms cover the hosted service at https://tallyproof.pages.dev and Pro licence keys sold through Polar. You may use the service as described in these terms, but you may not copy, resell or redistribute the software or present it as your own.
+
+<!-- else -->
+
+Tallyproof's software, website content and name belong to us. These terms cover the hosted service at https://tallyproof.pages.dev. You may use the service as described in these terms, but you may not copy, resell or redistribute the software or present it as your own.
+
+<!-- endif -->
 
 ## 8. Your rights under consumer law
 

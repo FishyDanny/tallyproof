@@ -16,7 +16,7 @@ Before downloading anything, list every account that needs catching up: each ban
 - **The date the bank feed starts**, meaning the earliest transaction that came in through the feed. Feeds don't all reach back the same distance; see [why bank feeds only go back so far](/guides/import-historical-transactions-bank-feed-limit/).
 - **The period you need to fill** between those two dates.
 
-A simple table with one row per account and one column per month, ticked off as you go, is worth the five minutes it takes. It's the easiest way to notice a missing statement before it turns into a reconciliation that won't balance.
+A simple table with one row for each account and one column for each month, ticked off as you go, is worth the five minutes it takes. It's the easiest way to notice a missing statement before it turns into a reconciliation that won't balance.
 
 ## Step 2: Check what your software will accept
 
@@ -36,13 +36,29 @@ Work through one account at a time, in date order. Mixing accounts is the fastes
 
 Within an account, batch the statements into chunks your software can take in one go, and that you can reconcile in one sitting:
 
-- **QuickBooks Online** limits each upload to 1,000 lines and 350 KB ([Intuit](https://quickbooks.intuit.com/learn-support/en-au/help-article/import-transactions/manually-upload-transactions-quickbooks-online/L0rE9OXBz_AU_en_AU)), so a busy account may need several uploads per year.
+- **QuickBooks Online** limits each upload to 1,000 lines and 350 KB ([Intuit](https://quickbooks.intuit.com/learn-support/en-au/help-article/import-transactions/manually-upload-transactions-quickbooks-online/L0rE9OXBz_AU_en_AU)), so a busy account may need several uploads a year.
 - **Xero** won't import a CSV with more than 100,000 rows ([Xero Central](https://central.xero.com/s/article/Import-a-CSV-bank-statement)), so file size is rarely the issue; reconciling in sensible chunks is.
 - **MYOB** limits statement files to 10 MB, and suggests that when importing several months, you import and reconcile one month at a time ([MYOB](https://www.myob.com/au/support/myob-business/banking/bank-statements/import-bank-and-credit-card-statements)).
 
+<!-- if prices -->
+
 Converting one statement at a time with [Tallyproof](https://tallyproof.pages.dev) is free, and for a handful of statements that's all you need. For a backlog, Pro or the Catch-up Pass lets you add many statements at once and merge them into one file in date order. When two statements overlap (for example, a monthly statement and a quarterly one covering the same weeks), rows that appear in both are removed from the merged file so they aren't counted twice.
 
+<!-- else -->
+
+Converting one statement at a time with [Tallyproof](https://tallyproof.pages.dev) is free, and for a handful of statements that's all you need. For a backlog, work through the statements one at a time and reconcile each period before the next (Step 6). Converting many statements at once and merging them into one file are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged.
+
+<!-- endif -->
+
+<!-- if prices -->
+
 That de-duplication only compares the statements you're converting with each other. It doesn't know what's already in Xero, QuickBooks Online or MYOB, so it won't stop an overlap with your bank feed. That's Step 5.
+
+<!-- else -->
+
+Tallyproof doesn't know what's already in Xero, QuickBooks Online or MYOB, so it won't stop an overlap with your bank feed. That's Step 5.
+
+<!-- endif -->
 
 Before exporting each batch, look at the verification. Every row is checked against the running balance printed on the statement, and rows that don't add up are highlighted. Statements with no running balance, as on most credit cards, are checked as a whole: opening balance plus transactions should equal the closing balance. Clear up every flagged row against the PDF before you import, not after.
 
@@ -69,6 +85,8 @@ Import a batch, then reconcile it before importing the next. Use the closing bal
 
 Finding a problem in one month is quick. Finding it after a year of imports is not.
 
+<!-- if prices -->
+
 ## Free, Pro or the Catch-up Pass?
 
 - **A few statements:** the free version, one statement at a time, is enough for Xero and QuickBooks Online.
@@ -77,6 +95,18 @@ Finding a problem in one month is quick. Finding it after a year of imports is n
 - **MYOB at any size:** MYOB needs OFX or QIF, which are Pro features, so you'll need Pro or the pass. See [importing bank statements into MYOB](/guides/import-bank-statements-into-myob/).
 
 Whichever you use, the statements are read in your browser and never uploaded, which matters when the backlog belongs to a client.
+
+<!-- else -->
+
+## What the free version covers
+
+- **A few statements:** the free version, one statement at a time, is enough for Xero and QuickBooks Online.
+- **A large backlog:** convert one statement at a time and reconcile each period before the next. Converting many statements at once and merging them are not available yet.
+- **MYOB at any size:** MYOB needs OFX or QIF, and Tallyproof's OFX and QIF exports are not available yet. See [importing bank statements into MYOB](/guides/import-bank-statements-into-myob/).
+
+The statements are read in your browser and never uploaded, which matters when the backlog belongs to a client.
+
+<!-- endif -->
 
 ## Sources
 

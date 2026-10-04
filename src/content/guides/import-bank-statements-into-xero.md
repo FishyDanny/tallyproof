@@ -44,7 +44,15 @@ Check two things before you go further:
 4. Look at anything flagged and compare it with the PDF before you continue. A flag means the numbers didn't add up, so a row may have been misread, missed or split. The check is about amounts; it doesn't prove that every date and description is right, so give those a quick scan too.
 5. Choose **Xero CSV** and download the file.
 
+<!-- if prices -->
+
 The free version converts one statement at a time with no account and no limits. If you have dozens of statements, Tallyproof Pro (or the one-off Catch-up Pass) converts them in one go and can merge them into a single file.
+
+<!-- else -->
+
+Tallyproof converts one statement at a time, with no account and no limits. Converting many statements at once and merging them into a single file are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged.
+
+<!-- endif -->
 
 ## Step 3: Import the CSV into Xero
 

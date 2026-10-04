@@ -1,16 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Content, frontmatter } from '../content/faq.md';
+import { byPriceVisibility } from '../pricing.ts';
 
 interface FaqFrontmatter {
   title: string;
   description: string;
+  descriptionEarlyAccess: string;
 }
 
 const meta = frontmatter as FaqFrontmatter;
 ---
 
-<Base title={meta.title} description={meta.description}>
+<Base title={meta.title} description={byPriceVisibility(meta.description, meta.descriptionEarlyAccess)}>
   <article class="wrap prose">
     <h1>{meta.title}</h1>
     <Content />

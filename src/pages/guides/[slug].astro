@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { byPriceVisibility } from '../../pricing.ts';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -14,15 +15,16 @@ interface Props {
 
 const { guide } = Astro.props;
 const { Content } = await render(guide);
+const description = byPriceVisibility(guide.data.description, guide.data.descriptionEarlyAccess ?? guide.data.description);
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: guide.data.title,
-  description: guide.data.description,
+  description,
 };
 ---
 
-<Base title={guide.data.title} description={guide.data.description} jsonLd={jsonLd}>
+<Base title={guide.data.title} description={description} jsonLd={jsonLd}>
   <article class="wrap prose">
     <p class="eyebrow"><a href="/guides/">Guides</a></p>
     <h1>{guide.data.title}</h1>

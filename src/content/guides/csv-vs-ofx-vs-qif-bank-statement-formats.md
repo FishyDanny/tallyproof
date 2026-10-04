@@ -68,12 +68,25 @@ Two habits avoid most problems. First, check the preview for a transaction dated
 
 ## Which Tallyproof export to choose
 
+<!-- if prices -->
+
 - **Excel or Google Sheets:** CSV (free).
 - **Xero:** Xero CSV (free), or OFX with Pro.
 - **QuickBooks Online:** QuickBooks Online CSV (free), or OFX with Pro.
 - **MYOB:** OFX with Pro or the Catch-up Pass. QIF is there if you need it.
 
 OFX and QIF exports are part of Pro (US$9 a month or US$69 a year) and the one-off Catch-up Pass (US$19 for 30 days of Pro). Whatever format you choose, every row is checked against the statement's balances before you download, so the format decides how the data travels, not whether it's right.
+
+<!-- else -->
+
+- **Excel or Google Sheets:** CSV.
+- **Xero:** Xero CSV.
+- **QuickBooks Online:** QuickBooks Online CSV.
+- **MYOB:** MYOB needs OFX or QIF, which Tallyproof can't export yet.
+
+OFX and QIF exports are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged. Whatever format you choose, every row is checked against the statement's balances before you download, so the format decides how the data travels, not whether it's right.
+
+<!-- endif -->
 
 ## Sources
 

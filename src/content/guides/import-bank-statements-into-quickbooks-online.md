@@ -39,9 +39,19 @@ Write down the first and last date you need. You will use them in Step 4.
 4. Review any flagged rows against the PDF. The balance check confirms that the amounts add up; it doesn't check dates or descriptions, so glance over those as well.
 5. Choose **QuickBooks Online CSV** and download the file.
 
+<!-- if prices -->
+
 Converting one statement at a time is free and needs no account. With Pro or the Catch-up Pass you can convert many statements at once, or merge them into one file. The free CSV is all QuickBooks Online needs.
 
 If you merge many statements into one file, keep QuickBooks' limits in mind: 1,000 lines and 350 KB per upload. For a large catch-up job, upload a few months at a time.
+
+<!-- else -->
+
+Converting one statement at a time is free and needs no account. Converting many statements at once and merging them into one file are not available yet. The free CSV is all QuickBooks Online needs.
+
+Keep QuickBooks' limits in mind: 1,000 lines and 350 KB per upload. For a large catch-up job, upload a few months at a time.
+
+<!-- endif -->
 
 ## Step 3: Upload the file to QuickBooks Online
 

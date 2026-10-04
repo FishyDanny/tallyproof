@@ -32,9 +32,19 @@ Once the file is in Excel, a quick `=SUM()` of the signed amount column should e
 
 ## Limits to know about
 
+<!-- if prices -->
+
 - **Text PDFs only.** If you can't select words in the PDF, it's a scan and can't be read.
 - **Amounts need two decimal places,** such as 45.00.
 - **One statement at a time on the free version.** Pro (US$9 a month or US$69 a year) and the Catch-up Pass (US$19 one-off, 30 days of Pro) convert many statements at once and merge them into one file, with rows repeated across overlapping statements removed. That's handy for a full year in one spreadsheet.
+
+<!-- else -->
+
+- **Text PDFs only.** If you can't select words in the PDF, it's a scan and can't be read.
+- **Amounts need two decimal places,** such as 45.00.
+- **One statement at a time for now.** Converting many statements at once and merging them into one file are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged.
+
+<!-- endif -->
 
 ## Step-by-step guides
 

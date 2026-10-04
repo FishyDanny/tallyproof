@@ -8,6 +8,8 @@ const guides = defineCollection({
     title: z.string(),
     description: z.string().max(170),
     slug: z.string().optional(),
+    /** Used instead of `description` while PRICES_VISIBLE is false. */
+    descriptionEarlyAccess: z.string().max(170).optional(),
   }),
 });
 
@@ -16,6 +18,8 @@ const legal = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().max(170),
+    /** Used instead of `description` while PRICES_VISIBLE is false. */
+    descriptionEarlyAccess: z.string().max(170).optional(),
   }),
 });
 
@@ -27,6 +31,9 @@ const destinations = defineCollection({
     slug: z.string().optional(),
     heading: z.string(),
     intro: z.string(),
+    /** Used instead of `description` and `intro` while PRICES_VISIBLE is false. */
+    descriptionEarlyAccess: z.string().max(170).optional(),
+    introEarlyAccess: z.string().optional(),
   }),
 });
 

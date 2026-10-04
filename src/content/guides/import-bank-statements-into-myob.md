@@ -1,6 +1,7 @@
 ---
 title: "How to import PDF bank statements into MYOB Business and AccountRight"
 description: "MYOB imports bank statements as QIF or OFX files, not CSV or PDF. How to convert PDF statements, import them, and avoid duplicates with bank feeds."
+descriptionEarlyAccess: "MYOB imports bank statements as QIF or OFX files, not CSV or PDF. What MYOB accepts, how to import a file, and how to avoid duplicates with bank feeds."
 slug: import-bank-statements-into-myob
 ---
 
@@ -16,7 +17,15 @@ According to MYOB's support article on importing bank and credit card statements
 
 CSV and PDF are not on either list. If you have used other converters that only produce CSV, that's why MYOB rejects the file.
 
+<!-- if prices -->
+
 **What this means for Tallyproof.** Tallyproof's free version converts statements to CSV only, which MYOB will not import as a bank statement. To get a file MYOB accepts, you need Tallyproof's OFX or QIF export, which is part of Tallyproof Pro (US$9 a month or US$69 a year) or the Catch-up Pass (US$19, one-off, 30 days of Pro). The Catch-up Pass is designed for exactly this kind of one-off backfill job. We would rather tell you this up front than have you find out at the import step.
+
+<!-- else -->
+
+**What this means for Tallyproof.** Tallyproof's free version converts statements to CSV only, which MYOB will not import as a bank statement. Tallyproof's OFX and QIF exports are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged. Until then, Tallyproof can't produce a file MYOB accepts. We would rather tell you this up front than have you find out at the import step.
+
+<!-- endif -->
 
 AccountRight also has a separate "import data" feature for text files (customers, items, accounts and some other records). We have not confirmed whether it is a practical route for bank statement lines, so this guide sticks to the bank statement import that MYOB documents for this purpose.
 
@@ -30,6 +39,8 @@ Log in to your online banking and download the PDF statements for the period you
 
 Note the first and last date of the period. You'll need them in Step 4.
 
+<!-- if prices -->
+
 ## Step 2: Convert the statements to OFX or QIF
 
 1. Open [Tallyproof](https://tallyproof.pages.dev) in your browser and enter your licence key to unlock Pro.
@@ -37,6 +48,16 @@ Note the first and last date of the period. You'll need them in Step 4.
 3. Tallyproof checks every transaction against the running balance printed on the statement (previous balance plus amount should equal the printed balance) and flags any row that doesn't match. For statements with no running balance, as on most credit cards, it checks that the opening balance plus all transactions equals the closing balance.
 4. Review every flagged row against the PDF and note any that are wrong, so you can correct them in MYOB after importing. The balance check is about amounts, so also give the dates and descriptions a quick look.
 5. Export as **OFX**. We recommend OFX over QIF: both MYOB Business and AccountRight accept it, and OFX stores dates in a fixed year-month-day form that cannot be misread, while QIF dates depend on the date format setting. If you are importing many statements for the same account, you can merge them into one file, as long as it stays under MYOB's 10 MB limit.
+
+<!-- else -->
+
+## Step 2: Get an OFX or QIF file
+
+Tallyproof can't produce an OFX or QIF file yet (see the note above), so there is no Tallyproof step here for now. If your bank offers OFX or QIF downloads for the period you need, use those and carry on at Step 3. They come straight from the bank and need no conversion.
+
+If PDFs are all you have, you can still convert each statement to CSV for free in [Tallyproof](https://tallyproof.pages.dev). It is read on your own computer and is not uploaded anywhere. Every row is checked against the running balance printed on the statement (previous balance plus amount should equal the printed balance), and any row that doesn't match is flagged. For statements with no running balance, as on most credit cards, it checks that the opening balance plus all transactions equals the closing balance. That gives you a verified list to type from. Review every flagged row against the PDF, and give the dates and descriptions a quick look, since the check is about amounts.
+
+<!-- endif -->
 
 ## Step 3: Import the file into MYOB
 
@@ -77,7 +98,15 @@ Imported transactions appear alongside your feed transactions, ready to match or
 
 ## If you only have one or two statements
 
+<!-- if prices -->
+
 For one or two short statements, typing the transactions into MYOB by hand may be quicker than buying anything. You can still use the free version of Tallyproof to get a verified CSV and work from that, since every row will already have been checked against the statement's balances.
+
+<!-- else -->
+
+For one or two short statements, typing the transactions into MYOB by hand may be quicker. You can still use the free version of Tallyproof to get a verified CSV and work from that, since every row will already have been checked against the statement's balances.
+
+<!-- endif -->
 
 ## Sources
 

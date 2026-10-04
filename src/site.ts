@@ -11,8 +11,4 @@ export const SITE = {
   },
 } as const;
 
-export const PRICES = {
-  monthly: 'US$9 / month',
-  yearly: 'US$69 / year',
-  pass: 'US$19 once',
-} as const;
+export { EARLY_ACCESS, PRICES, PRICES_VISIBLE } from './pricing.ts';

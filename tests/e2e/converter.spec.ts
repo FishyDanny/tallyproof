@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect, test } from '@playwright/test';
 import type { Page, Request } from '@playwright/test';
+import { PRICES_VISIBLE } from '../../src/pricing.ts';
+import { findPrices } from '../helpers/price-patterns.ts';
 
 const fixtures = join(import.meta.dirname, '..', 'fixtures');
 
@@ -88,7 +90,7 @@ test('explains that scanned statements are not supported', async ({ page }) => {
   await expect(page.getByTestId('summary')).toContainText('no text layer');
 });
 
-test('free version converts one file at a time and keeps Pro formats locked', async ({ page }) => {
+test('free version converts one file at a time and keeps OFX and QIF locked', async ({ page }) => {
   await openConverter(page);
   await page
     .getByTestId('file-input')
@@ -96,6 +98,23 @@ test('free version converts one file at a time and keeps Pro formats locked', as
   await expect(page.locator('.notice')).toContainText('one statement at a time');
   await expect(page.getByRole('button', { name: /Download OFX/ })).toBeDisabled();
   await expect(page.getByRole('button', { name: /Download QIF/ })).toBeDisabled();
+  await expect(page.getByRole('button', { name: /Download CSV/ })).toBeEnabled();
+  // Only the first statement was converted.
+  await expect(page.getByTestId('summary')).toContainText('au-debit-credit-balance.pdf');
+  await expect(page.getByTestId('summary')).not.toContainText('uk-paid-out-in.pdf');
+
+  if (PRICES_VISIBLE) {
+    await expect(page.locator('.notice')).toContainText('Pro converts many at once');
+    await expect(page.getByRole('button', { name: /Download OFX \(Pro\)/ })).toBeDisabled();
+  } else {
+    // The limit is the same, but nothing tells people to buy something that cannot be bought.
+    await expect(page.locator('.notice')).toContainText('are not available yet');
+    await expect(page.getByRole('button', { name: /Download OFX \(not available yet\)/ })).toBeDisabled();
+    await expect(page.getByRole('button', { name: /Download QIF \(not available yet\)/ })).toBeDisabled();
+    const converter = await page.locator('.converter').innerText();
+    expect(findPrices(converter)).toEqual([]);
+    expect(await page.getByTestId('exports').innerText()).not.toMatch(/\bPro\b/);
+  }
 });
 
 test('rejects files that are not PDFs', async ({ page }) => {

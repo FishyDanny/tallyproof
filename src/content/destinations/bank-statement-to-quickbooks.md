@@ -12,11 +12,19 @@ Choose **QuickBooks Online CSV** in the converter above. It's free, one statemen
 
 QuickBooks Online accepts CSV files in a 3-column layout (Date, Description, Amount) or a 4-column layout (Date, Description, Credit, Debit) ([Intuit](https://quickbooks.intuit.com/learn-support/en-global/help-article/bank-transactions/format-csv-files-excel-get-bank-transactions/L4BjLWckq_ROW_en)). Tallyproof's QuickBooks Online CSV uses the 3-column layout: one amount per row, negative for money out and positive for money in. Every row has exactly one number, so it's the easier layout to check by eye. Choose your usual date format before downloading and keep it the same for every file.
 
+<!-- if prices -->
+
 With Pro or the Catch-up Pass you can also export **OFX**, which QuickBooks Online accepts too. For most people the free CSV is all QuickBooks needs.
+
+<!-- else -->
+
+For most people the free CSV is all QuickBooks needs.
+
+<!-- endif -->
 
 ## Limits to know about
 
-- **Upload limits.** Intuit allows files of 350 KB or less, with up to 1,000 transaction lines per upload ([Intuit](https://quickbooks.intuit.com/learn-support/en-au/help-article/import-transactions/manually-upload-transactions-quickbooks-online/L0rE9OXBz_AU_en_AU)). If you merge many statements into one file, split a big catch-up job into a few months per upload.
+- **Upload limits.** Intuit allows files of 350 KB or less, with up to 1,000 transaction lines per upload ([Intuit](https://quickbooks.intuit.com/learn-support/en-au/help-article/import-transactions/manually-upload-transactions-quickbooks-online/L0rE9OXBz_AU_en_AU)). For a big catch-up job, upload a few months at a time.
 - **Text PDFs only.** If you can't select words in the PDF, it's a scan and can't be read.
 - **Amounts need two decimal places,** such as 45.00.
 - **Bank feed overlaps.** Don't rely on QuickBooks to spot that a line from your file and a line from the feed are the same transaction. Only upload the period before the feed starts, or untick the overlapping lines when you upload.
@@ -35,7 +43,15 @@ Intuit notes that CSV files for credit card accounts may show transactions the o
 
 ## Many statements?
 
+<!-- if prices -->
+
 With Pro (US$9 a month or US$69 a year) or the Catch-up Pass (US$19 one-off, 30 days of Pro), you can convert many statements at once and merge them into one file, with rows repeated across overlapping statements removed. Keep the 1,000-line limit in mind when merging.
+
+<!-- else -->
+
+Tallyproof converts one statement at a time for now, so upload one file per statement. Converting many statements at once and merging them into one file are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged.
+
+<!-- endif -->
 
 ## Step-by-step guides
 

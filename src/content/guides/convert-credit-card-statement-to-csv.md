@@ -55,7 +55,17 @@ Whatever software you use, the simple test is the same: before you finish an imp
 1. **Download the statement** as a PDF from your card issuer's website. Check it's a text PDF by trying to select a word; scanned statements can't be read.
 2. **Open [Tallyproof](https://tallyproof.pages.dev)** and choose the PDF. It is read in your browser with pdf.js and isn't uploaded anywhere. You can confirm this in your browser's developer tools (Network tab).
 3. **Check the result.** Tallyproof works out which amounts are purchases and which are credits from markers such as "CR" and minus signs, and aims to write them from your point of view: purchases negative, payments and refunds positive. Check a purchase and a payment you recognise. Then it checks opening balance plus transactions against the closing balance. If the check fails, compare the output with the PDF using the clues above. If a whole column has been read the wrong way, you can change the column's role in the converter and the check runs again.
-4. **Export.** The free version exports one statement at a time as a generic CSV, a Xero CSV or a QuickBooks Online CSV. Pro (US$9 a month or US$69 a year) and the one-off Catch-up Pass (US$19 for 30 days) add OFX and QIF exports and let you convert many statements at once, merged into one file.
+4. **Export.** The free version exports one statement at a time as a generic CSV, a Xero CSV or a QuickBooks Online CSV.
+
+<!-- if prices -->
+
+Pro (US$9 a month or US$69 a year) and the one-off Catch-up Pass (US$19 for 30 days) add OFX and QIF exports and let you convert many statements at once, merged into one file.
+
+<!-- else -->
+
+OFX and QIF exports, and converting many statements at once, are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged.
+
+<!-- endif -->
 
 Amounts need to be printed with two decimal places (such as 45.00); statements that print whole-dollar amounts aren't supported.
 
@@ -69,9 +79,19 @@ Amounts need to be printed with two decimal places (such as 45.00); statements t
 
 ## Importing the file
 
+<!-- if prices -->
+
 - **Xero:** import the Xero CSV into the credit card account, and check a purchase and a payment on the review screen. See [importing PDF bank statements into Xero](/guides/import-bank-statements-into-xero/).
 - **QuickBooks Online:** upload into a credit card account, and check the direction of a purchase and a payment at the mapping step. See [importing PDF bank statements into QuickBooks Online](/guides/import-bank-statements-into-quickbooks-online/).
 - **MYOB:** MYOB needs OFX or QIF, so this is a Pro feature. See [importing bank statements into MYOB](/guides/import-bank-statements-into-myob/).
+
+<!-- else -->
+
+- **Xero:** import the Xero CSV into the credit card account, and check a purchase and a payment on the review screen. See [importing PDF bank statements into Xero](/guides/import-bank-statements-into-xero/).
+- **QuickBooks Online:** upload into a credit card account, and check the direction of a purchase and a payment at the mapping step. See [importing PDF bank statements into QuickBooks Online](/guides/import-bank-statements-into-quickbooks-online/).
+- **MYOB:** MYOB needs OFX or QIF, which Tallyproof can't export yet. See [importing bank statements into MYOB](/guides/import-bank-statements-into-myob/).
+
+<!-- endif -->
 
 After importing, reconcile the card account using the closing balance on the statement. If your software agrees with the statement, the conversion was complete. For more ways to test a conversion, see [how to check a converted bank statement is accurate](/guides/check-converted-bank-statement-is-accurate/).
 

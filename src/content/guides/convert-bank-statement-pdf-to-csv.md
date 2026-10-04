@@ -79,7 +79,15 @@ Tallyproof is a browser-only converter built around the balance check. It's free
 4. **Review the verification.** Every row is checked against the printed running balance, and rows that don't match are flagged. If there's no running balance, the opening and closing balances are checked instead. Compare anything flagged with the PDF.
 5. **Choose a format and download.** The free version exports a generic CSV, a Xero CSV or a QuickBooks Online CSV.
 
+<!-- if prices -->
+
 If you have a backlog to get through, Pro (US$9 a month or US$69 a year) or the one-off Catch-up Pass (US$19 for 30 days of Pro) lets you convert many statements at once, merge them into one file, and export OFX or QIF files for software that doesn't take CSV.
+
+<!-- else -->
+
+If you have a backlog to get through, work through the statements one at a time for now. Converting many statements at once, merging them into one file, and exporting OFX or QIF files for software that doesn't take CSV are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged.
+
+<!-- endif -->
 
 Tallyproof can't read scanned (image-only) PDFs yet. If your statement is a scan, you'll need an OCR tool first.
 

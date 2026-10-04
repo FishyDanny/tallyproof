@@ -40,9 +40,19 @@ For the period before the feed, MYOB says to import bank statements. If you've s
 
 In order of preference:
 
+<!-- if prices -->
+
 1. **Download a file from your bank.** If online banking offers CSV, OFX or QIF downloads for the period you need, use those. They come straight from the bank and need no conversion. How far back these downloads go also varies by bank.
 2. **Convert the PDF statements.** If PDFs are all you have, convert them to a format your software accepts. With [Tallyproof](https://tallyproof.pages.dev), the PDF is read in your browser and never uploaded. Every row is checked against the running balance printed on the statement, or, where there's no running balance, the opening and closing balances are checked. The free version exports Xero CSV and QuickBooks Online CSV, one statement at a time. MYOB needs OFX or QIF, which come with Pro or the Catch-up Pass, as does converting many statements at once into one merged file.
 3. **Enter a few transactions by hand.** If only a handful are missing, typing them may be quicker. Xero notes that you can create the transactions and mark them as reconciled ([Xero Central](https://central.xero.com/s/article/About-manually-importing-bank-statements)).
+
+<!-- else -->
+
+1. **Download a file from your bank.** If online banking offers CSV, OFX or QIF downloads for the period you need, use those. They come straight from the bank and need no conversion. How far back these downloads go also varies by bank.
+2. **Convert the PDF statements.** If PDFs are all you have, convert them to a format your software accepts. With [Tallyproof](https://tallyproof.pages.dev), the PDF is read in your browser and never uploaded. Every row is checked against the running balance printed on the statement, or, where there's no running balance, the opening and closing balances are checked. The free version exports Xero CSV and QuickBooks Online CSV, one statement at a time. MYOB needs OFX or QIF, which Tallyproof can't export yet, and converting many statements at once into one merged file is not available yet.
+3. **Enter a few transactions by hand.** If only a handful are missing, typing them may be quicker. Xero notes that you can create the transactions and mark them as reconciled ([Xero Central](https://central.xero.com/s/article/About-manually-importing-bank-statements)).
+
+<!-- endif -->
 
 ## Watch the boundary with the feed
 

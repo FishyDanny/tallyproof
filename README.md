@@ -25,6 +25,19 @@ Real statements used for testing go in `private-fixtures/`, which is gitignored 
 
 Copy `.env.example` to `.env` and fill in the Polar organisation id, checkout links and support email (leave `PUBLIC_REPO_URL` empty while the repository is private: when it is set, the header and footer show a "Source code" link). All values are public (`PUBLIC_*`); no secrets are needed by the site.
 
+## Prices
+
+The site shows no prices and no buy, upgrade or subscribe buttons while `PRICES_VISIBLE` in `src/pricing.ts` is `false`, because checkout (Polar) is not set up and nobody can pay. Pages say that Tallyproof is free while in early access and that paid plans will come later. The free limits themselves (one statement at a time, CSV only) are unchanged.
+
+Markdown content keeps both wordings side by side, between `<!-- if prices -->`, `<!-- else -->` and `<!-- endif -->` markers on their own lines (`src/lib/remark-price-blocks.ts`). A build fails on a misplaced marker, and `tests/e2e/no-prices.spec.ts` fails if any built page, sitemap, script or structured-data block shows a price (`$9`, `$19`, `$69`, `US$`, "per month") or a buy-style call to action.
+
+To bring prices back once a test purchase works end to end:
+
+1. Run `pnpm polar:setup` so that the three `PUBLIC_CHECKOUT_*` values are set (a build with prices on refuses to run without them).
+2. Set `PRICES_VISIBLE` to `true` in `src/pricing.ts`, and change the matching expectation in `tests/unit/content-prices.test.ts`.
+3. Delete `.astro` and `node_modules/.astro` (the content cache does not notice a flag change), then run `pnpm verify` and deploy.
+4. Review the effective dates and wording of the terms and privacy pages (`src/content/legal/`), which carry separate text for each state.
+
 ## Privacy, and how to check it
 
 The repository is private. The privacy claim does not depend on reading the source:

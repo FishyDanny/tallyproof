@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { byPriceVisibility } from '../../pricing.ts';
 
 const guides = (await getCollection('guides')).sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
@@ -14,7 +15,7 @@ const guides = (await getCollection('guides')).sort((a, b) => a.data.title.local
           <li>
             <a href={`/guides/${g.data.slug ?? g.id}/`}>
               {g.data.title}
-              <span>{g.data.description}</span>
+              <span>{byPriceVisibility(g.data.description, g.data.descriptionEarlyAccess ?? g.data.description)}</span>
             </a>
           </li>
         ))

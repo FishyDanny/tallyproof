@@ -1,18 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
 import Plans from '../components/Plans.astro';
+import { byPriceVisibility, EARLY_ACCESS } from '../pricing.ts';
+
+const title = byPriceVisibility('Pricing', 'Pricing: free while in early access');
+const description = byPriceVisibility(
+  'Tallyproof is free for one statement at a time. Pro converts and merges many statements at once and adds OFX and QIF exports.',
+  `Tallyproof is free while in early access: one statement at a time to CSV, with every row checked. ${EARLY_ACCESS.promise}`,
+);
 ---
 
-<Base
-  title="Pricing"
-  description="Tallyproof is free for one statement at a time. Pro converts and merges many statements at once and adds OFX and QIF exports."
->
+<Base title={title} description={description}>
   <div class="wrap">
     <h1>Pricing</h1>
-    <p class="lede">
-      The converter and the balance check are free. Pay only if you need to convert many statements at once, merge them, or export OFX
-      and QIF files.
-    </p>
+    {
+      byPriceVisibility(
+        <p class="lede">
+          The converter and the balance check are free. Pay only if you need to convert many statements at once, merge them, or export OFX
+          and QIF files.
+        </p>,
+        <p class="lede">
+          {EARLY_ACCESS.headline} The converter and the balance check cost nothing today. Converting many statements at once, merging them
+          and exporting OFX and QIF files are not available yet. {EARLY_ACCESS.promise}
+        </p>,
+      )
+    }
     <Plans />
   </div>
 </Base>

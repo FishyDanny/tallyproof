@@ -135,5 +135,8 @@ if (DRY_RUN) {
   console.log('Dry run complete; .env was not changed.');
 } else {
   writeEnvValues(checkoutValues);
-  console.log('Checkout links written to .env. Rebuild and redeploy the site to show the Buy buttons.');
+  console.log(
+    'Checkout links written to .env. The site still shows no prices. After a test purchase works, set PRICES_VISIBLE to true in ' +
+      'src/pricing.ts, delete .astro and node_modules/.astro, then rebuild and redeploy to show the prices and Buy buttons.',
+  );
 }

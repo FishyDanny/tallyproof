@@ -12,7 +12,11 @@ Choose **Xero CSV** in the converter above. It's free, one statement at a time, 
 
 The Xero CSV puts money in and money out in a single amount column, with money in as positive amounts and money out as negative, which is the layout Xero asks for ([Xero Central](https://central.xero.com/s/article/Import-a-CSV-bank-statement)). Before you download, pick the date order your organisation normally uses. If a file contains dates that could be read more than one way, Xero asks you to confirm the format and applies your choice to future CSV imports too ([Xero Central](https://central.xero.com/s/article/Import-a-CSV-bank-statement)), so make sure it's right the first time.
 
+<!-- if prices -->
+
 If you have Pro or the Catch-up Pass, **OFX** is a good alternative. Xero recommends OFX where possible ([Xero Central](https://central.xero.com/s/article/About-manually-importing-bank-statements)), and OFX dates are always written year first, so they can't be misread. Either format works; CSV is easier to look over before importing.
+
+<!-- endif -->
 
 ## Why convert at all?
 
@@ -39,7 +43,15 @@ For a credit card account, Xero wants payments as positive amounts and purchases
 
 ## Many statements?
 
+<!-- if prices -->
+
 The free version converts one statement at a time. With Pro (US$9 a month or US$69 a year) or the Catch-up Pass (US$19 one-off, 30 days of Pro), you can add many statements at once and merge them into one file, with rows repeated across overlapping statements removed.
+
+<!-- else -->
+
+Tallyproof converts one statement at a time for now. Converting many statements at once and merging them into one file are not available yet. They are planned for a paid plan later, and we'll announce the price before anything is charged.
+
+<!-- endif -->
 
 ## Step-by-step guides
 

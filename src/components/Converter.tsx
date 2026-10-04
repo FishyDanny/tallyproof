@@ -10,6 +10,7 @@ import type { ColumnRole, ConversionOptions, ConversionResult, DateOrder, PageTe
 import { downloadFile } from '../lib/download.ts';
 import { preloadPdfJs, readStatement } from '../lib/pdf-browser.ts';
 import { isActive, licenceConfig, loadStoredLicence, needsRecheck, validateLicence } from '../lib/licence.ts';
+import { PRICES_VISIBLE } from '../pricing.ts';
 import { CURRENCIES, loadCurrency, loadDateFormat, saveCurrency, saveDateFormat } from '../lib/settings.ts';
 import type { Currency } from '../lib/settings.ts';
 import type { LicenceState } from '../lib/licence.ts';
@@ -96,8 +97,12 @@ export default function Converter() {
       let files = pdfs;
       if (!pro && pdfs.length > 1) {
         files = pdfs.slice(0, 1);
+        const name = pdfs[0]?.name ?? '';
+        // A conditional on the constant, not a helper call, so the unused wording is dropped from the built script.
         setNotice(
-          `The free version converts one statement at a time, so only "${pdfs[0]?.name ?? ''}" was converted. Pro converts many at once and merges them into one file.`,
+          PRICES_VISIBLE
+            ? `The free version converts one statement at a time, so only "${name}" was converted. Pro converts many at once and merges them into one file.`
+            : `Statements are converted one statement at a time for now, so only "${name}" was converted. Converting many at once and merging them into one file are not available yet.`,
         );
       } else {
         setNotice(null);
@@ -322,11 +327,11 @@ export default function Converter() {
                   key={format}
                   class={locked || mergedLocked ? 'locked' : ''}
                   disabled={locked || mergedLocked || viewTransactions.length === 0}
-                  title={locked ? 'Available with Pro' : undefined}
+                  title={locked ? (PRICES_VISIBLE ? 'Available with Pro' : 'Not available yet') : undefined}
                   onClick={() => exportAs(format)}
                 >
                   Download {FORMAT_LABELS[format]}
-                  {locked ? ' (Pro)' : ''}
+                  {locked ? (PRICES_VISIBLE ? ' (Pro)' : ' (not available yet)') : ''}
                 </button>
               );
             })}
