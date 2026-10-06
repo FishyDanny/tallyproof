@@ -48,4 +48,4 @@ The repository is private. The privacy claim does not depend on reading the sour
 
 ## Licence
 
-`LICENSE` (AGPL-3.0) and the `license` field in `package.json` date from when this code was public (2-3 October 2026). The licence for the code from now on is an open decision for the owner; until it is made, those files are unchanged.
+The code is proprietary: all rights reserved (see `LICENSE`, and `"license": "UNLICENSED"` in `package.json`). Copies taken while the repository was public on 2 and 3 October 2026 keep their AGPL-3.0 rights for that version only.

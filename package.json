@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Convert PDF bank statements to CSV in your browser. Nothing is uploaded; every row is checked against the running balance.",
-  "license": "AGPL-3.0-only",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
