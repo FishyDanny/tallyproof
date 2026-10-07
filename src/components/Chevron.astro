@@ -1,0 +1,13 @@
+---
+interface Props {
+  /** Which way the chevron points. */
+  direction?: 'right' | 'left';
+}
+
+const { direction = 'right' } = Astro.props;
+const path = direction === 'right' ? 'M6 3.5 10.5 8 6 12.5' : 'M10 3.5 5.5 8 10 12.5';
+---
+
+<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+  <path d={path} fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

@@ -1,3 +1,5 @@
+import type { RowArithmetic } from './types.ts';
+
 /** Explicit sign markers found on a printed money value. */
 export type SignMarker = 'negative' | 'positive' | 'none';
 
@@ -68,4 +70,14 @@ export function displayCents(cents: number): string {
   const whole = Math.floor(abs / 100).toLocaleString('en-AU');
   const frac = String(abs % 100).padStart(2, '0');
   return `${sign}${whole}.${frac}`;
+}
+
+/**
+ * The sum behind a flagged row, in the form the worked example on the home page uses:
+ * previous balance, then plus or minus the movement, then the expected balance,
+ * e.g. "3,367.60 - 196.00 = 3,171.60".
+ */
+export function displayArithmetic(a: RowArithmetic): string {
+  const operator = a.effectCents < 0 ? '-' : '+';
+  return `${displayCents(a.previousCents)} ${operator} ${displayCents(Math.abs(a.effectCents))} = ${displayCents(a.expectedCents)}`;
 }

@@ -14,6 +14,7 @@ import { PRICES_VISIBLE } from '../pricing.ts';
 import { CURRENCIES, loadCurrency, loadDateFormat, saveCurrency, saveDateFormat } from '../lib/settings.ts';
 import type { Currency } from '../lib/settings.ts';
 import type { LicenceState } from '../lib/licence.ts';
+import { AlertMark, DocMark, SealMark } from './Marks.tsx';
 import { LicencePanel } from './LicencePanel.tsx';
 import { PrivacyMeter } from './PrivacyMeter.tsx';
 import { ResultTable } from './ResultTable.tsx';
@@ -175,6 +176,27 @@ export default function Converter() {
     );
   };
 
+  // Formats that cannot be used yet sit on their own quieter row, after the ones that work.
+  const formats = Object.keys(FORMAT_LABELS) as ExportFormat[];
+  const isProLocked = (format: ExportFormat): boolean => PRO_FORMATS.has(format) && !pro;
+  const isLocked = (format: ExportFormat): boolean => isProLocked(format) || (activeId === 'merged' && !pro);
+  const exportButton = (format: ExportFormat, locked: boolean) => {
+    const proLocked = isProLocked(format);
+    return (
+      <button
+        type="button"
+        key={format}
+        class={locked ? 'locked' : ''}
+        disabled={locked || viewTransactions.length === 0}
+        title={proLocked ? (PRICES_VISIBLE ? 'Available with Pro' : 'Not available yet') : undefined}
+        onClick={() => exportAs(format)}
+      >
+        Download {FORMAT_LABELS[format]}
+        {proLocked ? (PRICES_VISIBLE ? ' (Pro)' : ' (not available yet)') : ''}
+      </button>
+    );
+  };
+
   const reset = () => {
     setStatements([]);
     setFailed([]);
@@ -186,165 +208,164 @@ export default function Converter() {
 
   return (
     <div class="converter">
-      <label
-        class={`dropzone ${dragging ? 'dragging' : ''} ${busy ? 'busy' : ''}`}
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={onDrop}
-      >
-        <input
-          ref={inputRef}
-          type="file"
-          accept="application/pdf,.pdf"
-          multiple
-          data-testid="file-input"
-          onChange={(e) => {
-            const files = e.currentTarget.files;
-            if (files) void handleFiles(files);
+      <div class="converter-bar">Bank statement converter</div>
+      <div class="converter-body">
+        <label
+          class={`dropzone ${dragging ? 'dragging' : ''} ${busy ? 'busy' : ''}`}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragging(true);
           }}
-        />
-        <span class="dropzone-title">{busy ? 'Reading your statement…' : 'Choose a PDF bank statement'}</span>
-        <span class="dropzone-sub">or drag it here. It is read on this device and never uploaded.</span>
-      </label>
+          onDragLeave={() => setDragging(false)}
+          onDrop={onDrop}
+        >
+          <input
+            ref={inputRef}
+            type="file"
+            accept="application/pdf,.pdf"
+            multiple
+            data-testid="file-input"
+            onChange={(e) => {
+              const files = e.currentTarget.files;
+              if (files) void handleFiles(files);
+            }}
+          />
+          <DocMark class="doc-mark" />
+          <span class="dropzone-title">{busy ? 'Reading your statement…' : 'Choose a PDF bank statement'}</span>
+          <span class="dropzone-sub">or drag it here. It is read on this device and never uploaded.</span>
+        </label>
 
-      <PrivacyMeter since={chosenAt} />
-      {notice && <p class="notice" role="status">{notice}</p>}
-      {failed.map((f) => (
-        <p class="error" role="alert" key={f.fileName}>
-          <strong>{f.fileName}:</strong> {f.message}
-        </p>
-      ))}
+        <PrivacyMeter since={chosenAt} />
+        {notice && (
+          <p class="notice" role="status">
+            <AlertMark class="note-mark" />
+            <span>{notice}</span>
+          </p>
+        )}
+        {failed.map((f) => (
+          <p class="error" role="alert" key={f.fileName}>
+            <AlertMark class="note-mark" />
+            <span>
+              <strong>{f.fileName}:</strong> {f.message}
+            </span>
+          </p>
+        ))}
 
-      {statements.length > 0 && (
-        <section class="results" aria-label="Conversion results" data-testid="results">
-          {statements.length > 1 && (
-            <div class="tabs" role="tablist">
-              <button type="button" role="tab" aria-selected={activeId === 'merged'} onClick={() => setActiveId('merged')}>
-                All statements merged
-              </button>
-              {statements.map((s) => (
-                <button type="button" role="tab" key={s.id} aria-selected={activeId === s.id} onClick={() => setActiveId(s.id)}>
-                  {s.fileName}
+        {statements.length > 0 && (
+          <section class="results" aria-label="Conversion results" data-testid="results">
+            {statements.length > 1 && (
+              <div class="tabs" role="tablist">
+                <button type="button" role="tab" aria-selected={activeId === 'merged'} onClick={() => setActiveId('merged')}>
+                  All statements merged
                 </button>
-              ))}
-            </div>
-          )}
-
-          {active && <Summary statement={active} />}
-          {activeId === 'merged' && merged && (
-            <p class="summary-line">
-              {merged.transactions.length} transactions from {statements.length} statements
-              {merged.duplicatesRemoved > 0 ? `, ${merged.duplicatesRemoved} duplicate rows from overlapping statements removed` : ''}.
-            </p>
-          )}
-
-          <div class="controls">
-            <label>
-              Date format in export
-              <select
-                value={effectiveDateFormat}
-                onChange={(e) => {
-                  const value = e.currentTarget.value as DateFormat;
-                  setDateFormat(value);
-                  saveDateFormat(value);
-                }}
-              >
-                <option value="dd/mm/yyyy">dd/mm/yyyy</option>
-                <option value="mm/dd/yyyy">mm/dd/yyyy</option>
-                <option value="yyyy-mm-dd">yyyy-mm-dd</option>
-              </select>
-            </label>
-            <label>
-              Currency (OFX files)
-              <select
-                value={currency}
-                onChange={(e) => {
-                  const value = e.currentTarget.value as Currency;
-                  setCurrency(value);
-                  saveCurrency(value);
-                }}
-              >
-                {CURRENCIES.map((c) => (
-                  <option value={c} key={c}>
-                    {c}
-                  </option>
+                {statements.map((s) => (
+                  <button type="button" role="tab" key={s.id} aria-selected={activeId === s.id} onClick={() => setActiveId(s.id)}>
+                    {s.fileName}
+                  </button>
                 ))}
-              </select>
-            </label>
-            {active && (
-              <>
-                <label>
-                  Dates on the statement are
-                  <select
-                    value={active.options.dateOrder ?? 'auto'}
-                    onChange={(e) => {
-                      const v = e.currentTarget.value;
-                      updateOptions(active.id, v === 'auto' ? { dateOrder: undefined } : { dateOrder: v as DateOrder });
-                    }}
-                  >
-                    <option value="auto">Detected automatically ({active.result.dateOrder})</option>
-                    <option value="dmy">Day first (31/01)</option>
-                    <option value="mdy">Month first (01/31)</option>
-                  </select>
-                </label>
-                {active.result.columns.length > 0 && (
-                  <details class="columns">
-                    <summary>Columns found ({active.result.columns.length})</summary>
-                    <p>If amounts look wrong, tell the converter what each money column holds.</p>
-                    {[...active.result.columns]
-                      .sort((a, b) => a.right - b.right)
-                      .map((col, i) => (
-                        <label key={col.id}>
-                          Money column {i + 1}
-                          <select
-                            value={col.role}
-                            onChange={(e) => updateOptions(active.id, { columnRoles: { [col.id]: e.currentTarget.value as ColumnRole } })}
-                          >
-                            {(Object.keys(ROLE_LABELS) as ColumnRole[]).map((r) => (
-                              <option value={r} key={r}>
-                                {ROLE_LABELS[r]}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
-                      ))}
-                  </details>
-                )}
-              </>
+              </div>
             )}
-          </div>
 
-          <div class="exports" data-testid="exports">
-            {(Object.keys(FORMAT_LABELS) as ExportFormat[]).map((format) => {
-              const locked = PRO_FORMATS.has(format) && !pro;
-              const mergedLocked = activeId === 'merged' && !pro;
-              return (
-                <button
-                  type="button"
-                  key={format}
-                  class={locked || mergedLocked ? 'locked' : ''}
-                  disabled={locked || mergedLocked || viewTransactions.length === 0}
-                  title={locked ? (PRICES_VISIBLE ? 'Available with Pro' : 'Not available yet') : undefined}
-                  onClick={() => exportAs(format)}
+            {active && <Summary statement={active} />}
+            {activeId === 'merged' && merged && (
+              <p class="summary-line">
+                {merged.transactions.length} transactions from {statements.length} statements
+                {merged.duplicatesRemoved > 0 ? `, ${merged.duplicatesRemoved} duplicate rows from overlapping statements removed` : ''}.
+              </p>
+            )}
+
+            <div class="controls">
+              <label>
+                Date format in export
+                <select
+                  value={effectiveDateFormat}
+                  onChange={(e) => {
+                    const value = e.currentTarget.value as DateFormat;
+                    setDateFormat(value);
+                    saveDateFormat(value);
+                  }}
                 >
-                  Download {FORMAT_LABELS[format]}
-                  {locked ? (PRICES_VISIBLE ? ' (Pro)' : ' (not available yet)') : ''}
+                  <option value="dd/mm/yyyy">dd/mm/yyyy</option>
+                  <option value="mm/dd/yyyy">mm/dd/yyyy</option>
+                  <option value="yyyy-mm-dd">yyyy-mm-dd</option>
+                </select>
+              </label>
+              <label>
+                Currency (OFX files)
+                <select
+                  value={currency}
+                  onChange={(e) => {
+                    const value = e.currentTarget.value as Currency;
+                    setCurrency(value);
+                    saveCurrency(value);
+                  }}
+                >
+                  {CURRENCIES.map((c) => (
+                    <option value={c} key={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              {active && (
+                <>
+                  <label>
+                    Dates on the statement are
+                    <select
+                      value={active.options.dateOrder ?? 'auto'}
+                      onChange={(e) => {
+                        const v = e.currentTarget.value;
+                        updateOptions(active.id, v === 'auto' ? { dateOrder: undefined } : { dateOrder: v as DateOrder });
+                      }}
+                    >
+                      <option value="auto">Detected automatically ({active.result.dateOrder})</option>
+                      <option value="dmy">Day first (31/01)</option>
+                      <option value="mdy">Month first (01/31)</option>
+                    </select>
+                  </label>
+                  {active.result.columns.length > 0 && (
+                    <details class="columns">
+                      <summary>Columns found ({active.result.columns.length})</summary>
+                      <p>If amounts look wrong, tell the converter what each money column holds.</p>
+                      {[...active.result.columns]
+                        .sort((a, b) => a.right - b.right)
+                        .map((col, i) => (
+                          <label key={col.id}>
+                            Money column {i + 1}
+                            <select
+                              value={col.role}
+                              onChange={(e) => updateOptions(active.id, { columnRoles: { [col.id]: e.currentTarget.value as ColumnRole } })}
+                            >
+                              {(Object.keys(ROLE_LABELS) as ColumnRole[]).map((r) => (
+                                <option value={r} key={r}>
+                                  {ROLE_LABELS[r]}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        ))}
+                    </details>
+                  )}
+                </>
+              )}
+            </div>
+
+            <div class="exports" data-testid="exports">
+              <div class="exports-main">
+                <div class="exports-downloads">{formats.filter((format) => !isLocked(format)).map((format) => exportButton(format, false))}</div>
+                <button type="button" class="secondary" onClick={reset}>
+                  Start again
                 </button>
-              );
-            })}
-            <button type="button" class="secondary" onClick={reset}>
-              Start again
-            </button>
-          </div>
+              </div>
+              {formats.some(isLocked) && <div class="exports-later">{formats.filter(isLocked).map((format) => exportButton(format, true))}</div>}
+            </div>
 
-          <ResultTable transactions={viewTransactions} />
-        </section>
-      )}
+            <ResultTable transactions={viewTransactions} />
+          </section>
+        )}
 
-      <LicencePanel licence={licence} onChange={setLicence} configured={licensing !== null} />
+        <LicencePanel licence={licence} onChange={setLicence} configured={licensing !== null} />
+      </div>
     </div>
   );
 }
@@ -355,26 +376,29 @@ function Summary({ statement }: { statement: Statement }) {
   const allGood = s.mismatched === 0 && s.unchecked === 0 && s.transactions > 0;
   return (
     <div class={`summary ${allGood ? 'good' : s.mismatched > 0 ? 'bad' : 'partial'}`} data-testid="summary">
-      <p class="summary-line">
-        <strong>{s.transactions} transactions</strong> found in {statement.fileName}.{' '}
-        <span data-testid="verified-count">{s.verified} checked against the printed balance</span>
-        {s.mismatched > 0 && <span class="bad-text">, {s.mismatched} need checking</span>}
-        {s.unchecked > 0 && <span>, {s.unchecked} could not be checked</span>}.
-      </p>
-      <p class="totals">
-        Money in {displayCents(s.moneyInCents)} &middot; Money out {displayCents(s.moneyOutCents)}
-        {result.balance.openingCents !== null && <> &middot; Opening {displayCents(result.balance.openingCents)}</>}
-        {result.balance.closingCents !== null && <> &middot; Closing {displayCents(result.balance.closingCents)}</>}
-        {result.balance.totalsMatch === true && <> &middot; Totals add up</>}
-        {result.liabilityBalance && <> &middot; Credit card or loan statement</>}
-      </p>
-      {result.warnings.length > 0 && (
-        <ul class="warnings">
-          {result.warnings.map((w) => (
-            <li key={w}>{w}</li>
-          ))}
-        </ul>
-      )}
+      {allGood ? <SealMark class="summary-mark" /> : <AlertMark class="summary-mark" />}
+      <div>
+        <p class="summary-line">
+          <strong>{s.transactions} transactions</strong> found in {statement.fileName}.{' '}
+          <span data-testid="verified-count">{s.verified} checked against the printed balance</span>
+          {s.mismatched > 0 && <span class="bad-text">, {s.mismatched} need checking</span>}
+          {s.unchecked > 0 && <span>, {s.unchecked} could not be checked</span>}.
+        </p>
+        <p class="totals">
+          Money in {displayCents(s.moneyInCents)} &middot; Money out {displayCents(s.moneyOutCents)}
+          {result.balance.openingCents !== null && <> &middot; Opening {displayCents(result.balance.openingCents)}</>}
+          {result.balance.closingCents !== null && <> &middot; Closing {displayCents(result.balance.closingCents)}</>}
+          {result.balance.totalsMatch === true && <> &middot; Totals add up</>}
+          {result.liabilityBalance && <> &middot; Credit card or loan statement</>}
+        </p>
+        {result.warnings.length > 0 && (
+          <ul class="warnings">
+            {result.warnings.map((w) => (
+              <li key={w}>{w}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,13 @@
 ---
 import { EARLY_ACCESS, PRICES, PRICES_VISIBLE, SITE } from '../site.ts';
 
+interface Props {
+  /** Heading level for the plan names: 2 when the page has no heading above them, otherwise 3. */
+  level?: 2 | 3;
+}
+
+const { level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
 const ready = SITE.checkout.monthly.length > 0;
 ---
 
@@ -9,7 +16,7 @@ const ready = SITE.checkout.monthly.length > 0;
     <>
       <div class="plans">
         <section class="plan">
-          <h3>Free</h3>
+          <Heading>Free</Heading>
           <p class="price">US$0</p>
           <ul>
             <li>One statement at a time, as many as you like</li>
@@ -22,7 +29,7 @@ const ready = SITE.checkout.monthly.length > 0;
           </a>
         </section>
         <section class="plan featured">
-          <h3>Catch-up Pass</h3>
+          <Heading>Catch-up Pass</Heading>
           <p class="price">{PRICES.pass}</p>
           <ul>
             <li>30 days of Pro, no subscription</li>
@@ -38,7 +45,7 @@ const ready = SITE.checkout.monthly.length > 0;
           )}
         </section>
         <section class="plan">
-          <h3>Pro</h3>
+          <Heading>Pro</Heading>
           <p class="price">{PRICES.monthly}</p>
           <p class="fine">or {PRICES.yearly}</p>
           <ul>
@@ -70,7 +77,7 @@ const ready = SITE.checkout.monthly.length > 0;
     <>
       <div class="plans">
         <section class="plan featured">
-          <h3>{EARLY_ACCESS.headline}</h3>
+          <Heading>{EARLY_ACCESS.headline}</Heading>
           <p class="price">Free</p>
           <ul>
             <li>One statement at a time, as many as you like</li>
@@ -78,12 +85,13 @@ const ready = SITE.checkout.monthly.length > 0;
             <li>CSV, Xero CSV and QuickBooks Online CSV</li>
             <li>No account, nothing uploaded</li>
           </ul>
-          <a class="button secondary" href="/#convert">
+          {/* The only plan while prices are hidden, so its action is the primary one. */}
+          <a class="button" href="/#convert">
             Convert a statement
           </a>
         </section>
-        <section class="plan">
-          <h3>Paid plans, later</h3>
+        <section class="plan later">
+          <Heading>Paid plans, later</Heading>
           <p class="price">Not available yet</p>
           <ul>
             <li>Convert many statements at once</li>

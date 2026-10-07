@@ -7,15 +7,17 @@ const guides = (await getCollection('guides')).sort((a, b) => a.data.title.local
 ---
 
 <Base title="Guides" description="Step-by-step guides for getting bank statement transactions into Excel, Xero, QuickBooks Online and MYOB.">
-  <div class="wrap narrow">
-    <h1>Guides</h1>
-    <ul class="card-list">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Guides</h1>
+    </header>
+    <ul class="index-list">
       {
         guides.map((g) => (
           <li>
             <a href={`/guides/${g.data.slug ?? g.id}/`}>
-              {g.data.title}
-              <span>{byPriceVisibility(g.data.description, g.data.descriptionEarlyAccess ?? g.data.description)}</span>
+              <span class="title">{g.data.title}</span>
+              <span class="desc">{byPriceVisibility(g.data.description, g.data.descriptionEarlyAccess ?? g.data.description)}</span>
             </a>
           </li>
         ))

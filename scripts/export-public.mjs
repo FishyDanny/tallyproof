@@ -27,6 +27,7 @@ const PUBLIC_PATHS = [
   '.gitignore',
   '.gitattributes',
   '.env.example',
+  '.github',
 ];
 
 const target = process.argv[2];

@@ -1,0 +1,43 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { tocItems, wantsToc } from '../lib/toc.ts';
+
+interface Props {
+  headings: MarkdownHeading[];
+  /** The rail sits beside the text on wide screens; the inline list sits above it on narrow ones. */
+  variant: 'rail' | 'inline';
+}
+
+const { headings, variant } = Astro.props;
+const items = tocItems(headings);
+const show = wantsToc(headings);
+---
+
+{
+  show && variant === 'rail' && (
+    <nav class="toc toc-rail" aria-label="On this page">
+      <p class="toc-title">On this page</p>
+      <ol>
+        {items.map((item) => (
+          <li>
+            <a href={`#${item.slug}`}>{item.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+{
+  show && variant === 'inline' && (
+    <details class="toc toc-inline">
+      <summary>On this page</summary>
+      <ol>
+        {items.map((item) => (
+          <li>
+            <a href={`#${item.slug}`}>{item.text}</a>
+          </li>
+        ))}
+      </ol>
+    </details>
+  )
+}

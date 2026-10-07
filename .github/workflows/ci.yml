@@ -1,0 +1,39 @@
+name: CI
+
+# Typecheck, lint, unit tests and a production build on every push and pull request.
+# No secrets are used: every value the site reads is a public PUBLIC_* variable with a safe default.
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          # package.json has no packageManager field, so the version is pinned here.
+          version: 11.21.0
+      - uses: actions/setup-node@v4
+        with:
+          # No .nvmrc or engines field; Node 24 matches the other Campsite repos and local development.
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build
+      # Left out: `pnpm test:e2e` (the last step of `pnpm verify`). The Playwright suite needs
+      # browser binaries (chromium for the desktop project and the Pixel 7 emulation) that are
+      # not installed on a plain runner, and it would add a browser download to every run.
+      # Run it locally with `pnpm verify` before deploying.

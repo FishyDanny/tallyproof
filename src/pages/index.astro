@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Converter from '../components/Converter.tsx';
 import Plans from '../components/Plans.astro';
+import Chevron from '../components/Chevron.astro';
+import { FlagMark, TickMark } from '../components/Marks.tsx';
 import { SITE } from '../site.ts';
 
 const description =
@@ -21,90 +23,145 @@ const jsonLd = {
 
 <Base title={SITE.name} description={description} jsonLd={jsonLd}>
   <div class="wrap">
-    <p class="eyebrow">Bank statement converter</p>
-    <h1>Turn PDF bank statements into CSV, checked row by row</h1>
-    <p class="lede">
-      Get transactions out of a PDF statement and into Excel, Xero or QuickBooks. Your file is read on this device and never uploaded.
-      Every row is checked against the statement's own running balance, so mistakes are caught instead of imported.
-    </p>
+    <div class="hero">
+      <h1>Turn PDF bank statements into CSV, checked row by row</h1>
+      <p class="lede">
+        Get transactions out of a PDF statement and into Excel, Xero or QuickBooks. Your file is read on this device and never uploaded.
+        Every row is checked against the statement's own running balance, so mistakes are caught instead of imported.
+      </p>
+    </div>
 
-    <section id="convert" aria-label="Converter">
+    <section id="convert" class="converter-section" aria-label="Converter">
       <Converter client:load />
     </section>
 
-    <ul class="points">
+    <ul class="assurances">
       <li>
-        <h3>Nothing is uploaded</h3>
+        <h2>Nothing is uploaded</h2>
         <p>
           The PDF is read by code running in your browser. A counter under the converter shows how many network requests happen after you
           choose a file: zero. The page's security policy also tells your browser to block connections to any other site.
         </p>
       </li>
       <li>
-        <h3>Every row is checked</h3>
+        <h2>Every row is checked</h2>
         <p>
           The previous balance plus each transaction must equal the balance printed on the statement. Rows that don't add up are
           highlighted for you to check.
         </p>
       </li>
       <li>
-        <h3>Your browser enforces it</h3>
+        <h2>Your browser enforces it</h2>
         <p>
-          The page's security policy tells your browser to refuse connections to any other site, and you can watch the Network tab in your browser's developer tools while converting. Free to use for one statement at a time, with
-          no account.
+          The page's security policy tells your browser to refuse connections to any other site, and you can watch the Network tab in your
+          browser's developer tools while converting. Free to use for one statement at a time, with no account.
         </p>
       </li>
     </ul>
 
-    <section id="how-it-works" class="prose">
+    <section id="how-it-works" class="band">
       <h2>How the balance check works</h2>
-      <p>
-        Most bank statements print a running balance after each transaction. Tallyproof uses it to check its own work. If a digit is
-        misread, a row is missed or a sign is wrong, the numbers stop adding up and the row is flagged.
-      </p>
-      <div class="ledger" role="img" aria-label="Example of the balance check">
-        Opening balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,000.00<br />
-        03 Dec&nbsp;&nbsp;Grocery store&nbsp;&nbsp;&nbsp;&nbsp;-82.40&nbsp;&nbsp;&nbsp;&nbsp;917.60&nbsp;&nbsp;<span class="ok">1,000.00 - 82.40 = 917.60, checked</span><br />
-        04 Dec&nbsp;&nbsp;Salary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+2,450.00&nbsp;&nbsp;3,367.60&nbsp;&nbsp;<span class="ok">checked</span><br />
-        05 Dec&nbsp;&nbsp;Electricity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-196.00&nbsp;&nbsp;3,181.60&nbsp;&nbsp;<span class="no">3,367.60 - 196.00 = 3,171.60, check this row</span>
+      <div class="band-body">
+        <p>
+          Most bank statements print a running balance after each transaction. Tallyproof uses it to check its own work. If a digit is
+          misread, a row is missed or a sign is wrong, the numbers stop adding up and the row is flagged.
+        </p>
+        <figure class="worked">
+          <div class="table-wrap reflow">
+            <table role="table">
+              <caption>Example of the balance check</caption>
+              <thead role="rowgroup">
+                <tr role="row">
+                  <th scope="col" role="columnheader">Date</th>
+                  <th scope="col" role="columnheader">Description</th>
+                  <th scope="col" role="columnheader" class="num">Amount</th>
+                  <th scope="col" role="columnheader" class="num">Balance</th>
+                  <th scope="col" role="columnheader">Check</th>
+                </tr>
+              </thead>
+              <tbody role="rowgroup">
+                <tr role="row" class="opening">
+                  <td role="cell" colspan="3">Opening balance</td>
+                  <td role="cell" class="num">1,000.00</td>
+                  <td role="cell"></td>
+                </tr>
+                <tr role="row" class="is-ok">
+                  <td role="cell" class="date">03 Dec</td>
+                  <td role="cell">Grocery store</td>
+                  <td role="cell" class="num">-82.40</td>
+                  <td role="cell" class="num"><span class="cell-label" aria-hidden="true">Balance </span>917.60</td>
+                  <td role="cell" class="check"><TickMark class="status-mark" />1,000.00 - 82.40 = 917.60, checked</td>
+                </tr>
+                <tr role="row" class="is-ok">
+                  <td role="cell" class="date">04 Dec</td>
+                  <td role="cell">Salary</td>
+                  <td role="cell" class="num">+2,450.00</td>
+                  <td role="cell" class="num"><span class="cell-label" aria-hidden="true">Balance </span>3,367.60</td>
+                  <td role="cell" class="check"><TickMark class="status-mark" />checked</td>
+                </tr>
+                <tr role="row" class="is-flag">
+                  <td role="cell" class="date">05 Dec</td>
+                  <td role="cell">Electricity</td>
+                  <td role="cell" class="num">-196.00</td>
+                  <td role="cell" class="num"><span class="cell-label" aria-hidden="true">Balance </span>3,181.60</td>
+                  <td role="cell" class="check"><FlagMark class="status-mark" />3,367.60 - 196.00 = 3,171.60, check this row</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </figure>
+        <p>
+          Credit card statements usually have no running balance. For those, Tallyproof checks that the opening balance plus every
+          transaction equals the closing balance.
+        </p>
       </div>
-      <p>
-        Credit card statements usually have no running balance. For those, Tallyproof checks that the opening balance plus every
-        transaction equals the closing balance.
-      </p>
+    </section>
 
+    <section class="band">
       <h2>What it works with</h2>
-      <p>
-        Statements downloaded from online banking as PDFs, from any bank, as long as the PDF contains real text (you can select the words
-        in a PDF viewer). Layouts are detected automatically: separate debit and credit columns, a single signed amount column, dates with
-        or without years, descriptions that wrap onto several lines, and credit cards. Scanned paper statements are not supported yet.
-      </p>
-      <p>
-        If a statement is not read correctly, nothing about it leaves your computer, so we never see it. <a href="/faq/">The FAQ</a>
-        explains how to report a layout without sharing the file.
-      </p>
+      <div class="band-body">
+        <p>
+          Statements downloaded from online banking as PDFs, from any bank, as long as the PDF contains real text (you can select the words
+          in a PDF viewer). Layouts are detected automatically: separate debit and credit columns, a single signed amount column, dates with
+          or without years, descriptions that wrap onto several lines, and credit cards.
+        </p>
+        <p class="limit">Scanned paper statements are not supported yet.</p>
+        <p>
+          If a statement is not read correctly, nothing about it leaves your computer, so we never see it. <a href="/faq/">The FAQ</a>{' '}
+          explains how to report a layout without sharing the file.
+        </p>
+      </div>
     </section>
 
-    <section id="pricing">
+    <section id="pricing" class="band">
       <h2>Pricing</h2>
-      <Plans />
+      <div class="band-body">
+        <Plans />
+      </div>
     </section>
 
-    <section class="prose">
+    <section class="band">
       <h2>Convert for your software</h2>
-      <ul>
-        <li><a href="/convert/bank-statement-to-xero/">Bank statement to Xero</a></li>
-        <li><a href="/convert/bank-statement-to-quickbooks/">Bank statement to QuickBooks</a></li>
-        <li><a href="/convert/bank-statement-to-myob/">Bank statement to MYOB</a></li>
-        <li><a href="/convert/bank-statement-to-excel/">Bank statement to Excel</a></li>
-      </ul>
+      <div class="band-body">
+        <ul class="link-index">
+          <li><a href="/convert/bank-statement-to-xero/">Bank statement to Xero<Chevron /></a></li>
+          <li><a href="/convert/bank-statement-to-quickbooks/">Bank statement to QuickBooks<Chevron /></a></li>
+          <li><a href="/convert/bank-statement-to-myob/">Bank statement to MYOB<Chevron /></a></li>
+          <li><a href="/convert/bank-statement-to-excel/">Bank statement to Excel<Chevron /></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band">
       <h2>Guides</h2>
-      <ul>
-        <li><a href="/guides/import-bank-statements-into-xero/">Import bank statements into Xero</a></li>
-        <li><a href="/guides/import-bank-statements-into-quickbooks-online/">Import bank statements into QuickBooks Online</a></li>
-        <li><a href="/guides/import-bank-statements-into-myob/">Import bank statements into MYOB</a></li>
-        <li><a href="/guides/convert-bank-statement-pdf-to-csv/">Convert a bank statement PDF to CSV</a></li>
-      </ul>
+      <div class="band-body">
+        <ul class="link-index">
+          <li><a href="/guides/import-bank-statements-into-xero/">Import bank statements into Xero<Chevron /></a></li>
+          <li><a href="/guides/import-bank-statements-into-quickbooks-online/">Import bank statements into QuickBooks Online<Chevron /></a></li>
+          <li><a href="/guides/import-bank-statements-into-myob/">Import bank statements into MYOB<Chevron /></a></li>
+          <li><a href="/guides/convert-bank-statement-pdf-to-csv/">Convert a bank statement PDF to CSV<Chevron /></a></li>
+        </ul>
+      </div>
     </section>
   </div>
 </Base>

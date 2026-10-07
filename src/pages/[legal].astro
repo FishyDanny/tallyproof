@@ -2,7 +2,9 @@
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Toc from '../components/Toc.astro';
 import { SITE } from '../site.ts';
+import { wantsToc } from '../lib/toc.ts';
 import { byPriceVisibility } from '../pricing.ts';
 
 export async function getStaticPaths() {
@@ -15,18 +17,26 @@ interface Props {
 }
 
 const { page } = Astro.props;
-const { Content } = await render(page);
+const { Content, headings } = await render(page);
 const description = byPriceVisibility(page.data.description, page.data.descriptionEarlyAccess ?? page.data.description);
 ---
 
 <Base title={page.data.title} description={description}>
-  <article class="wrap prose">
-    <h1>{page.data.title}</h1>
-    <Content />
-    {SITE.supportEmail && (
-      <p>
-        Contact: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
-      </p>
-    )}
-  </article>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{page.data.title}</h1>
+    </header>
+    <div class:list={['doc', { 'has-toc': wantsToc(headings) }]}>
+      <Toc headings={headings} variant="inline" />
+      <article class="prose">
+        <Content />
+        {SITE.supportEmail && (
+          <p>
+            Contact: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
+          </p>
+        )}
+      </article>
+      <Toc headings={headings} variant="rail" />
+    </div>
+  </div>
 </Base>

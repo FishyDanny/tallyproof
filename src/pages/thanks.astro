@@ -6,29 +6,33 @@ import { EARLY_ACCESS, PRICES_VISIBLE } from '../pricing.ts';
 {
   PRICES_VISIBLE ? (
     <Base title="Thank you" description="Your Tallyproof purchase is complete. Here is how to activate Pro in your browser.">
-      <div class="wrap prose">
-        <h1>Thank you for buying Tallyproof Pro</h1>
-        <p>
-          Your licence key is on its way in an email from Polar, our payment provider. You can also find it at any time in Polar's customer
-          portal, linked from that email.
-        </p>
-        <h2>Activate Pro</h2>
-        <ol>
-          <li>
-            Go to <a href="/#convert">the converter</a>.
-          </li>
-          <li>
-            Open <strong>Have a Pro licence key?</strong> under the converter.
-          </li>
-          <li>
-            Paste the key and select <strong>Activate</strong>.
-          </li>
-        </ol>
-        <p>
-          Activating sends only the key to Polar to check it. Your statements are never sent anywhere. Pro stays active in this browser; on
-          another computer, paste the same key there too.
-        </p>
-        <p>If anything does not work, the contact address is at the bottom of this page. Refunds are available for 14 days, no questions asked.</p>
+      <div class="wrap">
+        <header class="page-head">
+          <h1>Thank you for buying Tallyproof Pro</h1>
+        </header>
+        <div class="prose">
+          <p>
+            Your licence key is on its way in an email from Polar, our payment provider. You can also find it at any time in Polar's customer
+            portal, linked from that email.
+          </p>
+          <h2>Activate Pro</h2>
+          <ol>
+            <li>
+              Go to <a href="/#convert">the converter</a>.
+            </li>
+            <li>
+              Open <strong>Have a Pro licence key?</strong> under the converter.
+            </li>
+            <li>
+              Paste the key and select <strong>Activate</strong>.
+            </li>
+          </ol>
+          <p>
+            Activating sends only the key to Polar to check it. Your statements are never sent anywhere. Pro stays active in this browser; on
+            another computer, paste the same key there too.
+          </p>
+          <p>If anything does not work, the contact address is at the bottom of this page. Refunds are available for 14 days, no questions asked.</p>
+        </div>
       </div>
     </Base>
   ) : (
@@ -37,16 +41,20 @@ import { EARLY_ACCESS, PRICES_VISIBLE } from '../pricing.ts';
       description="Tallyproof has no paid plans yet and nothing is charged. It is free while in early access, and the price of any paid plan will be announced first."
       noindex
     >
-      <div class="wrap prose">
-        <h1>Nothing to buy yet</h1>
-        <p>
-          {EARLY_ACCESS.headline} Tallyproof has no paid plans at the moment, and nothing has been charged. {EARLY_ACCESS.promise}
-        </p>
-        <p>
-          <a class="button" href="/#convert">
-            Convert a statement
-          </a>
-        </p>
+      <div class="wrap">
+        <header class="page-head">
+          <h1>Nothing to buy yet</h1>
+        </header>
+        <div class="prose">
+          <p>
+            {EARLY_ACCESS.headline} Tallyproof has no paid plans at the moment, and nothing has been charged. {EARLY_ACCESS.promise}
+          </p>
+          <p>
+            <a class="button" href="/#convert">
+              Convert a statement
+            </a>
+          </p>
+        </div>
       </div>
     </Base>
   )

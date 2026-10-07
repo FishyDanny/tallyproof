@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import { Content, frontmatter } from '../content/faq.md';
+import Toc from '../components/Toc.astro';
+import { Content, frontmatter, getHeadings } from '../content/faq.md';
+import { wantsToc } from '../lib/toc.ts';
 import { byPriceVisibility } from '../pricing.ts';
 
 interface FaqFrontmatter {
@@ -10,11 +12,20 @@ interface FaqFrontmatter {
 }
 
 const meta = frontmatter as FaqFrontmatter;
+const headings = getHeadings();
 ---
 
 <Base title={meta.title} description={byPriceVisibility(meta.description, meta.descriptionEarlyAccess)}>
-  <article class="wrap prose">
-    <h1>{meta.title}</h1>
-    <Content />
-  </article>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{meta.title}</h1>
+    </header>
+    <div class:list={['doc', { 'has-toc': wantsToc(headings) }]}>
+      <Toc headings={headings} variant="inline" />
+      <article class="prose faq">
+        <Content />
+      </article>
+      <Toc headings={headings} variant="rail" />
+    </div>
+  </div>
 </Base>

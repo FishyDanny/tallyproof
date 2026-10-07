@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import { SITE } from '../site.ts';
+// The one font file the site uses, preloaded so the first paint is already in the final face.
+import fontUrl from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -15,6 +17,8 @@ const { title, description, jsonLd, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === SITE.name ? `${SITE.name} - ${SITE.tagline}` : `${title} | ${SITE.name}`;
 const year = new Date().getFullYear();
+const path = Astro.url.pathname;
+const isCurrent = (href: string): boolean => (href === '/' ? path === '/' : path.startsWith(href));
 // Search Console ownership check: a meta tag only, no tracking script.
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION ?? '';
 ---
@@ -29,7 +33,9 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION ?? ''
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#1f6b4f" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141a21" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
@@ -41,31 +47,32 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION ?? ''
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
+    <a class="skip" href="#main">Skip to main content</a>
     <header class="site">
       <div class="wrap">
         <a class="brand" href="/" aria-label={`${SITE.name} home`}>
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <rect x="2" y="2" width="28" height="28" rx="7" fill="#1f6b4f"></rect>
-            <path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"></path>
-            <path d="M19.5 21.2l2 2 3.8-4.4" stroke="#9be3c2" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <rect class="mark-ground" x="1" y="1" width="30" height="30" rx="5" fill="#0d5666"></rect>
+            <path class="mark-ink" d="M8.5 16.5l5 5L23.5 10.5" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path class="mark-ink" d="M8.5 26h15" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.6" stroke-linecap="round"></path>
           </svg>
           {SITE.name}
         </a>
         <nav class="main" aria-label="Main">
           <a href="/#how-it-works">How it works</a>
-          <a href="/pricing/">Pricing</a>
-          <a href="/guides/">Guides</a>
-          <a href="/faq/">FAQ</a>
+          <a href="/pricing/" aria-current={isCurrent("/pricing/") ? "page" : undefined}>Pricing</a>
+          <a href="/guides/" aria-current={isCurrent("/guides/") ? "page" : undefined}>Guides</a>
+          <a href="/faq/" aria-current={isCurrent("/faq/") ? "page" : undefined}>FAQ</a>
           {SITE.repoUrl && <a href={SITE.repoUrl} rel="noopener">Source code</a>}
         </nav>
       </div>
     </header>
-    <main>
+    <main id="main">
       <slot />
     </main>
     <footer class="site">
       <div class="wrap">
-        <span>&copy; {year} {SITE.name}. Statements are converted in your browser and never uploaded.</span>
+        <p>&copy; {year} {SITE.name}. Statements are converted in your browser and never uploaded.</p>
         <nav aria-label="Footer">
           <a href="/privacy/">Privacy</a>
           <a href="/terms/">Terms</a>

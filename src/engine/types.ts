@@ -64,6 +64,16 @@ export type RowStatus =
   /** No printed balance was available to check against. */
   | 'unchecked';
 
+/** The sum behind a row whose printed balance does not match, shown beside that balance. */
+export interface RowArithmetic {
+  /** Balance before this row: the opening balance, or the previous balance plus any rows between. */
+  previousCents: number;
+  /** How this row moves the balance: the amount, reversed for a credit card or loan. */
+  effectCents: number;
+  /** previousCents + effectCents: the balance the statement should have printed. */
+  expectedCents: number;
+}
+
 export interface Transaction {
   /** ISO date, yyyy-mm-dd. */
   date: string;
@@ -76,6 +86,8 @@ export interface Transaction {
   status: RowStatus;
   /** Raw text of the source line(s), for display when a row needs checking. */
   source: string;
+  /** Present on a row with a printed balance that does not match: the sum it was checked with. */
+  arithmetic?: RowArithmetic;
 }
 
 export interface BalanceCheck {

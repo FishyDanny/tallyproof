@@ -1,6 +1,6 @@
 import { signedCents } from './money.ts';
 import type { ParsedMoney } from './money.ts';
-import type { AmountColumn, BalanceCheck, RowStatus, Transaction } from './types.ts';
+import type { AmountColumn, BalanceCheck, RowArithmetic, RowStatus, Transaction } from './types.ts';
 
 export interface RowDraft {
   date: string;
@@ -48,6 +48,8 @@ interface WorkingRow {
   /** True when the sign came from a guess about unsigned values rather than the statement itself. */
   signGuessed: boolean;
   status: RowStatus;
+  /** Set when this row's printed balance does not match: the sum it was checked with. */
+  arithmetic: RowArithmetic | null;
 }
 
 function sum(values: number[]): number {
@@ -73,7 +75,7 @@ export function verifyBalances(input: VerifyInput): VerifyOutput {
       if (column.role === 'balance') balance = signedCents(value);
       else parts.push({ column, value });
     }
-    return { draft, parts, balance, amount: 0, signGuessed: false, status: 'unchecked' };
+    return { draft, parts, balance, amount: 0, signGuessed: false, status: 'unchecked', arithmetic: null };
   });
 
   const openingCandidates = input.openings.map(signedCents);
@@ -268,6 +270,7 @@ export function verifyBalances(input: VerifyInput): VerifyOutput {
       row.status = 'verified';
     } else {
       row.status = 'mismatch';
+      row.arithmetic = { previousCents: before, effectCents: effectOf(row), expectedCents: before + effectOf(row) };
       for (const p of pending) p.status = 'mismatch';
       // If the next printed balance agrees with the amounts, only this row's
       // balance is wrong: keep the computed running total so one bad figure
@@ -346,6 +349,7 @@ function finish(
     page: r.draft.page,
     status: r.status,
     source: r.draft.source,
+    ...(r.arithmetic ? { arithmetic: r.arithmetic } : {}),
   }));
   return { transactions, balance, liability, warnings };
 }

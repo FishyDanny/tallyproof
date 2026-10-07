@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Converter from '../../components/Converter.tsx';
+import Toc from '../../components/Toc.astro';
+import { wantsToc } from '../../lib/toc.ts';
 import { byPriceVisibility } from '../../pricing.ts';
 
 export async function getStaticPaths() {
@@ -15,20 +17,26 @@ interface Props {
 }
 
 const { page } = Astro.props;
-const { Content } = await render(page);
+const { Content, headings } = await render(page);
 const description = byPriceVisibility(page.data.description, page.data.descriptionEarlyAccess ?? page.data.description);
 const intro = byPriceVisibility(page.data.intro, page.data.introEarlyAccess ?? page.data.intro);
 ---
 
 <Base title={page.data.title} description={description}>
   <div class="wrap">
-    <h1>{page.data.heading}</h1>
-    <p class="lede">{intro}</p>
-    <section id="convert" aria-label="Converter">
+    <div class="hero">
+      <h1>{page.data.heading}</h1>
+      <p class="lede">{intro}</p>
+    </div>
+    <section id="convert" class="converter-section" aria-label="Converter">
       <Converter client:load />
     </section>
-    <article class="prose">
-      <Content />
-    </article>
+    <div class:list={['doc', 'after-tool', { 'has-toc': wantsToc(headings) }]}>
+      <Toc headings={headings} variant="inline" />
+      <article class="prose">
+        <Content />
+      </article>
+      <Toc headings={headings} variant="rail" />
+    </div>
   </div>
 </Base>

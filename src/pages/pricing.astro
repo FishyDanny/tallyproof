@@ -12,19 +12,21 @@ const description = byPriceVisibility(
 
 <Base title={title} description={description}>
   <div class="wrap">
-    <h1>Pricing</h1>
-    {
-      byPriceVisibility(
-        <p class="lede">
-          The converter and the balance check are free. Pay only if you need to convert many statements at once, merge them, or export OFX
-          and QIF files.
-        </p>,
-        <p class="lede">
-          {EARLY_ACCESS.headline} The converter and the balance check cost nothing today. Converting many statements at once, merging them
-          and exporting OFX and QIF files are not available yet. {EARLY_ACCESS.promise}
-        </p>,
-      )
-    }
-    <Plans />
+    <header class="page-head">
+      <h1>Pricing</h1>
+      {
+        byPriceVisibility(
+          <p class="lede">
+            The converter and the balance check are free. Pay only if you need to convert many statements at once, merge them, or export OFX
+            and QIF files.
+          </p>,
+          <p class="lede">
+            {EARLY_ACCESS.headline} The converter and the balance check cost nothing today. Converting many statements at once, merging them
+            and exporting OFX and QIF files are not available yet. {EARLY_ACCESS.promise}
+          </p>,
+        )
+      }
+    </header>
+    <Plans level={2} />
   </div>
 </Base>

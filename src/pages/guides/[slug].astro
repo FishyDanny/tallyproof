@@ -2,6 +2,9 @@
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Chevron from '../../components/Chevron.astro';
+import Toc from '../../components/Toc.astro';
+import { wantsToc } from '../../lib/toc.ts';
 import { byPriceVisibility } from '../../pricing.ts';
 
 export async function getStaticPaths() {
@@ -14,7 +17,7 @@ interface Props {
 }
 
 const { guide } = Astro.props;
-const { Content } = await render(guide);
+const { Content, headings } = await render(guide);
 const description = byPriceVisibility(guide.data.description, guide.data.descriptionEarlyAccess ?? guide.data.description);
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -25,10 +28,20 @@ const jsonLd = {
 ---
 
 <Base title={guide.data.title} description={description} jsonLd={jsonLd}>
-  <article class="wrap prose">
-    <p class="eyebrow"><a href="/guides/">Guides</a></p>
-    <h1>{guide.data.title}</h1>
-    <Content />
-    <p><a class="button" href="/#convert">Convert a statement now</a></p>
-  </article>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/guides/"><Chevron direction="left" />Guides</a>
+    </nav>
+    <header class="page-head">
+      <h1>{guide.data.title}</h1>
+    </header>
+    <div class:list={['doc', { 'has-toc': wantsToc(headings) }]}>
+      <Toc headings={headings} variant="inline" />
+      <article class="prose">
+        <Content />
+        <p class="prose-end"><a class="button" href="/#convert">Convert a statement now</a></p>
+      </article>
+      <Toc headings={headings} variant="rail" />
+    </div>
+  </div>
 </Base>

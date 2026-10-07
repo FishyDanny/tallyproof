@@ -57,6 +57,20 @@ test('flags the row whose printed balance is wrong', async ({ page }) => {
   await expect(page.locator('tr.row-mismatch')).toHaveCount(1);
 });
 
+test('shows the sum beside a flagged row, without hovering', async ({ page }) => {
+  await openConverter(page);
+  await convert(page, 'au-with-misprint');
+  const flagged = page.locator('tr.row-mismatch');
+  await expect(flagged).toHaveCount(1);
+  // Previous balance plus the amount gives the expected balance; the statement printed 6,054.33.
+  await expect(flagged.getByTestId('row-arithmetic')).toHaveText('2,759.83 + 3,284.50 = 6,044.33');
+  await expect(flagged.getByTestId('row-arithmetic')).toBeVisible();
+  await expect(flagged.locator('td.status')).toContainText('Check this row');
+  await expect(flagged.locator('td.status')).toContainText('As printed:');
+  await expect(flagged).not.toHaveAttribute('title');
+  await expect(page.getByTestId('row-arithmetic')).toHaveCount(1);
+});
+
 test('downloads a Xero CSV that matches the statement', async ({ page }) => {
   await openConverter(page);
   await convert(page, 'au-debit-credit-balance');

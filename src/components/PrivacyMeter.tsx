@@ -26,7 +26,9 @@ export function PrivacyMeter({ since }: Props) {
   if (since === null) return null;
   return (
     <p class={`privacy-meter ${count === 0 ? 'ok' : 'warn'}`} data-testid="privacy-meter">
-      <strong>Network requests since you chose your file: {count}</strong>
+      <strong>
+        Network requests since you chose your file: <span class="count">{count}</span>
+      </strong>
       <span>
         {count === 0
           ? ' Your statement was read on this device and has not been sent anywhere.'
