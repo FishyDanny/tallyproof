@@ -5,11 +5,11 @@ description: "How Tallyproof handles your data: statements are converted on your
 
 <!-- if prices -->
 
-**Effective date: 2 October 2026**
+**Effective date: 8 October 2026**
 
 <!-- else -->
 
-**Effective date: 4 October 2026**
+**Effective date: 8 October 2026**
 
 <!-- endif -->
 
@@ -75,6 +75,12 @@ To keep Pro unlocked and remember your settings, Tallyproof may store your licen
 
 If you email us at SUPPORT_EMAIL, we receive your email address and whatever you include in the message. We use this only to reply and to keep a record of the conversation. Please do not send us your bank statements. If a statement does not convert correctly, a description of the layout (with your personal details removed) is enough for us to investigate.
 
+### Feedback (optional)
+
+The footer of each page has a Feedback link. It opens a short form on a separate website, hub.campsitestudios.net, so the converter never contacts it: nothing is loaded or sent unless you choose to follow the link, and nothing from a statement is ever sent with it. Please do not include statement details in a message.
+
+If you send a message, we receive what you wrote, the page you were on and the time. We keep your email address only if you tick the box that lets us reply. To limit spam, we also keep a scrambled (hashed) form of your connection's IP address, which is not your address, for up to two days, and then remove it. The form sets no cookies and loads no scripts. Messages are stored in a Cloudflare D1 database that only we can read, and we do not share or sell them. Cloudflare may handle them outside Australia, as described under "Overseas transfers". We delete a message 12 months after you send it, or sooner if you ask at SUPPORT_EMAIL. Cloudflare keeps backups of the database for 7 days, so a deleted message, or a removed hash, can stay in a backup for up to 7 days longer. Cloudflare's request logs for the form also keep its web address, which names this site and the page you came from, for up to 3 days.
+
 ## Why we process this information
 
 We process the limited information described above to:
@@ -83,11 +89,13 @@ We process the limited information described above to:
 
 - deliver the website and keep it secure (hosting logs);
 - sell Pro and the Catch-up Pass and check that licence keys are valid (Polar);
+- read and reply to feedback you choose to send, and keep the feedback form free of spam;
 - answer your questions and handle refunds (email).
 
 <!-- else -->
 
 - deliver the website and keep it secure (hosting logs);
+- read and reply to feedback you choose to send, and keep the feedback form free of spam;
 - answer your questions (email).
 
 <!-- endif -->
@@ -97,6 +105,7 @@ We do not sell personal information, and we do not use it for advertising.
 ## How long we keep it
 
 - Support emails: kept for as long as needed to resolve your request and for record-keeping, and generally no longer than five years (to meet Australian tax record-keeping requirements where an email relates to a purchase).
+- Feedback: deleted 12 months after you send it. The hashed form of your connection's IP address is removed within two days. Cloudflare's database backups hold a deleted message, and a removed hash, for up to 7 more days. Cloudflare's request logs for the form keep its web address, which names this site and page, for up to 3 days.
 - Purchase records: held by Polar under its own retention policy; any copies we hold are kept for the same tax record period.
 - Hosting logs: kept by Cloudflare under its own retention practices.
 - Statement data: never collected, so never retained.
@@ -113,7 +122,7 @@ Cloudflare and Polar operate internationally, so information they process (such 
 
 ## If you are in the UK or the European Economic Area
 
-If the UK GDPR or the EU GDPR applies to you, Tallyproof is the controller of the personal information it handles directly (support emails and any order information received from Polar). Polar is responsible for the information it collects at checkout.
+If the UK GDPR or the EU GDPR applies to you, Tallyproof is the controller of the personal information it handles directly (support emails, feedback and any order information received from Polar). Polar is responsible for the information it collects at checkout.
 
 Our legal bases are:
 
@@ -121,11 +130,13 @@ Our legal bases are:
 
 - performance of a contract, for selling Pro, validating licence keys and handling refunds;
 - legitimate interests, for keeping the website secure and replying to messages you send us;
+- legitimate interests, for reading the feedback you send and keeping the feedback form free of spam, and your consent, for keeping the email address you give so that we can reply;
 - legal obligation, for keeping tax and accounting records.
 
 <!-- else -->
 
 - legitimate interests, for keeping the website secure and replying to messages you send us;
+- legitimate interests, for reading the feedback you send and keeping the feedback form free of spam, and your consent, for keeping the email address you give so that we can reply;
 - legal obligation, for keeping tax and accounting records.
 
 <!-- endif -->

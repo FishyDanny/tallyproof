@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE } from '../site.ts';
+import { feedbackHref } from '../feedback.ts';
 // The one font file the site uses, preloaded so the first paint is already in the final face.
 import fontUrl from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
 
@@ -75,6 +76,7 @@ const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION ?? ''
         <p>&copy; {year} {SITE.name}. Statements are converted in your browser and never uploaded.</p>
         <nav aria-label="Footer">
           <a href="/privacy/">Privacy</a>
+          <a href={feedbackHref(Astro.url.pathname)} rel="noreferrer">Feedback</a>
           <a href="/terms/">Terms</a>
           <a href="/faq/">FAQ</a>
           {SITE.supportEmail && <a href={`mailto:${SITE.supportEmail}`}>Contact</a>}
