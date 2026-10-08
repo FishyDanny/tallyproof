@@ -53,3 +53,18 @@ describe('cents helpers', () => {
     expect(displayCents(123456789)).toBe('1,234,567.89');
   });
 });
+
+describe('currency codes', () => {
+  it.each([
+    ['SGD 2,450.75', 245075, 'none'],
+    ['AUD -12.00', 1200, 'negative'],
+    ['HKD 1,234.56 CR', 123456, 'positive'],
+    ['usd 3.00', 300, 'none'],
+  ])('reads a value printed after its currency code: %s', (raw, cents, marker) => {
+    expect(parseMoney(raw)).toMatchObject({ cents, marker });
+  });
+
+  it.each(['ATM 100.00', 'INV 250.00', 'REF 12.00', 'AUD', 'AUD 12'])('does not read description words as money: %s', (raw) => {
+    expect(parseMoney(raw)).toBeNull();
+  });
+});

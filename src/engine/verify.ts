@@ -23,6 +23,12 @@ export interface VerifyInput {
    * given index. Ignored for newest-first statements.
    */
   checkpointsBefore: Map<number, ParsedMoney[]>;
+  /**
+   * Indices of rows that open a new table printed below other rows on the same
+   * page (another account or statement in the same file). Such a row has nothing
+   * to be checked against when its balance does not follow from the row before.
+   */
+  tableStartsBefore: Set<number>;
   /** True when the statement lists the newest transaction first. */
   reversed: boolean;
 }
@@ -234,6 +240,12 @@ export function verifyBalances(input: VerifyInput): VerifyOutput {
   let running: number | null = opening;
   let pending: WorkingRow[] = [];
   let checkpointMismatch = 0;
+  /**
+   * The running balance before a checkpoint that disagreed with it. A summary box
+   * on a continuation page repeats the whole statement's opening balance, so the
+   * next row decides which figure it follows on from.
+   */
+  let alternate: number | null = null;
   rows.forEach((row, index) => {
     for (const checkpoint of input.checkpointsBefore.get(index) ?? []) {
       const value = signedCents(checkpoint);
@@ -243,7 +255,7 @@ export function verifyBalances(input: VerifyInput): VerifyOutput {
           for (const p of pending) p.status = expected === value ? 'verified-group' : 'mismatch';
           pending = [];
         } else if (expected !== value) {
-          checkpointMismatch += 1;
+          alternate ??= running;
         }
       }
       running = value;
@@ -261,13 +273,25 @@ export function verifyBalances(input: VerifyInput): VerifyOutput {
       return;
     }
     const before = running + sum(pending.map(effectOf));
+    const disputed = alternate;
+    alternate = null;
     if (before + effectOf(row) === row.balance) {
       row.status = pending.length > 0 ? 'verified-group' : 'verified';
       for (const p of pending) p.status = 'verified-group';
+      // The rows follow on from the checkpoint, so the balance before it really did not reach it.
+      if (disputed !== null) checkpointMismatch += 1;
+    } else if (disputed !== null && pending.length === 0 && disputed + effectOf(row) === row.balance) {
+      // The checkpoint was only a summary figure; the rows continue from the balance before it.
+      row.status = 'verified';
     } else if (row.signGuessed && pending.length === 0 && before - effectOf(row) === row.balance) {
       // The balance shows this unsigned value went the other way.
       row.amount = -row.amount;
       row.status = 'verified';
+    } else if (input.tableStartsBefore.has(index)) {
+      // The first row of another account's table: its balance does not follow from
+      // the previous table, and rows left over from that table cannot be checked either.
+      row.status = 'unchecked';
+      for (const p of pending) p.status = 'unchecked';
     } else {
       row.status = 'mismatch';
       row.arithmetic = { previousCents: before, effectCents: effectOf(row), expectedCents: before + effectOf(row) };
@@ -306,7 +330,7 @@ export function verifyBalances(input: VerifyInput): VerifyOutput {
 
   if (checkpointMismatch > 0) {
     warnings.push(
-      'A "balance brought forward" figure does not match the balance before it. Transactions may be missing at a page break; compare the page totals with the statement.',
+      'A printed opening or "brought forward" balance does not match the balance before it. Transactions may be missing at a page break, or the file may hold more than one statement or account; compare the totals with the statement.',
     );
   }
 

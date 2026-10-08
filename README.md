@@ -10,6 +10,14 @@ Convert PDF bank statements to CSV, Xero CSV, QuickBooks Online CSV, OFX or QIF 
 4. Signs and column meanings are confirmed from the printed balances, and every row is verified: previous balance + amount = printed balance. Rows between two printed balances are verified as a group; statements without a running balance are verified by opening + transactions = closing (`src/engine/verify.ts`).
 5. Exports are generated locally (`src/engine/export.ts`).
 
+## Supported layouts
+
+There are no bank-specific parsers. [docs/supported-layouts.md](docs/supported-layouts.md) lists the layouts checked against publicly published sample statements, the banks whose samples pass, and what each layout uses; a bank missing from it has not been tested, not failed. To try statements of your own, put them in `private-fixtures/` and run:
+
+```bash
+node --experimental-strip-types scripts/try-statements.ts private-fixtures   # add --rows or --lines for detail
+```
+
 ## Development
 
 ```bash

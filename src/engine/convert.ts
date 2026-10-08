@@ -1,7 +1,7 @@
 import { detectDateOrder, findFullDates, inferYears, parseDateToken, resolveDayMonth, toIso } from './dates.ts';
 import type { DateToken } from './dates.ts';
 import { groupLines } from './lines.ts';
-import { parseMoney } from './money.ts';
+import { CURRENCY_CODE, parseMoney } from './money.ts';
 import type { ParsedMoney } from './money.ts';
 import { verifyBalances } from './verify.ts';
 import type { RowDraft } from './verify.ts';
@@ -30,9 +30,13 @@ const HEADER_WORDS: Array<[HeaderRole, RegExp]> = [
 const OPENING = /\b(opening|starting|beginning|previous|last\s+statement)\s+balance\b|\bbalance\s+(at\s+)?(start|beginning)\b/i;
 const BROUGHT_FORWARD = /\bbrought\s+forward\b|\bb\/f(wd)?\b|\bbalance\s+forward\b/i;
 const CARRIED_FORWARD = /\bcarried\s+forward\b|\bc\/f(wd)?\b/i;
-const CLOSING = /\b(closing|ending|new|final)\s+balance\b|\bbalance\s+(at\s+)?end\b/i;
-const SUMMARY = /\b(total|totals|subtotal|sub-total|deposits\s+and\s+other|withdrawals\s+and\s+other|checks\s+paid|year[\s-]+to[\s-]+date|ytd|minimum\s+(payment|amount)|credit\s+limit|available\s+(credit|balance)|amount\s+due|payment\s+due|overdraft\s+limit)\b/i;
+// "Totals at end of period" closes a statement whose balance column carries the closing figure.
+const CLOSING = /\b(closing|ending|new|final)\s+balance\b|\bbalance\s+(at\s+)?end\b|\btotals?\s+at\s+end\s+of\s+(the\s+)?(period|statement)\b/i;
+const SUMMARY =
+  /\b(total|totals|subtotal|sub-total|deposits\s*(and|&)\s*(other|credits)|withdrawals\s*(and|&)\s*(other|debits)|checks\s+paid|year[\s-]+to[\s-]+date|ytd|minimum\s+(payment|amount)|credit\s+limit|available\s+(credit|balance)|amount\s+due|payment\s+due|overdraft\s+limit)\b/i;
 const BOILERPLATE = /\bpage\s+\d+\s*(of\s+\d+)?\b|^\(?continued\b|^transactions?\s+continued/i;
+/** Text some statements print in an empty money cell instead of leaving it blank. */
+const PLACEHOLDER = /^(?:[-–—]+|blank|nil)$/i;
 
 interface MoneyCell {
   cell: Cell;
@@ -142,7 +146,7 @@ function analyseLine(line: Line): LineInfo {
   for (const cell of mergeSuffixCells(rest)) {
     const value = parseMoney(cell.text);
     if (value) money.push({ cell, value });
-    else if (!/^[-\u2013\u2014]+$/.test(cell.text)) descriptionCells.push(cell);
+    else if (!PLACEHOLDER.test(cell.text)) descriptionCells.push(cell);
   }
   const markers: MarkerValue[] = [];
   if (money.length >= 1 && money.length <= 3) {
@@ -162,7 +166,10 @@ function analyseLine(line: Line): LineInfo {
 }
 
 const MARKER_PATTERNS = [OPENING, BROUGHT_FORWARD, CARRIED_FORWARD, CLOSING];
-const MONEY_IN_TEXT = /\(?[-+−]?\s*[$£€]?\s*[-+−]?(?:\d{1,3}(?:,\d{3})+|\d+)?\.\d{2}(?!\d)\s*[-−]?\)?(?:\s*(?:CR|DR)\b)?/i;
+const MONEY_IN_TEXT = new RegExp(
+  `\\(?[-+−]?\\s*(?:${CURRENCY_CODE}\\s*)?[$£€]?\\s*[-+−]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)?\\.\\d{2}(?!\\d)\\s*[-−]?\\)?(?:\\s*(?:CR|DR)\\b)?`,
+  'i',
+);
 
 /**
  * The money value that belongs to a keyword such as "Opening balance": either
@@ -195,7 +202,7 @@ function amountAfter(cells: Cell[], re: RegExp): ParsedMoney | null {
 
 /** Transactions always have some words in their description; summary tables of dates and figures do not. */
 function hasWords(cells: Cell[]): boolean {
-  return (cells.map((c) => c.text).join(' ').match(/[A-Za-z\u00c0-\u024f]/g) ?? []).length >= 2;
+  return (cells.map((c) => c.text).join(' ').match(/[A-Za-zÀ-ɏ]/g) ?? []).length >= 2;
 }
 
 function median(values: number[]): number {
@@ -203,6 +210,63 @@ function median(values: number[]): number {
   const s = [...values].sort((a, b) => a - b);
   const mid = Math.floor(s.length / 2);
   return s.length % 2 === 0 ? ((s[mid - 1] ?? 0) + (s[mid] ?? 0)) / 2 : (s[mid] ?? 0);
+}
+
+/** A line that is neither a header, a named balance figure, a summary line nor page furniture. */
+function isPlain(info: LineInfo): boolean {
+  return !info.header && info.markers.length === 0 && !info.summary && !BOILERPLATE.test(info.line.text);
+}
+
+/** Where a line sits in a transaction printed over several lines. */
+interface WrappedPart {
+  /** Index of the dated line that starts the transaction. */
+  start: number;
+  /** True for the line that carries the amounts and so completes the transaction. */
+  completes: boolean;
+}
+
+/**
+ * Some statements print a transaction over several lines: the date and the first
+ * words of the description on one line, then the rest of the description together
+ * with the amounts on a later line (sometimes with a further description line in
+ * between). Map every such follow-on line to the dated line that starts it.
+ */
+function findWrappedRows(infos: LineInfo[]): Map<number, WrappedPart> {
+  const parts = new Map<number, WrappedPart>();
+  let start: number | null = null;
+  let last: LineInfo | null = null;
+  let between = 0;
+  for (let i = 0; i < infos.length; i += 1) {
+    const info = infos[i];
+    if (!info) continue;
+    if (start !== null && last) {
+      const gap = info.line.y - last.line.y;
+      const close = info.line.page === last.line.page && gap >= 0 && gap <= info.line.height * 1.9;
+      if (close && isPlain(info) && !info.date) {
+        if (info.money.length > 0) {
+          parts.set(i, { start, completes: true });
+          start = null;
+          last = null;
+          continue;
+        }
+        if (info.descriptionCells.length > 0 && between < 2) {
+          parts.set(i, { start, completes: false });
+          between += 1;
+          last = info;
+          continue;
+        }
+      }
+      start = null;
+      last = null;
+    }
+    // A dated line without money starts a wrapped transaction when it carries the first words of a description.
+    if (isPlain(info) && info.date && info.money.length === 0 && hasWords(info.descriptionCells)) {
+      start = i;
+      last = info;
+      between = 0;
+    }
+  }
+  return parts;
 }
 
 /** Group money right edges into columns. Values in one column share a right edge within a few points. */
@@ -234,34 +298,62 @@ function nearestColumn(columns: AmountColumn[], right: number): AmountColumn | n
   return best;
 }
 
+/**
+ * Name the columns from the header words above them. Each header is matched on
+ * its own, so a file holding statements with different layouts (for example two
+ * accounts from different banks) gets a balance column for each layout. A money
+ * column named in a header exists even if no row happens to use it (for example
+ * when every withdrawal falls on a day whose date was printed only once), and
+ * even when another layout's column of the same kind sits close to it.
+ */
 function assignHeaderRoles(columns: AmountColumn[], headers: Array<Map<HeaderRole, Cell>>): void {
-  const candidates: Array<{ role: ColumnRole; cell: Cell }> = [];
+  /** Right edge of the header word that named each column, so a header repeated on later pages is recognised as the same. */
+  const labelledAt = new Map<number, number>();
+  const taken = new Set<number>();
   for (const header of headers) {
+    const candidates: Array<{ role: ColumnRole; cell: Cell }> = [];
     for (const role of ['debit', 'credit', 'balance', 'amount'] as const) {
       const cell = header.get(role);
       if (cell) candidates.push({ role, cell });
     }
-  }
-  if (candidates.length === 0) return;
-  const taken = new Set<number>();
-  // Closest pairs first, so each column and each header word is used once.
-  const pairs = columns
-    .flatMap((col) =>
-      candidates.map((c) => {
-        const centre = (c.cell.x0 + c.cell.x1) / 2;
-        const distance = Math.min(Math.abs(col.right - c.cell.x1), Math.abs(col.right - centre) + 4);
-        return { col, role: c.role, distance };
-      }),
-    )
-    .filter((p) => p.distance <= 70)
-    .sort((a, b) => a.distance - b.distance);
-  const usedRoles = new Set<ColumnRole>();
-  for (const p of pairs) {
-    if (taken.has(p.col.id) || usedRoles.has(p.role)) continue;
-    p.col.role = p.role;
-    p.col.source = 'header';
-    taken.add(p.col.id);
-    usedRoles.add(p.role);
+    if (candidates.length === 0) continue;
+    // Closest pairs first, so each column and each header word is used once.
+    const pairs = columns
+      .flatMap((col) =>
+        candidates.map((c) => {
+          const centre = (c.cell.x0 + c.cell.x1) / 2;
+          const distance = Math.min(Math.abs(col.right - c.cell.x1), Math.abs(col.right - centre) + 4);
+          return { col, role: c.role, distance };
+        }),
+      )
+      .filter((p) => p.distance <= 70)
+      .sort((a, b) => a.distance - b.distance);
+    const usedRoles = new Set<ColumnRole>();
+    for (const p of pairs) {
+      if (taken.has(p.col.id) || usedRoles.has(p.role)) continue;
+      p.col.role = p.role;
+      p.col.source = 'header';
+      taken.add(p.col.id);
+      labelledAt.set(p.col.id, candidates.find((c) => c.role === p.role)?.cell.x1 ?? p.col.right);
+      usedRoles.add(p.role);
+    }
+    for (const c of candidates) {
+      if (usedRoles.has(c.role)) continue;
+      // The same header word again (a repeated page header), or a word whose values would
+      // land in an existing column of this kind anyway, needs no column of its own.
+      const explained = columns.some(
+        (col) =>
+          col.role === c.role &&
+          taken.has(col.id) &&
+          (Math.abs((labelledAt.get(col.id) ?? col.right) - c.cell.x1) <= 12 || Math.abs(col.right - c.cell.x1) <= 20),
+      );
+      if (explained) continue;
+      const column: AmountColumn = { id: columns.length, right: c.cell.x1, role: c.role, source: 'header' };
+      columns.push(column);
+      taken.add(column.id);
+      labelledAt.set(column.id, c.cell.x1);
+      usedRoles.add(c.role);
+    }
   }
 }
 
@@ -287,6 +379,24 @@ interface RowBuild {
   page: number;
 }
 
+/** A dated line whose amounts are still to come on a later line. */
+interface PendingRow {
+  start: number;
+  date: DateToken;
+  descriptionParts: string[];
+  sources: string[];
+  lastY: number;
+  page: number;
+}
+
+interface MarkerAt {
+  kind: MarkerValue['kind'];
+  value: ParsedMoney;
+  /** The figure named next to the keyword when it differs from the one in the balance column. */
+  alternate: ParsedMoney | null;
+  afterRow: number;
+}
+
 /**
  * Convert extracted statement text into transactions and check every row
  * against the printed running balance.
@@ -300,36 +410,40 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
   }
 
   const lines = groupLines(pages);
+  /** Lines that begin a transaction: dated lines with money, plus dated lines whose amounts follow on a later line. */
+  const rowStarts = (infos: LineInfo[], wrapped: Map<number, WrappedPart>): LineInfo[] => {
+    const starts = infos.filter((i) => i.date !== null && i.money.length > 0 && i.markers.length === 0);
+    const wrappedStarts = new Set([...wrapped.values()].filter((p) => p.completes).map((p) => p.start));
+    for (const index of wrappedStarts) {
+      const info = infos[index];
+      if (info) starts.push(info);
+    }
+    return starts;
+  };
+
   // Learn where the date column starts, then ignore notes printed entirely to its
   // left (margin annotations would otherwise hide the date at the start of a row).
   const firstPass = lines.map(analyseLine);
-  const dateStarts = firstPass
-    .filter((i) => i.date !== null && i.money.length > 0)
+  const dateStarts = rowStarts(firstPass, findWrappedRows(firstPass))
     .map((i) => i.line.cells[0]?.x0)
     .filter((x): x is number => x !== undefined);
   const dateX = dateStarts.length >= 3 ? median(dateStarts) : null;
   const infos = dateX === null ? firstPass : lines.map((l) => analyseLine(withoutLeftMargin(l, dateX)));
+  const wrapped = findWrappedRows(infos);
+  const wrappedStarts = new Set([...wrapped.values()].filter((p) => p.completes).map((p) => p.start));
   const headers = infos.filter((i) => i.header !== null);
 
-  // Columns come only from dated lines that carry money, so stray numbers elsewhere cannot create columns.
-  const datedMoneyLines = infos.filter((i) => i.date !== null && i.money.length > 0 && i.markers.length === 0);
-  if (datedMoneyLines.length === 0) {
+  // Columns come only from lines that carry a transaction's money (dated lines, and
+  // the amounts line of a wrapped transaction), so stray numbers elsewhere cannot create columns.
+  const moneyLines = infos.filter(
+    (i, index) => (i.date !== null && i.money.length > 0 && i.markers.length === 0) || wrapped.get(index)?.completes === true,
+  );
+  if (moneyLines.length === 0) {
     return noTextResult(
       'No transactions were found. This statement layout was not recognised. Nothing has been uploaded; you can report the layout (without sharing the file) so support can be added.',
     );
   }
-  const columns = clusterColumns(datedMoneyLines.flatMap((i) => i.money.map((m) => m.cell.x1)));
-  // A money column named in the header exists even if no dated row happens to use it
-  // (for example when every withdrawal falls on a day whose date was printed only once).
-  const firstHeader = headers[0]?.header;
-  if (firstHeader) {
-    for (const role of ['debit', 'credit', 'balance', 'amount'] as const) {
-      const cell = firstHeader.get(role);
-      if (cell && !columns.some((c) => Math.abs(c.right - cell.x1) <= 30)) {
-        columns.push({ id: columns.length, right: cell.x1, role: 'amount', source: 'position' });
-      }
-    }
-  }
+  const columns = clusterColumns(moneyLines.flatMap((i) => i.money.map((m) => m.cell.x1)));
   assignHeaderRoles(
     columns,
     headers.map((h) => h.header).filter((h): h is Map<HeaderRole, Cell> => h !== null),
@@ -350,19 +464,28 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
   }
 
   const rightEdge = Math.max(...columns.map((c) => c.right));
+  const roleOf = (id: number): ColumnRole | undefined => columns.find((c) => c.id === id)?.role;
 
   // Typical description start, used to accept wrapped description lines.
-  const descStarts = datedMoneyLines.map((i) => i.descriptionCells[0]?.x0).filter((x): x is number => x !== undefined);
+  const descStarts = rowStarts(infos, wrapped)
+    .map((i) => i.descriptionCells[0]?.x0)
+    .filter((x): x is number => x !== undefined);
   const descX0 = descStarts.length > 0 ? median(descStarts) : 0;
 
   const rows: RowBuild[] = [];
-  const markers: Array<{ kind: 'opening' | 'closing' | 'checkpoint'; cents: ParsedMoney; afterRow: number; page: number }> = [];
+  const markers: MarkerAt[] = [];
+  /** Indices of rows that open a table printed below other rows on the same page (another account or statement). */
+  const tableStarts = new Set<number>();
   let current: RowBuild | null = null;
+  let pending: PendingRow | null = null;
   /** The last plain text line not yet used, for descriptions printed above their amounts. */
   let looseAbove: LineInfo | null = null;
   let carriedDate: DateToken | null = null;
   let lastTableY = Number.NEGATIVE_INFINITY;
   let lastTablePage = -1;
+  let lastRowPage = -1;
+  /** Description start for the current table: its header word when there is one, else the typical start. */
+  let sectionDescX0 = descX0;
   const seenHeaderOnPage = new Set<number>();
 
   const mapValues = (info: LineInfo): Map<number, ParsedMoney> => {
@@ -373,19 +496,48 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
     }
     return values;
   };
+  const balanceValueOf = (values: Map<number, ParsedMoney>): ParsedMoney | null => {
+    for (const [id, value] of values) {
+      if (roleOf(id) === 'balance') return value;
+    }
+    return null;
+  };
+  const addRow = (row: RowBuild): RowBuild => {
+    rows.push(row);
+    carriedDate = row.date;
+    lastTableY = row.lastY;
+    lastTablePage = row.page;
+    lastRowPage = row.page;
+    return row;
+  };
 
-  for (const info of infos) {
+  for (let index = 0; index < infos.length; index += 1) {
+    const info = infos[index];
+    if (!info) continue;
     const { line } = info;
     if (info.header) {
       seenHeaderOnPage.add(line.page);
+      // A header printed below rows on the same page starts a new table.
+      if (rows.length > 0 && lastRowPage === line.page) tableStarts.add(rows.length);
+      const descriptionCell = info.header.get('description');
+      sectionDescX0 = descriptionCell ? Math.min(descriptionCell.x0, descX0) : descX0;
       lastTableY = line.y;
       lastTablePage = line.page;
       current = null;
+      pending = null;
       continue;
     }
     if (info.markers.length > 0) {
-      for (const m of info.markers) markers.push({ kind: m.kind, cents: m.value, afterRow: rows.length, page: line.page });
+      // The figure in the balance column is the one that matters on a line such as
+      // "Transaction totals / Closing balance", where other columns hold totals.
+      const balanceValue = balanceValueOf(mapValues(info));
+      for (const m of info.markers) {
+        const value = balanceValue ?? m.value;
+        const alternate = balanceValue && balanceValue.cents !== m.value.cents ? m.value : null;
+        markers.push({ kind: m.kind, value, alternate, afterRow: rows.length });
+      }
       current = null;
+      pending = null;
       if (info.markers.some((m) => m.kind === 'checkpoint') || rows.length > 0) {
         lastTableY = line.y;
         lastTablePage = line.page;
@@ -394,12 +546,58 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
     }
 
     const values = mapValues(info);
-    const hasAmount = [...values.keys()].some((id) => columns.find((c) => c.id === id)?.role !== 'balance');
+    const hasAmount = [...values.keys()].some((id) => roleOf(id) !== 'balance');
     const lineGap = line.page === lastTablePage ? line.y - lastTableY : Number.POSITIVE_INFINITY;
     const nearTable = lineGap <= line.height * 3.2 || (line.page !== lastTablePage && seenHeaderOnPage.has(line.page));
 
     // Notes printed to the right of the last money column are not part of the transaction.
     const desc = info.descriptionCells.filter((cell) => cell.x0 <= rightEdge + 8);
+    const descStart = desc[0]?.x0;
+    const descInColumn = descStart === undefined || (descStart >= sectionDescX0 - 6 && descStart <= rightEdge + 8);
+
+    // A transaction printed over several lines: the date came earlier, the amounts are here.
+    const part = wrapped.get(index);
+    if (pending && part && part.start === pending.start) {
+      if (part.completes) {
+        if (hasAmount) {
+          current = addRow({
+            info,
+            date: pending.date,
+            descriptionParts: [...pending.descriptionParts, ...desc.map((c) => c.text)],
+            sources: [...pending.sources, line.text],
+            values,
+            lastY: line.y,
+            page: line.page,
+          });
+          pending = null;
+          continue;
+        }
+      } else if (desc.length > 0 && descInColumn && line.page === pending.page && line.y - pending.lastY <= line.height * 1.9) {
+        pending.descriptionParts.push(desc.map((cell) => cell.text).join(' '));
+        pending.sources.push(line.text);
+        pending.lastY = line.y;
+        continue;
+      }
+    }
+    pending = null;
+    if (info.date && info.money.length === 0 && wrappedStarts.has(index)) {
+      const firstCell = line.cells[0];
+      const atDateColumn = dateX === null || (firstCell !== undefined && Math.abs(firstCell.x0 - dateX) <= 40);
+      if (atDateColumn && descInColumn) {
+        pending = {
+          start: index,
+          date: info.date,
+          descriptionParts: desc.map((c) => c.text),
+          sources: [line.text],
+          lastY: line.y,
+          page: line.page,
+        };
+        current = null;
+        looseAbove = null;
+        continue;
+      }
+    }
+
     let words = hasWords(desc);
     const leading: string[] = [];
     if (
@@ -409,7 +607,7 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
       looseAbove &&
       looseAbove.line.page === line.page &&
       line.y - looseAbove.line.y <= line.height * 1.6 &&
-      (looseAbove.descriptionCells[0]?.x0 ?? 0) >= descX0 - 6 &&
+      (looseAbove.descriptionCells[0]?.x0 ?? 0) >= sectionDescX0 - 6 &&
       (looseAbove.descriptionCells[0]?.x0 ?? 0) <= rightEdge + 8 &&
       !looseAbove.summary &&
       !BOILERPLATE.test(looseAbove.line.text)
@@ -421,7 +619,7 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
     // A dated row with amounts under a recognised header counts even with no description.
     const bareRow = desc.length === 0 && seenHeaderOnPage.has(line.page);
     if (info.date && hasAmount && (words || bareRow)) {
-      current = {
+      current = addRow({
         info,
         date: info.date,
         descriptionParts: [...leading, ...desc.map((c) => c.text)],
@@ -429,17 +627,13 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
         values,
         lastY: line.y,
         page: line.page,
-      };
-      rows.push(current);
-      carriedDate = info.date;
-      lastTableY = line.y;
-      lastTablePage = line.page;
+      });
       continue;
     }
 
     if (!info.date && hasAmount && words && carriedDate && rows.length > 0 && !info.summary && nearTable) {
       // Same-day transaction printed without repeating the date.
-      current = {
+      current = addRow({
         info,
         date: carriedDate,
         descriptionParts: desc.map((c) => c.text),
@@ -447,10 +641,7 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
         values,
         lastY: line.y,
         page: line.page,
-      };
-      rows.push(current);
-      lastTableY = line.y;
-      lastTablePage = line.page;
+      });
       continue;
     }
 
@@ -461,7 +652,7 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
       desc.length > 0 &&
       line.page === current.page &&
       line.y - current.lastY <= line.height * 1.9 &&
-      (desc[0]?.x0 ?? 0) >= descX0 - 6 &&
+      (desc[0]?.x0 ?? 0) >= sectionDescX0 - 6 &&
       !BOILERPLATE.test(line.text) &&
       !info.summary
     ) {
@@ -506,30 +697,6 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
     };
   });
 
-  // Statements can print several opening and closing figures (summary boxes,
-  // table rows, other accounts on the same statement). Collect candidates in
-  // order of preference; verification picks the one the transactions agree with.
-  const openings: ParsedMoney[] = [];
-  const closings: ParsedMoney[] = [];
-  const checkpointsBefore = new Map<number, ParsedMoney[]>();
-  for (const m of markers) {
-    if (m.kind === 'opening' || (m.kind === 'checkpoint' && m.afterRow === 0)) {
-      // The figure printed nearest above the first transaction is the most likely opening.
-      if (m.afterRow === 0) openings.unshift(m.cents);
-      else openings.push(m.cents);
-    } else if (m.kind === 'closing') {
-      // The figure printed right after the last transaction is the most likely closing.
-      if (m.afterRow === rows.length) closings.unshift(m.cents);
-      else closings.push(m.cents);
-    } else {
-      const list = checkpointsBefore.get(m.afterRow) ?? [];
-      list.push(m.cents);
-      checkpointsBefore.set(m.afterRow, list);
-    }
-  }
-  // A "carried forward" balance after the last transaction is also a closing candidate.
-  for (const value of [...(checkpointsBefore.get(rows.length) ?? [])].reverse()) closings.unshift(value);
-
   // Newest-first statements are verified oldest-first.
   let ascending = 0;
   let descending = 0;
@@ -541,12 +708,53 @@ export function convertStatement(pages: PageText[], options: ConversionOptions =
   }
   const reversed = descending > ascending;
 
+  // Statements can print several opening and closing figures (summary boxes,
+  // table rows, other accounts on the same statement). Collect candidates in
+  // order of preference; verification picks the one the transactions agree with.
+  const openings: ParsedMoney[] = [];
+  const closings: ParsedMoney[] = [];
+  const endCheckpoints: ParsedMoney[] = [];
+  /** Named balances printed between two transactions, by the row they precede. */
+  const boundaries = new Map<number, MarkerAt[]>();
+  for (const m of markers) {
+    const candidates = m.alternate ? [m.value, m.alternate] : [m.value];
+    if (m.kind === 'opening' || (m.kind === 'checkpoint' && m.afterRow === 0)) {
+      // The figure printed nearest above the first transaction is the most likely opening.
+      if (m.afterRow === 0) openings.unshift(...candidates);
+      else openings.push(...candidates);
+    } else if (m.kind === 'closing') {
+      // The figure printed right after the last transaction is the most likely closing.
+      if (m.afterRow === rows.length) closings.unshift(...candidates);
+      else closings.push(...candidates);
+    } else if (m.afterRow === rows.length) {
+      endCheckpoints.push(m.value);
+    }
+    if (m.afterRow > 0 && m.afterRow < rows.length) {
+      const list = boundaries.get(m.afterRow) ?? [];
+      list.push(m);
+      boundaries.set(m.afterRow, list);
+    }
+  }
+  // A "carried forward" balance after the last transaction is also a closing candidate.
+  for (const value of [...endCheckpoints].reverse()) closings.unshift(value);
+
+  // A balance named between two transactions restarts the running balance: a page
+  // break, or the next statement or account in a file that holds several. When a
+  // summary box prints both figures, the opening (or brought forward) one printed
+  // last is the balance the following rows start from.
+  const checkpointsBefore = new Map<number, ParsedMoney[]>();
+  for (const [afterRow, list] of boundaries) {
+    const boundary = [...list].reverse().find((m) => m.kind !== 'closing') ?? list[list.length - 1];
+    if (boundary) checkpointsBefore.set(afterRow, [boundary.value]);
+  }
+
   const verification = verifyBalances({
     drafts,
     columns,
     openings,
     closings,
     checkpointsBefore: reversed ? new Map() : checkpointsBefore,
+    tableStartsBefore: reversed ? new Set() : tableStarts,
     reversed,
   });
   warnings.push(...verification.warnings);

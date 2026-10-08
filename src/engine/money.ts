@@ -12,13 +12,19 @@ export interface ParsedMoney {
   creditDebitSuffix: boolean;
 }
 
-const MONEY_PATTERN =
-  /^=?\s*(?<open>\()?\s*(?<pre>[-+−])?\s*(?<cur>[$£€])?\s*(?<pre2>[-+−])?\s*(?<num>\d{1,3}(?:,\d{3})+|\d+)?\.(?<dec>\d{2})\s*(?<post>[-+−])?\s*(?<close>\))?(?:\s*(?<sfx>CR|DR))?$/i;
+/** Currency codes some statements print before a value, such as "AUD 1,234.56". Kept short so description words are never read as money. */
+export const CURRENCY_CODE = '(?:AUD|USD|NZD|GBP|EUR|SGD|HKD|INR|CAD)';
+
+const MONEY_PATTERN = new RegExp(
+  `^=?\\s*(?<open>\\()?\\s*(?<pre>[-+−])?\\s*(?:${CURRENCY_CODE}\\s*)?(?<cur>[$£€])?\\s*(?<pre2>[-+−])?\\s*(?<num>\\d{1,3}(?:,\\d{3})+|\\d+)?\\.(?<dec>\\d{2})\\s*(?<post>[-+−])?\\s*(?<close>\\))?(?:\\s*(?<sfx>CR|DR))?$`,
+  'i',
+);
 
 /**
  * Parse a printed money value such as "1,234.56", "$1,250.00", "($123.45)",
- * "-45.00", "45.00-" or "1,234.56 CR". Returns null for anything else, including
- * percentages, plain integers and values without exactly two decimal places.
+ * "-45.00", "45.00-", "1,234.56 CR" or "AUD 1,234.56". Returns null for anything
+ * else, including percentages, plain integers and values without exactly two
+ * decimal places.
  */
 export function parseMoney(raw: string): ParsedMoney | null {
   const text = raw.trim();

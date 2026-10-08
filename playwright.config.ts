@@ -3,6 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 // Set E2E_BASE_URL to run the same tests against a deployed site, e.g.
 //   E2E_BASE_URL=https://tallyproof.pages.dev pnpm test:e2e
 const remote = process.env['E2E_BASE_URL'];
+// Set E2E_CHROME to a Chromium executable to run the browser tests with it instead of the bundled one.
+const chrome = process.env['E2E_CHROME'];
 
 export default defineConfig({
   testDir: 'tests/e2e',
@@ -12,6 +14,7 @@ export default defineConfig({
   use: {
     baseURL: remote ?? 'http://localhost:4321',
     trace: 'retain-on-failure',
+    ...(chrome ? { launchOptions: { executablePath: chrome } } : {}),
   },
   ...(remote
     ? {}
